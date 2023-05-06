@@ -2,7 +2,7 @@ const { Sequelize } = require('sequelize');
 
 
 const sequelize = new Sequelize(
-  'mvc_todos',
+  'wp_db',
   'root',
   'password',
   {

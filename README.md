@@ -14,3 +14,4 @@ To Play: Connect wallet (MetaMask) and deposit ETH / BTC to play.
 
 Technologies: HTML, CSS, JS, React, Node, Express, Web3, SQL, Sequelize, Inquirer, GPT-4, etc.
 
+https://platform.openai.com/account/api-keys
