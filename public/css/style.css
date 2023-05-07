@@ -54,6 +54,7 @@
     color: white;
   }
 
+/* Center login form */
 .login_form {
   display: flex;
   flex-direction: column;
@@ -61,31 +62,60 @@
   justify-content: center;
   min-height: 100vh;
   text-align: center;
-  border: 1px dotted #e90000;
-
 }
 
 .login_form form {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 35%;
   max-width: 300px;
-  border: 1px dotted #e90000;
-
-  
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  padding: 20px;
 }
 
 .login_form input {
   margin-bottom: 10px;
   padding: 8px;
-  border: 1px dotted #e90000;
-
+  width: 30%;
 }
 
 .login_form button {
   padding: 8px;
-  border: 1px dotted #e90000;
-
+  width: 30%;
+  margin-bottom: 10px;
 }
 
-  
+/* Style the login and register buttons */
+.login-button {
+  display: inline-block;
+  padding: 8px 16px;
+  margin: 5px;
+  width: 30%;
+  background-color: #007BFF;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.login-button:hover {
+  background-color: #0056b3;
+}
+
+.register-button {
+  display: inline-block;
+  width: 30%;
+  padding: 8px 16px;
+  background-color: #007BFF;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.register-button:hover {
+  background-color: #0056b3;
+}
+
