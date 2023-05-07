@@ -50,6 +50,19 @@ b. Implement both GET and POST routes for retrieving and adding new data
 
 c. Test and document the API routes
 
+Integrate GPT-4 API for AI dealer and chat functionality
+
+a. Create a wrapper module for the GPT-4 API: Implement a module to handle API requests and responses with the GPT-4 API.
+
+b. Implement AI dealer functionality: Use the GPT-4 API to generate game-related actions, such as dealing cards, determining winners, and managing game states.
+
+c. Add chat functionality with AI: Implement chat routes and views for users to interact with the AI dealer, and use the GPT-4 API to generate appropriate responses to user messages.
+
+d. Handle rate limits and API errors: Implement error handling and rate-limiting mechanisms to ensure the application continues to work smoothly even when the GPT-4 API has usage limitations or returns errors.
+
+e. Secure API key and sensitive data: Ensure the GPT-4 API key and other sensitive information are securely stored and not exposed in the application code or version control system.
+
+
 User Interface (UI) design and implementation:
 
 a. Design a polished and responsive UI for the online casino
