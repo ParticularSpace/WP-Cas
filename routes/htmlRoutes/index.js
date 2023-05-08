@@ -16,8 +16,8 @@ router.get('/register', (req, res) => {
 });
 
 // Route for the blackjack page
-router.get('/blackjack', (req, res) => {
-  res.render('blackjack');
+router.get('/games', (req, res) => {
+  res.render('games');
 });
 
 // Route for any other non-API routes (catch-all)
