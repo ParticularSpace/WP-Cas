@@ -1,15 +1,15 @@
+require('dotenv').config();
 const { Sequelize } = require('sequelize');
 
-
 const sequelize = new Sequelize(
-  'wp_db',
-  'root',
-  'password',
+  process.env.DB_NAME,
+  process.env.DB_USER,
+  process.env.DB_PASSWORD,
   {
-    host: '127.0.0.1',
-    dialect: 'mysql',
+    host: process.env.DB_HOST,
+    dialect: process.env.DB_DIALECT,
   }
 );
 
-
 module.exports = sequelize;
+

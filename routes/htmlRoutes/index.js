@@ -20,9 +20,5 @@ router.get('/games', (req, res) => {
   res.render('games');
 });
 
-// Route for any other non-API routes (catch-all)
-router.get('*', (req, res) => {
-  res.render('404');
-});
 
 module.exports = router;
