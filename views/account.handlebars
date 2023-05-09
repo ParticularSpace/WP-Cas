@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Account</title>
+</head>
+<body>
+    {{> nav}}
+
+    <main>
+        <h1>User Account</h1>
+
+        {{#if user}}
+            <div>
+                <h3>Username: {{user.username}}</h3>
+                <h3>Email: {{user.email}}</h3>
+            </div>
+        {{else}}
+            <p>Please log in to view your account information.</p>
+        {{/if}}
+    </main>
+</body>
+</html>
