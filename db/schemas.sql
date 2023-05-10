@@ -1,10 +1,9 @@
--- DROP DATABASE IF EXISTS wp_db;
+
 DROP DATABASE IF EXISTS wp_db;
--- Create a database
 CREATE DATABASE IF NOT EXISTS wp_db;
 USE wp_db;
 
--- Create the users table
+
 CREATE TABLE IF NOT EXISTS users (
   id INT AUTO_INCREMENT PRIMARY KEY,
   username VARCHAR(255) NOT NULL UNIQUE,
@@ -14,7 +13,7 @@ CREATE TABLE IF NOT EXISTS users (
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- Create the games table
+
 CREATE TABLE IF NOT EXISTS games (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
@@ -25,7 +24,7 @@ CREATE TABLE IF NOT EXISTS games (
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- Create the user_games table
+
 CREATE TABLE IF NOT EXISTS user_games (
   id INT AUTO_INCREMENT PRIMARY KEY,
   user_id INT NOT NULL,
@@ -38,7 +37,7 @@ CREATE TABLE IF NOT EXISTS user_games (
   FOREIGN KEY (game_id) REFERENCES games(id)
 );
 
--- Create the transactions table
+
 CREATE TABLE IF NOT EXISTS transactions (
   id INT AUTO_INCREMENT PRIMARY KEY,
   user_id INT NOT NULL,
