@@ -1,0 +1,53 @@
+
+body {
+    background-image: url(../images/tempBackground.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family:fantasy;
+    text-align: center;
+    
+}
+
+#dealer-cards img {
+    height: 150px;
+    width: 100px;
+    margin: 1px;
+}
+
+#your-cards img {
+    height: 150px;
+    width: 100px;
+    margin: 1px;
+}
+
+#hit {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: url("../images/hitBtn.png");
+    background-size: cover;
+}
+
+#stay {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: url("../images/stayBtn.png");
+    background-size: cover;
+}
+
+#goAgain {
+    background-size: cover;
+}
+
+button {
+    margin: 1%;
+    border: 0;
+    transition-duration: .5s;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 19px 38px, rgba(0, 0, 0, 0.30) 0px 15px 12px;
+}
+
+button:hover {
+    transform: scale(.90);
+    box-shadow: rgba(0, 0, 0, 0.7) 0px 10px 10px, rgba(0, 0, 0, 0.35) 0px 10px 10px;
+}
