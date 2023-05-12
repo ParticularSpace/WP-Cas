@@ -24,7 +24,7 @@ body {
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background: url("../images/hitBtn.png");
+    background: url("/images/hitBtn.png");
     background-size: cover;
 }
 
@@ -32,7 +32,7 @@ body {
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background: url("../images/stayBtn.png");
+    background: url("/images/stayBtn.png");
     background-size: cover;
 }
 

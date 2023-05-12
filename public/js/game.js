@@ -6,6 +6,7 @@
 // check outcome
 // if user won, give winnings, else take bet
 // play again?
+let totalResults; // this will hold the total results of the bets outcome
 
 let dealerSum = 0;
 let yourSum = 0;
@@ -75,7 +76,7 @@ function gStart() {
     for(i = 0; i < 2; i++){
         let $newCard = $('<img />');
         let card = deck.pop();
-        let url = "public/images/fullDeck/" + card +".png";
+        let url = "/images/fullDeck/" + card +".png";
         $newCard.attr('src', url);
         yourSum += cardValue(card);
         yourAce += checkForAce(card);
@@ -85,6 +86,7 @@ function gStart() {
 
     document.getElementById('hit').addEventListener('click', hitbtn);
     document.getElementById('stay').addEventListener('click', staybtn);
+    document.getElementById('goAgain').addEventListener('click', goAgain);
 }
 
 function dealerHand(){
@@ -92,7 +94,7 @@ function dealerHand(){
     
     let $newCard = $('<img />');
     let card = deck.pop();
-    let url = "public/images/fullDeck/" + card +".png";
+    let url = "/images/fullDeck/" + card +".png";
     $newCard.attr('src', url);
     dealerSum += cardValue(card);
     dealerAce += checkForAce(card);
@@ -112,7 +114,7 @@ function hitbtn(){
     
     let $newCard = $('<img />');
         let card = deck.pop();
-        let url = "public/images/fullDeck/" + card +".png";
+        let url = "/images/fullDeck/" + card +".png";
         $newCard.attr('src', url);
         yourSum += cardValue(card);
         yourAce += checkForAce(card);
@@ -132,7 +134,7 @@ function staybtn(){
     yourSum = changeAce(yourSum, yourAce);
 
     allowHit = false;
-    document.getElementById('faceDown').src = "public/images/fullDeck/" + unFlipped + ".png";
+    document.getElementById('faceDown').src = "/images/fullDeck/" + unFlipped + ".png";
     let endMessage = '';
     if(yourSum > 21){
         endMessage = 'YOU LOSE';
@@ -156,13 +158,16 @@ function staybtn(){
     
     toHide('hit');
     toHide('stay');
+    toShow('goAgain');
 
-    goAgain();
+    
 }
-
+/*
 function goAgain(){
-
-}
+    build();
+    shuffle();
+    gStart();
+}*/
 
 // checks for the value of non numbered cards.
 function cardValue(card) {
