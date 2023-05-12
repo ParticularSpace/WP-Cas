@@ -1,55 +1,104 @@
-const express = require('express');
-const app = express();
-const port = process.env.PORT || 3001;
+const router = require('express').Router();
+const { User } = require('../../../models');
 
-// Placeholder user data
-const userData = {
-  username: 'test',
-  password: 'test',
-  balance: 1000
-};
+// POST /api/account/login
+router.post('/login', async (req, res) => {
+  try {
+    const { username, password } = req.body;
 
-// Middleware to parse URL-encoded data
-app.use(express.urlencoded({ extended: false }));
+    // Find the user by username
+    const user = await User.findOne({ where: { username } });
 
-// Middleware to parse JSON data
-app.use(express.json());
+    // Check if the user exists
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
 
-// Login route
-app.post('/login', (req, res) => {
-  const { username, password } = req.body;
-  console.log(username, password);
+    // Check if the password is correct
+    if (user.password !== password) {
+      return res.status(401).json({ error: 'Incorrect password' });
+    }
 
-  // Check if the username and password match the stored user data
-  if (username === userData.username && password === userData.password) {
-    res.json({ message: 'Login successful' });
-  } else {
-    res.status(401).json({ error: 'Invalid username or password' });
+    // Return the user's information and session details
+    return res.status(200).json({
+      message: 'Login successful',
+      username: user.username,
+      balance: user.balance,
+      sessionId: req.sessionID,
+    });
+  } catch (error) {
+    res.status(500).json({ error });
   }
-  console.log(userData);
 });
 
-// Route to get user information
-app.get('/user', (req, res) => {
-  res.json({ username: userData.username });
+// POST /api/account/signup
+router.post('/signup', async (req, res) => {
+  try {
+    const { username, password, balance } = req.body;
+
+    // Check if username already exists
+    const existingUser = await User.findOne({ where: { username } });
+    if (existingUser) {
+      return res.status(409).json({ error: 'Username already exists' });
+    }
+
+    // Create a new user
+    const newUser = await User.create({
+      username,
+      password,
+      balance: parseFloat(balance),
+    });
+
+    // Return the new user's information
+    return res.status(201).json({
+      message: 'User created successfully',
+      username: newUser.username,
+      balance: newUser.balance,
+    });
+  } catch (error) {
+    res.status(500).json({ error });
+  }
 });
 
-// Route to change password
-app.put('/user/password', (req, res) => {
-  const { password } = req.body;
-  userData.password = password;
-  res.json({ message: 'Password changed successfully' });
+// DELETE /api/account/delete
+router.delete('/delete', async (req, res) => {
+  try {
+    const { username } = req.body;
+
+    // Find the user by username
+    const user = await User.findOne({ where: { username } });
+
+    // Check if the user exists
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Delete the user account
+    await user.destroy();
+
+    return res.status(200).json({ message: 'Account deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error });
+  }
 });
 
-// Route to delete account
-app.delete('/user', (req, res) => {
-  // Perform necessary actions to delete the user account
-  res.json({ message: 'Account deleted successfully' });
+// GET /api/account/balance
+router.get('/balance', async (req, res) => {
+  try {
+    const { username } = req.query;
+
+    // Find the user by username
+    const user = await User.findOne({ where: { username } });
+
+    // Check if the user exists
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    return res.status(200).json({ balance: user.balance });
+  } catch (error) {
+    res.status(500).json({ error });
+  }
 });
 
-// Route to get user balance
-app.get('/user/balance', (req, res) => {
-  res.json({ balance: userData.balance });
-});
-
-module.exports = app;
+module.exports = router;
