@@ -1,6 +1,90 @@
 const router = require('express').Router();
 const { User } = require('../../../models');
 
+// GET /api/account
+// this route is just used to get the user basic info 
+router.get('/', async (req, res) => {
+  try {
+    const users = await User.findAll({
+      attributes: { exclude: ['password'] },
+      include: [
+        {
+          model: User,
+          attributes: { exclude: ['password'] },
+        },
+      ],
+    });
+
+    return res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
+
+// GET /api/account/balance
+router.get('/balance', async (req, res) => {
+  try {
+    const users = await User.findAll({
+      attributes: { exclude: ['password'] },
+      include: [
+        {
+          model: User,
+          attributes: { exclude: ['password'] },
+        },
+      ],
+    });
+
+    const balance = users.reduce((acc, user) => {
+      return acc + user.balance;
+    }, 0);
+
+    return res.status(200).json({ balance });
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
+
+// GET /api/account/current
+router.get('/current', async (req, res) => {
+  try {
+    const users = await User.findAll({
+      attributes: { exclude: ['password'] },
+      include: [
+        {
+          model: User,
+          attributes: { exclude: ['password'] },
+        },
+      ],
+      where: {
+        id: req.sessionID,
+      },
+    });
+    return res.status(200).json(users);
+    // return res.status(200).json(users);
+      } catch (error) {
+        res.status(500).json({ error });
+      }
+    });
+
+// GET /api/account/all
+router.get('/all', async (req, res) => {
+  try {
+    const users = await User.findAll({
+      attributes: { exclude: ['password'] },
+      include: [
+        {
+          model: User,
+          attributes: { exclude: ['password'] },
+        },
+      ],
+    });
+
+    return res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
+
 // POST /api/account/login
 router.post('/login', async (req, res) => {
   try {
