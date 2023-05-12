@@ -75,7 +75,7 @@ function gStart() {
     for(i = 0; i < 2; i++){
         let $newCard = $('<img />');
         let card = deck.pop();
-        let url = "/public/images/fullDeck/" + card +".png";
+        let url = "/images/fullDeck/" + card +".png";
         $newCard.attr('src', url);
         yourSum += cardValue(card);
         yourAce += checkForAce(card);
@@ -92,7 +92,7 @@ function dealerHand(){
     
     let $newCard = $('<img />');
     let card = deck.pop();
-    let url = "/public/images/fullDeck/" + card +".png";
+    let url = "/images/fullDeck/" + card +".png";
     $newCard.attr('src', url);
     dealerSum += cardValue(card);
     dealerAce += checkForAce(card);
@@ -112,7 +112,7 @@ function hitbtn(){
     
     let $newCard = $('<img />');
         let card = deck.pop();
-        let url = "/public/images/fullDeck/" + card +".png";
+        let url = "/images/fullDeck/" + card +".png";
         $newCard.attr('src', url);
         yourSum += cardValue(card);
         yourAce += checkForAce(card);
@@ -132,7 +132,7 @@ function staybtn(){
     yourSum = changeAce(yourSum, yourAce);
 
     allowHit = false;
-    document.getElementById('faceDown').src = "public/images/fullDeck/" + unFlipped + ".png";
+    document.getElementById('faceDown').src = "/images/fullDeck/" + unFlipped + ".png";
     let endMessage = '';
     if(yourSum > 21){
         endMessage = 'YOU LOSE';
