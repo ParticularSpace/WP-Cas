@@ -1,6 +1,24 @@
 const router = require('express').Router();
 const { User } = require('../../../models');
 
+// GET /api/account
+router.get('/', async (req, res) => {
+  try {
+    const { username } = req.query;
+    const user = await User.findOne({ where: { username } });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    return res.status(200).json({
+      username: user.username,
+      balance: user.balance,
+    });
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
+
+
 // POST /api/account/login
 router.post('/login', async (req, res) => {
   try {
