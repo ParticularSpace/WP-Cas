@@ -5,10 +5,12 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-async function generateResponse(userMessage) {
+async function generateResponse(userMessage, gameOutcome) {
   const messages = [
     { role: 'system', content: 'You are a dealer at the Four-leaf Casino' },
-    { role: 'user', content: userMessage }
+    { role: 'user', content: userMessage },
+    { role: 'system', content: `Game Outcome: ${gameOutcome}` } 
+
   ];
 
   const completion = await openai.createChatCompletion({
