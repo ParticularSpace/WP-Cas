@@ -9,10 +9,7 @@
 
 body {
   font-family: Arial, sans-serif;
-
   background-image: url("/images/roundback.png");
-
-
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;
