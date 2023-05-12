@@ -7,20 +7,37 @@ const { User } = require('../../../models');
 
 // account link to render signup if user not signed.
 router.post('/register', async (req, res) => {
-    try {
-      const userData = await User.create(req.body);
-      req.session.save(() => {
-        req.session.user = userData.get({plain: true});
-        if (req.session.visitCount) {
-          req.session.visitCount++;
-        } else {
-          req.session.visitCount = 1;
-        }
-        res.json(userData);
-      });
-    } catch (error) {
-      res.status(500).json({error});
-    }
-  });
+  try {
+      const userData = await User.create(req.body)
 
+  if (!userData) {
+      res.status(500).json('Error creating user')
+  }
+  res.status(200).json('user created')
+  }
+  catch (err) {
+      res.status(500).json(err)
+  }
+} );
+
+
+
+// router.post('/register', async (req, res) => {
+//     try {
+//       const userData = await User.create(req.body);
+//       req.session.save(() => {
+//         req.session.user = userData.get({plain: true});
+//         if (req.session.visitCount) {
+//           req.session.visitCount++;
+//         } else {
+//           req.session.visitCount = 1;
+//         }
+//         res.json(userData);
+//       });
+//     } catch (error) {
+//       res.status(500).json({error});
+//     }
+//   });
+
+  
 module.exports = router;
