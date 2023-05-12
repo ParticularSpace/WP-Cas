@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const gameRoutes = require('./gameRoutes/blackJackRoutes');
+const gameRoutes = require('../htmlRoutes/gamesRoutes');
 const userRoutes = require('./userRoutes');
 
 

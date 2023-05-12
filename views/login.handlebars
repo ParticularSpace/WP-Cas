@@ -1,11 +1,41 @@
-<form class="login_form">
+<!DOCTYPE html>
+<html lang="en">
 
-  <input id='username' type="text" name="username" placeholder="Username"/>
-  <input id='password' type="password" name="password" placeholder="Password"/>
-  <a href="/home" class="login-button">Login</a>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLC-Cas-Home</title>
+</head>
 
-  <a href="/forgot_password" class="register-button">Forgot password?</a>
+<body>
 
-</form>
+    {{#if User}}
+
+    <h1>{{User.username}} welcome back to the Four-Leaf Casino!</h1>
+
+    {{else}}
+
+    <h2 class="intro_graphic">Welcome to the Four-Leaf Casino!</h2>
+
+<div class="login_container">
+    <form class="login-form" method="POST" action="/login">
+
+        <h1 class="login-title">Login</h1>
+
+        <input id='username' type="text" name="username" placeholder="Username" />
+
+        <input id='password' type="password" name="password" placeholder="Password" />
+
+        <button type="submit" class="login-button">Login</button>
+
+    </form>
+</div>
 
 
+
+    {{/if}}
+
+</body>
+
+</html>
