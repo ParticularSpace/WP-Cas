@@ -132,7 +132,7 @@ function staybtn(){
     yourSum = changeAce(yourSum, yourAce);
 
     allowHit = false;
-    document.getElementById('faceDown').src = "./public/images/fullDeck/" + unFlipped + ".png";
+    document.getElementById('faceDown').src = "public/images/fullDeck/" + unFlipped + ".png";
     let endMessage = '';
     if(yourSum > 21){
         endMessage = 'YOU LOSE';
