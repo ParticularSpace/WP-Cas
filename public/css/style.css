@@ -9,11 +9,10 @@
 
 body {
   font-family: Arial, sans-serif;
-<<<<<<< HEAD
+
   background-image: url("/images/roundback.png");
-=======
-  background-image: url("../images/background.png");
->>>>>>> b9692fe98086ce8af3d394d013f9ad4af15301aa
+
+
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;
