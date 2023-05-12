@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS games (
   updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-
+-- Create the user_games table
 CREATE TABLE IF NOT EXISTS user_games (
   id INT AUTO_INCREMENT PRIMARY KEY,
   user_id INT NOT NULL,
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS user_games (
   FOREIGN KEY (game_id) REFERENCES games(id)
 );
 
-
+-- Create the transactions table
 CREATE TABLE IF NOT EXISTS transactions (
   id INT AUTO_INCREMENT PRIMARY KEY,
   user_id INT NOT NULL,
