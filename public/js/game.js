@@ -6,6 +6,7 @@
 // check outcome
 // if user won, give winnings, else take bet
 // play again?
+let totalResults; // this will hold the total results of the bets outcome
 
 let dealerSum = 0;
 let yourSum = 0;
@@ -85,6 +86,7 @@ function gStart() {
 
     document.getElementById('hit').addEventListener('click', hitbtn);
     document.getElementById('stay').addEventListener('click', staybtn);
+    document.getElementById('goAgain').addEventListener('click', goAgain);
 }
 
 function dealerHand(){
@@ -156,13 +158,16 @@ function staybtn(){
     
     toHide('hit');
     toHide('stay');
+    toShow('goAgain');
 
-    goAgain();
+    
 }
-
+/*
 function goAgain(){
-
-}
+    build();
+    shuffle();
+    gStart();
+}*/
 
 // checks for the value of non numbered cards.
 function cardValue(card) {
