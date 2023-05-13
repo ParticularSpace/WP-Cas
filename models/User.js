@@ -31,7 +31,7 @@ User.init(
     },
   },
   {
-    hooks: {
+    /*hooks: {
       async beforeCreate(newUser) {
         newUser.password = await bcrypt.hash(newUser.password, 10);
         return newUser;
@@ -47,7 +47,7 @@ User.init(
         const savedUser = await User.findOne({ where: { id: createdUser.id } });
         console.log('Saved User: ', savedUser.dataValues);
       },
-    },
+    },*/
     sequelize,
     timestamps: false, // Updated this line
     freezeTableName: true,
