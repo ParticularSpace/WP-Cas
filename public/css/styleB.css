@@ -51,3 +51,27 @@ button:hover {
     transform: scale(.90);
     box-shadow: rgba(0, 0, 0, 0.7) 0px 10px 10px, rgba(0, 0, 0, 0.35) 0px 10px 10px;
 }
+
+#fundz-window{
+    background-color: blanchedalmond;
+    border-radius: 50px;
+}
+
+/*
+#fundz-window {
+    overflow: hidden;
+    width: 300px;
+}
+#fundz-output {
+    width: 100%;
+    animation: slide 5s linear infinite;
+}*/
+
+@keyframes slide {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+}

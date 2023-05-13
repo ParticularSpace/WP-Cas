@@ -1,3 +1,5 @@
+//const { Wallet } = require('../../models');
+
 // const {User} = require('./User');
 
 // deposit money
