@@ -1,13 +1,13 @@
 const sequelize = require('../config/connection');
-const seedUsers = require('./user-seeds.js');
-const seedWallet = require('./wallet-seeds.js');
+const seedUser = require('./user-seeds');
+const seedWallet = require('./wallet-seeds');
 
 
 
 const seedAll = async () => {
   await sequelize.sync({ force: true });
  
-  await seedUsers();
+  await seedUser();
 
   await seedWallet();
 
