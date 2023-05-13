@@ -3,13 +3,13 @@ const { Wallet, User } = require('../../../../models');
 
 
 // get wallet by id
-router.get('/wallet/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
     try{
 
 
         //const walletID = req.params.id;
         //const selectedWallet = await Wallet.findByPk(walletID);
-        const walletID = await Wallet.findByPk(req.params.id, {include: [{model: User}],});
+        const walletID = await Wallet.findByPk(req.params.id);//, {include: [{model: User}],});
         
         if(!walletID){
             return res.status(404).json({ message: 'Wallet not found'})
@@ -30,7 +30,7 @@ router.get('/wallet/:id', async (req, res) => {
 });
 
 // update wallet's balance by id 
-router.put('wallet/:id/balance', async (req, res) => {
+router.put('/:id/balance', async (req, res) => {
     try {
         const walletId = req.params.id;
         const { newBalance } = req.body;
