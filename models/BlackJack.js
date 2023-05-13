@@ -1,9 +1,9 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-class Wallet extends Model {}
+class BlackjackGame extends Model {}
 
-Wallet.init(
+BlackjackGame.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -18,10 +18,26 @@ Wallet.init(
         key: 'id'
       }
     },
-    amount: {
+    bet: {
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
-      defaultValue: 0.00,
+    },
+    result: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    amount_won_lost: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
+    },
+    time_played: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
+    },
+    remaining_deck: {
+      type: DataTypes.TEXT,
+      allowNull: false,
     },
   },
   {
@@ -29,8 +45,8 @@ Wallet.init(
     timestamps: true,
     freezeTableName: true,
     underscored: true,
-    modelName: 'wallet',
+    modelName: 'blackjack_game',
   }
 );
 
-module.exports = Wallet;
+module.exports = BlackjackGame;

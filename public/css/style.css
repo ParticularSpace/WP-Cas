@@ -227,5 +227,33 @@ button:hover {
   margin-bottom: 20px; /* Add a bottom margin to create space */
 }
 
+/* Add this to your CSS file */
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px; /* space between rows */
+}
+
+.row {
+  display: flex;
+  justify-content: space-evenly; /* distribute cards evenly across the row */
+  align-items: start; /* align cards at the top */
+  gap: 20px; /* space between cards */
+  margin-bottom: 20px;
+}
+
+.card {
+  background-color: #fff; 
+  border-radius: 10px; 
+  margin-top: 20px;
+  padding: 20px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); 
+  overflow: hidden; 
+}
+
+
 
 
