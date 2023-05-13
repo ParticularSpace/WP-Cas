@@ -12,9 +12,9 @@ Wallet.init(
       autoIncrement: true,
     },
     balance: {
-      type: DataTypes.DECIMAL(10, 2),
+      type: DataTypes.DECIMAL(10,2),
       allowNull: false,
-      defaultValue: 0.00,
+      defaultValue: 0.01,
     },
     user_id: {
       type: DataTypes.INTEGER,
