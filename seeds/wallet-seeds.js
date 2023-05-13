@@ -14,7 +14,7 @@ const walletData = [
         balance: 300.00,
         user_id: 3,
     },
-]
+];
 
 const seedWallet = () => Wallet.bulkCreate(walletData);
 
