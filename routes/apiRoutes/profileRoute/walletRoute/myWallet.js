@@ -1,26 +1,27 @@
 const router = require('express').Router();
-const { Wallet, User } = require('../../../models');
+const { Wallet, User } = require('../../../../models');
 
 
 // get wallet by id
-router.get('/wallet/:id/balance', async (req, res) => {
+router.get('/wallet/:id', async (req, res) => {
     try{
 
 
-        const walletID = req.params.id;
-        const selectedWallet = await Wallet.findByPk(walletID);
-
-        if(!selectedWallet){
+        //const walletID = req.params.id;
+        //const selectedWallet = await Wallet.findByPk(walletID);
+        const walletID = await Wallet.findByPk(req.params.id, {include: [{model: User}],});
+        
+        if(!walletID){
             return res.status(404).json({ message: 'Wallet not found'})
         }
     
-        res.status(200).json( {balance: selectedWallet.balance} );
+        res.status(200).json( walletID );
 
-        const walletID = await Wallet.findByPk(req.params.id, {include: [{model: User}],}); 
+         
         
-        /*const amount = walletID.get({plain: true});
-        res.render('fundz', { amount });*/
-        res.status(200).json(walletID);
+        //*const amount = walletID.get({plain: true});
+        //res.render('fundz', { amount });
+        //res.status(200).json(walletID);
 
     }
     catch(err) {
@@ -28,7 +29,7 @@ router.get('/wallet/:id/balance', async (req, res) => {
     }
 });
 
-// update wallet by id 
+// update wallet's balance by id 
 router.put('wallet/:id/balance', async (req, res) => {
     try {
         const walletId = req.params.id;
