@@ -5,10 +5,10 @@ const { Wallet, User } = require('../../../models');
 // get wallet by id
 router.get('/wallet/:id', async (req, res) => {
     try{
-        const walletID = await Wallet.findByPk(req.params.id);//, { include: [{ model: User}]}); 
+        const walletID = await Wallet.findByPk(req.params.id, {include: [{model: User}],}); 
         
         const amount = walletID.get({plain: true});
-        res.render('fundz', amount)
+        res.render('fundz', { amount });
         //res.status(200).json(walletID);
     }
     catch(err) {

@@ -56,6 +56,10 @@ button:hover {
     background-color: blanchedalmond;
     border-radius: 50px;
 }
+#amount {
+    background-color: aqua;
+    color: black;
+}
 
 /*
 #fundz-window {
