@@ -10,11 +10,6 @@
 
 <body>
 
-    {{#if User}}
-
-    <h1>{{User.username}} welcome back to the Four-Leaf Casino!</h1>
-
-    {{else}}
 
     <h2 class="intro_graphic">Welcome to the Four-Leaf Casino!</h2>
 
@@ -23,18 +18,15 @@
 
         <h1 class="login-title">Login</h1>
 
-        <input id='username' type="text" name="username" placeholder="Username" />
+        <input id='username-login' type="text" name="username" placeholder="Username" />
 
-        <input id='password' type="password" name="password" placeholder="Password" />
+        <input id='password-login' type="password" name="password" placeholder="Password" />
 
         <button type="submit" class="login-button">Login</button>
 
     </form>
 </div>
 
-
-
-    {{/if}}
 
 </body>
 
