@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { ensureAuthenticated } = require('../../config/auth');
+const withAuth = require('../../utils/auth');
 
 // Login Page
 router.get('/login', (req, res) => {

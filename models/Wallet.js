@@ -19,7 +19,7 @@ Wallet.init(
     balance: {
       type: DataTypes.DECIMAL(10,2),
       allowNull: false,
-      defaultValue: 0.01,
+      defaultValue: 1.00,
     },
     user_id: {
       type: DataTypes.INTEGER,
