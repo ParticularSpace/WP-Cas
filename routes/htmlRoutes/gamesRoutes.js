@@ -1,7 +1,7 @@
 const router = require('express').Router();
-const withAuth = require('../../utils/auth');
+const withAuth = require('../../utils/auth'); 
 
-router.get('/games', (req, res) => {
+router.get('/games', withAuth, (req, res) => {
     res.render('games');
 });
 

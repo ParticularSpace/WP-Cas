@@ -17,7 +17,7 @@ const loginFormHandler = async (event) => {
     });
 
     if (response.ok) {
-      // If the login is successful, redirect to the games page.
+      // If the login is successful, redirect to the dashboard page.
       document.location.replace('/dashboard');
     } else {
       alert('Failed to log in');
