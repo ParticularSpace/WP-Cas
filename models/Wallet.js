@@ -1,5 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
+const CryptoJS = require("crypto-js");
 
 class Wallet extends Model {}
 
@@ -11,10 +12,14 @@ Wallet.init(
       primaryKey: true,
       autoIncrement: true,
     },
+    encrypted_id: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     balance: {
       type: DataTypes.DECIMAL(10,2),
       allowNull: false,
-      defaultValue: 0.01,
+      defaultValue: 100,
     },
     user_id: {
       type: DataTypes.INTEGER,
@@ -25,6 +30,11 @@ Wallet.init(
     },
   },
   {
+    hooks: {
+      afterCreate: async (wallet) => {
+        wallet.encrypted_id = CryptoJS.AES.encrypt(wallet.id.toString(), process.env.CRYPTOJS_SECRET).toString();
+      },
+    },
     sequelize,
     timestamps: false,
     freezeTableName: true,

@@ -1,14 +1,12 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 const bcrypt = require('bcrypt');
-const Wallet = require('./Wallet');
 
 class User extends Model {
   async checkPassword(loginPw) {
     return await bcrypt.compare(loginPw, this.password);
   }
 }
-
 
 User.init(
   {
@@ -27,30 +25,18 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [8], // requires the password to be at least 8 characters long
+        len: [8], 
       },
     },
   },
   {
-    /*hooks: {
-      async beforeCreate(newUser) {
-        newUser.password = await bcrypt.hash(newUser.password, 10);
-        return newUser;
+    hooks: {
+      afterCreate: async (user, options) => {
+        const wallet = await sequelize.models.Wallet.create({ user_id: user.id });
       },
-      async beforeUpdate(updatedUser) {
-        updatedUser.password = await bcrypt.hash(updatedUser.password, 10);
-        return updatedUser;
-      },
-      async afterCreate(createdUser) {
-        await Wallet.create({ user_id: createdUser.id });
-
-        // Query the user again to check the saved password
-        const savedUser = await User.findOne({ where: { id: createdUser.id } });
-        console.log('Saved User: ', savedUser.dataValues);
-      },
-    },*/
+    },
     sequelize,
-    timestamps: false, // Updated this line
+    timestamps: false, 
     freezeTableName: true,
     underscored: true,
     modelName: 'user',

@@ -1,2 +1,4 @@
 DROP DATABASE IF EXISTS wp_db;
 CREATE DATABASE wp_db;
+
+USE wp_db;
