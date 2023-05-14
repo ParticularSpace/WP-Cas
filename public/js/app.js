@@ -15,8 +15,6 @@ const loginFormHandler = async (event) => {
       body: JSON.stringify({ username, password }),
     });
 
-    console.log(response);
-
     if (response.ok) {
       // If the login is successful, redirect to the games page.
       document.location.replace('/dashboard');
@@ -40,8 +38,6 @@ const registerFormHandler = async (event) => {
       },
       body: JSON.stringify({ username, password }),
     });
-
-    console.log(response);
 
     if (response.ok) {
       // If the registration is successful, redirect to the login page.

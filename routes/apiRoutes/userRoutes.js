@@ -29,23 +29,12 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
   try {
     const userData = await User.findOne({ where: { username: req.body.username } });
-
-    console.log("User Data: ", userData);  // Add this line
-
     if (!userData) {
       res.status(400).json({ message: 'Incorrect email or password, please try again' });
       return;
     }
 
-    console.log("Entered password: ", req.body.password); // Add this line
-    console.log("Stored hashed password: ", userData.password); // Add this line
-
-
-
-    const validPassword = await bcrypt.compare(req.body.password, userData.password);
-
-
-    console.log("Valid Password: ", validPassword);  // And this line
+    const validPassword = await userData.checkPassword(req.body.password);
 
     if (!validPassword) {
       res.status(400).json({ message: 'Incorrect email or password, please try again' });
@@ -55,17 +44,15 @@ router.post('/login', async (req, res) => {
     req.session.save(() => {
       req.session.user_id = userData.id;
       req.session.logged_in = true;
-
       res.json({ user: userData, message: 'You are now logged in!' });
     });
 
   } catch (err) {
-
-    console.log(err);  // Add this line
-    
+    console.error(err.message); 
     res.status(400).json(err);
   }
 });
+
 
 
 // Logout route
