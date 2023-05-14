@@ -15,7 +15,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  animation: movingBackground 20s linear infinite;
+  animation: movingBackground 60s linear infinite;
 }
 
 @keyframes movingBackground {
@@ -261,12 +261,49 @@ button:hover {
 }
 
 .card {
-  background-color: rgba(0, 0, 0, 1);
+  background-color: rgba(0, 0, 0, 0.1);
   color: #fff;
   border-radius: 10px;
   margin-top: 20px;
   padding: 20px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   overflow: hidden;
-  background-image: linear-gradient(45deg, black, rgba(255, 0, 0, 0.3), rgba(0, 128, 0, 0.3), black);
+  background-image: linear-gradient(
+    to bottom right,
+    rgba(0, 0, 0, 0.6),
+    rgba(17, 17, 17, 0.6),
+    rgba(34, 34, 34, 0.6),
+    rgba(51, 51, 51, 0.6),
+    rgba(85, 0, 0, 0.6),
+    rgba(119, 51, 51, 0.6),
+    rgba(153, 102, 102, 0.6),
+    rgba(187, 238, 238, 0.6),
+    rgba(136, 187, 136, 0.6),
+    rgba(85, 153, 85, 0.6),
+    rgba(34, 102, 34, 0.6),
+    rgba(34, 102, 34, 0.6),
+    rgba(17, 34, 17, 0.6),
+    rgba(0, 0, 0, 0.6)
+  );
 }
+
+
+
+.custom-button {
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  opacity: 1;
+  background-image: linear-gradient(45deg, black, rgba(255, 0, 0, 0.3), rgba(0, 128, 0, 0.3), black);
+  transition: opacity 0.3s ease-in-out; /* Add transition for smooth effect */
+}
+
+.custom-button:hover {
+  opacity: 0.6; /* Reduce opacity on hover */
+}
+
