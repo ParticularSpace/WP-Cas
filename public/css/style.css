@@ -9,13 +9,24 @@
 
 body {
   font-family: Arial, sans-serif;
-  background-image: url("/images/roundback.png");
-  background-repeat: no-repeat;
+  background-image: url("/images/background.png");
+  background-repeat: repeat;
   background-size: cover;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  animation: movingBackground 20s linear infinite;
 }
+
+@keyframes movingBackground {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
 
 .content-wrapper {
   flex-grow: 1;
@@ -198,16 +209,20 @@ body {
 
 button {
   padding: 8px 16px;
-  background-color: #333;
+  background-color: rgba(0, 0, 0, 0.6);
   color: #fff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  background-image: linear-gradient(45deg, rgba(255, 0, 0, 0.6), rgba(0, 0, 0, 0.6), rgba(0, 128, 0, 0.6), rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
 }
 
 button:hover {
-  background-color: #555;
+  background-color: rgba(0, 0, 0, 0.8);
 }
+
+
+
 
 .footer {
   background-color: #333;
@@ -246,14 +261,12 @@ button:hover {
 }
 
 .card {
-  background-color: #fff; 
-  border-radius: 10px; 
+  background-color: rgba(0, 0, 0, 1);
+  color: #fff;
+  border-radius: 10px;
   margin-top: 20px;
   padding: 20px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); 
-  overflow: hidden; 
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  background-image: linear-gradient(45deg, black, rgba(255, 0, 0, 0.3), rgba(0, 128, 0, 0.3), black);
 }
-
-
-
-
