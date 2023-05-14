@@ -19,7 +19,7 @@ router.post('/register', async (req, res) => {
 
     // Create wallet with a placeholder encrypted_id
     const walletData = await Wallet.create({
-      balance: 0.01,
+      balance: 1.00,
       user_id: userData.id,
       encrypted_id: 'placeholder',
     }, { transaction: t });
