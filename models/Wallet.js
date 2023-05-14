@@ -14,12 +14,12 @@ Wallet.init(
     },
     encrypted_id: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true, // Temporarily allow null
     },
     balance: {
       type: DataTypes.DECIMAL(10,2),
       allowNull: false,
-      defaultValue: 100,
+      defaultValue: 0.01,
     },
     user_id: {
       type: DataTypes.INTEGER,
@@ -31,8 +31,11 @@ Wallet.init(
   },
   {
     hooks: {
-      afterCreate: async (wallet) => {
-        wallet.encrypted_id = CryptoJS.AES.encrypt(wallet.id.toString(), process.env.CRYPTOJS_SECRET).toString();
+      afterSave: async (wallet, options) => {
+        if (!wallet.encrypted_id) {
+          wallet.encrypted_id = CryptoJS.AES.encrypt(wallet.id.toString(), process.env.CRYPTOJS_SECRET).toString();
+          await wallet.save();
+        }
       },
     },
     sequelize,

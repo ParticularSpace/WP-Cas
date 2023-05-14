@@ -21,5 +21,5 @@ BlackjackGame.belongsTo(User, {
 });
 
 module.exports = {
-  User, Wallet,
+  User, Wallet 
 };

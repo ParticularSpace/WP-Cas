@@ -30,11 +30,6 @@ User.init(
     },
   },
   {
-    hooks: {
-      afterCreate: async (user, options) => {
-        const wallet = await sequelize.models.Wallet.create({ user_id: user.id });
-      },
-    },
     sequelize,
     timestamps: false, 
     freezeTableName: true,
@@ -42,5 +37,6 @@ User.init(
     modelName: 'user',
   }
 );
+
 
 module.exports = User;

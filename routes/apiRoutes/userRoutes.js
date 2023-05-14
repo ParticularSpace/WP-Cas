@@ -1,17 +1,41 @@
 const router = require('express').Router();
-const { User } = require('../../models');
+const sequelize = require('../../config/connection');
+const { User, Wallet } = require('../../models');
 const bcrypt = require('bcrypt');
-
+const CryptoJS = require('crypto-js');
+require('dotenv').config();
 
 // Register route
 router.post('/register', async (req, res) => {
+  const t = await sequelize.transaction();
+
   try {
     const saltRounds = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
     const userData = await User.create({
       username: req.body.username,
       password: hashedPassword,
-    });
+    }, { transaction: t });
+
+    // Create wallet with a placeholder encrypted_id
+    const walletData = await Wallet.create({
+      balance: 0.01,
+      user_id: userData.id,
+      encrypted_id: 'placeholder',
+    }, { transaction: t });
+    
+
+    // Update the wallet with the real encrypted_id
+    console.log('Before walletData.save');
+    console.log('walletData.id:', walletData.id);
+    console.log('process.env.CRYPTOJS_SECRET:', process.env.CRYPTOJS_SECRET);
+
+    walletData.encrypted_id = CryptoJS.AES.encrypt(walletData.id.toString(), process.env.CRYPTOJS_SECRET).toString();
+    await walletData.save({ transaction: t });
+    console.log('After walletData.save');
+
+
+    await t.commit();
 
     req.session.save(() => {
       req.session.user_id = userData.id;
@@ -20,17 +44,22 @@ router.post('/register', async (req, res) => {
       res.status(200).json(userData);
     });
   } catch (err) {
-    
+    await t.rollback();
     res.status(400).json({ message: 'An error occurred while registering' });
   }
 });
+
+
 
 
 // Login route
 router.post('/login', async (req, res) => {
   try {
 
-    const userData = await User.findOne({ where: { username: req.body.username } });
+    const userData = await User.findOne({ 
+      where: { username: req.body.username },
+      include: [{ model: Wallet }]  // Include Wallet data in the response
+    });
       
     if (!userData) {
       res.status(400).json({ message: 'Incorrect email or password, please try again' });
@@ -55,6 +84,7 @@ router.post('/login', async (req, res) => {
     res.status(400).json(err);
   }
 });
+
 
 
 
