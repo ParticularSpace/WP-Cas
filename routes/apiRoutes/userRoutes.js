@@ -2,10 +2,11 @@ const router = require('express').Router();
 const { User } = require('../../models');
 const bcrypt = require('bcrypt');
 
+
 // Register route
 router.post('/register', async (req, res) => {
   try {
-    const saltRounds = 10;
+    const saltRounds = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
     const userData = await User.create({
       username: req.body.username,
@@ -28,7 +29,29 @@ router.post('/register', async (req, res) => {
 // Login route
 router.post('/login', async (req, res) => {
   try {
+
+      //const username = req.body.username;
+      //const password = req.body.password;
+
     const userData = await User.findOne({ where: { username: req.body.username } });
+      /*User.findOne({ username }).then(user => {
+        if (!user) res.status(400).json({ message: 'User does not exist' });
+          
+        bcrypt.compare(password, user.password, (err, data) => {
+          if(err) throw err
+
+          if(data) {
+            return res.status(200).json({ message: "Login Success"});
+          }
+          else {
+            return res.status(401).json({ message: "Invalid login credentials"});
+          }
+        });
+        
+      });*/
+
+    console.log("User Data: ", userData);  // Add this line
+
     if (!userData) {
       res.status(400).json({ message: 'Incorrect email or password, please try again' });
       return;

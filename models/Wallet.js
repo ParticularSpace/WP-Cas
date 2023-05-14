@@ -11,6 +11,11 @@ Wallet.init(
       primaryKey: true,
       autoIncrement: true,
     },
+    balance: {
+      type: DataTypes.DECIMAL(10,2),
+      allowNull: false,
+      defaultValue: 0.01,
+    },
     user_id: {
       type: DataTypes.INTEGER,
       references: {
@@ -18,15 +23,10 @@ Wallet.init(
         key: 'id'
       }
     },
-    amount: {
-      type: DataTypes.DECIMAL(10, 2),
-      allowNull: false,
-      defaultValue: 0.00,
-    },
   },
   {
     sequelize,
-    timestamps: true,
+    timestamps: false,
     freezeTableName: true,
     underscored: true,
     modelName: 'wallet',

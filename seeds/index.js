@@ -1,29 +1,17 @@
 const sequelize = require('../config/connection');
-const { User } = require('../models');
+const seedUser = require('./user-seeds');
+const seedWallet = require('./wallet-seeds');
 
-const userData = [
-  {
-    username: 'johndoe',
-    password: 'password123',
-  },
-  {
-    username: 'janedoe',
-    password: 'mypassword',
-  },
-  {
-    username: 'mike123',
-    password: 'securepass',
-  },
-];
 
-const seedUsers = async () => {
+
+const seedAll = async () => {
   await sequelize.sync({ force: true });
-  await User.bulkCreate(userData, {
-    individualHooks: true,
-    returning: true,
-  });
+ 
+  await seedUser();
+
+  await seedWallet();
 
   process.exit(0);
 };
 
-seedUsers();
+seedAll();
