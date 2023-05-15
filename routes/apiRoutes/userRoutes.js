@@ -92,7 +92,7 @@ router.post('/login', async (req, res) => {
     //req.session.save(() => {
     //  res.json({ user: userData, message: 'You are now logged in!' });
     //});
-    
+    console.log(req.session);
   } 
   catch (err) {
     console.error(err.message); 
