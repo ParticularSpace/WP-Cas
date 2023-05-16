@@ -1,16 +1,25 @@
-const router = require('express').Router();
+const express = require('express');
+const router = express.Router();
 const { User } = require('../../models');
 const withAuth = require('../../utils/auth');
 
-// Render the account page only if the user is logged in
 router.get('/account', withAuth, async (req, res) => {
   try {
-    // check session and see if user is logged in
-    if (req.session.logged_in) {
-        res.render('account');
-    } else {
-        res.redirect('/login');
-    }
+    const userData = await User.findOne({
+      where: {
+        id: req.session.user.id,
+      },
+      attributes: { exclude: ['password'] },
+    });
+
+    const user = userData.get({ plain: true });
+
+    user.profilePicture = req.session.user.profilePicture;
+
+    res.render('account', {
+      ...user,
+      logged_in: req.session.logged_in,
+    });
   } catch (err) {
     res.status(500).json(err);
   }

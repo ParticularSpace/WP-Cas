@@ -26,5 +26,8 @@
     "mysql2": "^3.2.4",
     "openai": "^3.2.1",
     "sequelize": "^6.31.1"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.6.0"
   }
 }

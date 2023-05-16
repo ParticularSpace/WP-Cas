@@ -28,6 +28,10 @@ User.init(
         len: [8], 
       },
     },
+    profile_picture: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   },
   {
     sequelize,

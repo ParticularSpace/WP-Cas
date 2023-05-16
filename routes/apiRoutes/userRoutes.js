@@ -6,6 +6,8 @@ const CryptoJS = require('crypto-js');
 require('dotenv').config();
 const withAuth = require('../../utils/auth');
 const multer = require('multer');
+const path = require('path');
+
 
 
 const storage = multer.diskStorage({
@@ -13,7 +15,7 @@ const storage = multer.diskStorage({
     cb(null, 'uploads/');
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + '-' + Date.now());
+    cb(null, Date.now() + path.extname(file.originalname));
   }
 });
 
@@ -91,6 +93,7 @@ router.post('/login', async (req, res) => {
     req.session.user = {
       id: userData.id,
       username: userData.username,
+      profilePicture: `http://localhost:3001/${userData.profile_picture}`,
     };
    
     req.session.logged_in = true;
@@ -108,6 +111,7 @@ router.post('/login', async (req, res) => {
   }
 
 });
+
 
 // Logout route CHECK THIS
 router.post('/logout', (req, res) => {
@@ -170,10 +174,12 @@ router.put('/update/username', withAuth, async (req, res) => {
 });
 
 // Change Profile Picture route
-
 router.put('/update/profile-picture', withAuth, upload.single('profilePicture'), async (req, res) => {
+  console.log('req.file:', req.file);
   try {
     const user = await User.findOne({ where: { id: req.session.user.id } });
+
+    console.log('user: LN - 181', user);
 
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
@@ -181,9 +187,15 @@ router.put('/update/profile-picture', withAuth, upload.single('profilePicture'),
 
     const newPicturePath = req.file.path;
 
-    await user.update({ profilePicture: newPicturePath });
+    req.session.user.profilePicture = `http://localhost:3001/${newPicturePath}`;
 
-    res.json({ message: 'Profile picture updated successfully' });
+
+    console.log('newPicturePath:', newPicturePath)
+
+    await user.update({ profile_picture: newPicturePath });
+
+    res.json({ message: 'Profile picture updated successfully', newPictureUrl: `http://localhost:3001/${newPicturePath}` });
+
   } catch (error) {
     res.status(500).json({ error: 'An error occurred while updating the profile picture' });
   }

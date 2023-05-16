@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 } else {
                     console.log('Profile picture updated successfully!');
                     // Optionally, update the profile picture on the page
+                    console.log(data.newPictureUrl);
                     document.querySelector('#profile-pic').src = data.newPictureUrl;
                 }
             })
