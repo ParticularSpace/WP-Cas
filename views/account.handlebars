@@ -1,17 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Settings</title>
+    <link rel="stylesheet" href="/css/account.css">
+</head>
 <body>
-    {{> nav}}
+    <h1>Account Settings</h1>
 
-    <main>
-        <h1>User Account</h1>
+    <!-- Profile Picture -->
+    <div class="profile-picture">
+        <img id="profile-pic" src="/images/fullDeck/10-diamond.png" alt="Profile Picture">
+        <input type="file" id="upload-picture" accept="image/*">
+        <button id="update-picture">Update Picture</button>
+    </div>
 
-        {{#if user}}
-            <div>
-                <h3>Username: {{user.username}}</h3>
-                <h3>Email: {{user.email}}</h3>
-            </div>
-        {{else}}
-            <p>Please log in to view your account information.</p>
-        {{/if}}
-    </main>
+    <!-- Change Password -->
+    <div class="change-password">
+        <h2>Change Password</h2>
+        <input type="password" id="current-password" placeholder="Current Password">
+        <input type="password" id="new-password" placeholder="New Password">
+        <input type="password" id="confirm-password" placeholder="Confirm New Password">
+        <button id="change-password">Change Password</button>
+    </div>
+
+    <!-- Update Email -->
+    <div class="update-email">
+        <h2>Update Email</h2>
+        <input type="email" id="current-email" placeholder="Current Email">
+        <input type="email" id="new-email" placeholder="New Email">
+        <button id="update-email">Update Email</button>
+    </div>
+
+    <!-- Status Input -->
+    <div class="status-input">
+        <h2>Status</h2>
+        <input type="text" id="status" placeholder="Your Status">
+        <button id="update-status">Update Status</button>
+    </div>
+
+    <!-- Delete Account -->
+    <div class="delete-account">
+        <h2>Delete Account</h2>
+        <p>Please note that this action cannot be undone.</p>
+        <button id="delete-account">Delete Account</button>
+    </div>
 </body>
-
+</html>

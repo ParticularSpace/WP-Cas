@@ -1,0 +1,75 @@
+body {
+    margin: 0%;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+h1 {
+    margin: 20px 0;
+    text-align: center;
+    color: #007BFF;
+}
+
+h2 {
+    margin-bottom: 10px;
+}
+
+.profile-picture,
+.change-password,
+.update-email,
+.status-input,
+.delete-account {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ccc;
+    padding: 20px;
+    width: 80%;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    background-color: white;
+}
+
+.profile-picture img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+input[type="file"] {
+    margin-bottom: 10px;
+}
+
+input[type="password"],
+input[type="email"],
+input[type="text"] {
+    padding: 10px;
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.delete-account {
+    color: red;
+}
+
+.delete-account button {
+    background-color: red;
+}
+
+.delete-account button:hover {
+    background-color: darkred;
+}

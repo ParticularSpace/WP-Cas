@@ -14,7 +14,7 @@ router.get('/register', (req, res) => {
 
 // Dashboard
 router.get('/dashboard', withAuth, (req, res) => {
-  res.render('dashboard')
+  res.render('dashboard');
 });
 
 
