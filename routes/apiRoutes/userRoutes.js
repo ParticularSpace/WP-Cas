@@ -1,21 +1,21 @@
-const router = require('express').Router();
-const sequelize = require('../../config/connection');
+const router = require('express').Router(); 
+const sequelize = require('../../config/connection'); 
 const { User, Wallet } = require('../../models');
-const bcrypt = require('bcrypt');
-const CryptoJS = require('crypto-js');
+const bcrypt = require('bcrypt'); 
+const CryptoJS = require('crypto-js'); 
 require('dotenv').config();
 
-// Register route GOOD
+// Register route
 router.post('/register', async (req, res) => {
-  const t = await sequelize.transaction();
+  const t = await sequelize.transaction(); // Start a transaction
 
   try {
-    const saltRounds = await bcrypt.genSalt();
-    const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
+    const saltRounds = await bcrypt.genSalt(); // Generate a salt for password hashing
+    const hashedPassword = await bcrypt.hash(req.body.password, saltRounds); // Hash the password
     const userData = await User.create({
       username: req.body.username,
       password: hashedPassword,
-    }, { transaction: t });
+    }, { transaction: t }); // Create a new user with the hashed password
 
     // Create wallet with a placeholder encrypted_id
     const walletData = await Wallet.create({
@@ -23,19 +23,12 @@ router.post('/register', async (req, res) => {
       user_id: userData.id,
       encrypted_id: 'placeholder',
     }, { transaction: t });
-    
 
     // Update the wallet with the real encrypted_id
-    console.log('Before walletData.save');
-    console.log('walletData.id:', walletData.id);
-    console.log('process.env.CRYPTOJS_SECRET:', process.env.CRYPTOJS_SECRET);
-
     walletData.encrypted_id = CryptoJS.AES.encrypt(walletData.id.toString(), process.env.CRYPTOJS_SECRET).toString();
     await walletData.save({ transaction: t });
-    console.log('After walletData.save');
 
-
-    await t.commit();
+    await t.commit(); // Commit the transaction
 
     req.session.save(() => {
       req.session.user_id = userData.id;
@@ -44,27 +37,20 @@ router.post('/register', async (req, res) => {
       res.status(200).json(userData);
     });
   } catch (err) {
-    await t.rollback();
+    await t.rollback(); // Rollback the transaction
     res.status(400).json({ message: 'An error occurred while registering' });
   }
 });
 
-
-
-
-// Login route GOOD
-
+// Login route
 router.post('/login', async (req, res) => {
-  console.log('LN: 57 - req.body:', req.body);
   try {
     const { username, password } = req.body;
-    console.log('LN: 59 - username:', username);
-
-    const userData = await User.findOne({ 
+    const userData = await User.findOne({
       where: { username },
-      include: [{ model: Wallet }] 
+      include: [{ model: Wallet }],
     });
-    
+
     if (!userData) {
       res.status(400).json({ message: 'Incorrect username, please try again' });
       return;
@@ -81,25 +67,17 @@ router.post('/login', async (req, res) => {
       id: userData.id,
       username: userData.username,
     };
-   
-    req.session.logged_in = true;
-    
 
-    console.log(req.session);
+    req.session.logged_in = true;
 
     res.json({ user: userData, message: 'ok' });
-  
   } catch (err) {
-
-    console.error(err.message); 
+    console.error(err.message);
     res.status(400).json(err);
-
   }
-
 });
 
-
-// Logout route CHECK THIS
+// Logout route
 router.post('/logout', (req, res) => {
   if (req.session.logged_in) {
     req.session.destroy(() => {
@@ -110,4 +88,4 @@ router.post('/logout', (req, res) => {
   }
 });
 
-module.exports = router;
+module.exports = router; 
