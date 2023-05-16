@@ -27,7 +27,6 @@ body {
 
 .navbar {
   background-color: #333;
-  overflow: hidden;
 }
 
 .navbar-container {
@@ -78,7 +77,8 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin: auto;
   margin-top: 100px;
-  margin-bottom: 20px; /* Add a bottom margin to create space */
+  margin-bottom: 20px;
+  /* Add a bottom margin to create space */
 }
 
 
@@ -228,7 +228,8 @@ button:hover {
   align-items: center;
   margin: auto;
   margin-top: 100px;
-  margin-bottom: 20px; /* Add a bottom margin to create space */
+  margin-bottom: 20px;
+  /* Add a bottom margin to create space */
 }
 
 /* Add this to your CSS file */
@@ -238,26 +239,26 @@ button:hover {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 20px; /* space between rows */
+  gap: 20px;
+  /* space between rows */
 }
 
 .row {
   display: flex;
-  justify-content: space-evenly; /* distribute cards evenly across the row */
-  align-items: start; /* align cards at the top */
-  gap: 20px; /* space between cards */
+  justify-content: space-evenly;
+  /* distribute cards evenly across the row */
+  align-items: start;
+  /* align cards at the top */
+  gap: 20px;
+  /* space between cards */
   margin-bottom: 20px;
 }
 
 .card {
-  background-color: #fff; 
-  border-radius: 10px; 
+  background-color: #fff;
+  border-radius: 10px;
   margin-top: 20px;
   padding: 20px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); 
-  overflow: hidden; 
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
 }
-
-
-
-
