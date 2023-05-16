@@ -3,7 +3,7 @@ const { Wallet } = require('../../models');
 const withAuth = require('../../utils/auth'); 
 
 router.get('/games', withAuth, (req, res) => {//withAuth,
-    res.render('games');
+    res.render('dashboard');
 });
 
 router.get('/games', async (req, res) => {
