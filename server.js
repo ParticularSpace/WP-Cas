@@ -27,21 +27,24 @@ app.use(cookieParser());
 
 app.use(
   session({
-    key: 'user_sid',
+    name: 'my_app.sid', 
     secret: process.env.SESSION_SECRET, 
     resave: false,
     saveUninitialized: false,
     cookie: {
-      expires: 600000,
+      maxAge: 24 * 60 * 60 * 1000, // 24 hours
     },
   })
 );
+
+
 app.use((req, res, next) => {
-  if (req.cookies.user_sid && !req.session.user) {
-    res.clearCookie('user_sid');
+  if (req.cookies.user_sid && !req.session.logged_in) {
+    res.clearCookie('my_app.sid');
   }
   next();
 });
+
 
 app.use(routes);
 

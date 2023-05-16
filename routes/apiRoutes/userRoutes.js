@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const CryptoJS = require('crypto-js');
 require('dotenv').config();
 
-// Register route
+// Register route GOOD
 router.post('/register', async (req, res) => {
   const t = await sequelize.transaction();
 
@@ -52,32 +52,31 @@ router.post('/register', async (req, res) => {
 
 
 
-// Login route
+// Login route BAD wont redirect to dashboard
+
 router.post('/login', async (req, res) => {
+  console.log('LN: 57 - req.body:', req.body);
   try {
-
     const { username, password } = req.body;
-
-    console.log(req.body);
+    console.log('LN: 59 - username:', username);
 
     const userData = await User.findOne({ 
       where: { username },
-      include: [{ model: Wallet }] // Include Wallet data in the response
+      include: [{ model: Wallet }] 
     });
     
-    //console.log(userData);
-
     if (!userData) {
-      res.status(400).json({ message: 'Incorrect email or password, please try again' });
+      res.status(400).json({ message: 'Incorrect username, please try again' });
       return;
     }
 
-    const validPassword = await userData.checkPassword(password);//(req.body.password);
+    const validPassword = await userData.checkPassword(password);
 
     if (!validPassword) {
-      res.status(400).json({ message: 'Incorrect email or password, please try again' });
+      res.status(400).json({ message: 'Incorrect password, please try again' });
       return;
     }
+
     req.session.user = {
       id: userData.id,
       username: userData.username,
@@ -85,31 +84,31 @@ router.post('/login', async (req, res) => {
    
     req.session.logged_in = true;
     
-    console.log(userData.id);
-    console.log(userData.username);
-  
-    
-    //req.session.save(() => {
-    //  res.json({ user: userData, message: 'You are now logged in!' });
-    //});
+
     console.log(req.session);
-  } 
-  catch (err) {
+
+    res.json({ user: userData, message: 'ok' });
+  
+  } catch (err) {
+
     console.error(err.message); 
     res.status(400).json(err);
+
   }
+
 });
 
+//just in case for now
 
-// Logout route
-router.post('/logout', (req, res) => {
-  if (req.session.logged_in) {
-    req.session.destroy(() => {
-      res.status(204).end();
-    });
-  } else {
-    res.status(404).end();
-  }
-});
+// // Logout route
+// router.post('/logout', (req, res) => {
+//   if (req.session.logged_in) {
+//     req.session.destroy(() => {
+//       res.status(204).end();
+//     });
+//   } else {
+//     res.status(404).end();
+//   }
+// });
 
 module.exports = router;

@@ -3,27 +3,47 @@
 const loginFormHandler = async (event) => {
   event.preventDefault();
 
+  console.log('loginFormHandler');
+
   const username = document.querySelector('#username-login').value.trim();
   const password = document.querySelector('#password-login').value.trim();
 
-  if (username && password) {
-    const response = await fetch('/api/users/login', {
-      method: 'POST',
-      body: JSON.stringify({ username, password }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      
-    });
+  console.log(username, password, 'app.js loginFormHandler 11')
 
-    if (response.ok) {
-      // If the login is successful, redirect to the dashboard page.
-      document.location.replace('/dashboard');
-    } else {
-      alert('Failed to log in');
+  if (username && password) {
+    try {
+      console.log('About to call fetch');
+      const response = await fetch('/api/users/login', {
+        method: 'POST',
+        body: JSON.stringify({ username, password }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      
+      console.log(response, 'app.js loginFormHandler 21');
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+
+      if (response.ok) {
+        console.log('Response was OK');
+        const data = await response.json();
+        console.log(data, 'app.js loginFormHandler 31');
+        // If the login is successful, redirect to the dashboard page.
+        document.location.replace('/dashboard');
+      } else {
+        console.log('Response was not OK');
+        alert('Failed to log in');
+      }
+    } catch (err) {
+      console.error('Error in fetch call', err);
     }
   }
 };
+
 
 const registerFormHandler = async (event) => {
   event.preventDefault();
@@ -61,7 +81,7 @@ function updateEventListeners() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
   updateEventListeners();
 });
 
