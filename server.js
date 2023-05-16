@@ -1,6 +1,7 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const routes = require('./routes');
+// const path = require('path');
 const hbs = exphbs.create({});
 const sequelize = require('./config/connection');
 const session = require('express-session');
@@ -21,7 +22,7 @@ app.set('view engine', 'handlebars');
 
 
 app.use(express.static("public"));
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -32,8 +33,8 @@ app.use('/uploads', express.static('uploads'))
 
 app.use(
   session({
-    name: 'my_app.sid', 
-    secret: process.env.SESSION_SECRET, 
+    name: 'my_app.sid',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -41,7 +42,6 @@ app.use(
     },
   })
 );
-
 
 app.use((req, res, next) => {
   if (req.cookies.user_sid && !req.session.logged_in) {
