@@ -4,6 +4,20 @@ const { User, Wallet } = require('../../models');
 const bcrypt = require('bcrypt');
 const CryptoJS = require('crypto-js');
 require('dotenv').config();
+const withAuth = require('../../utils/auth');
+const multer = require('multer');
+
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/');
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + '-' + Date.now());
+  }
+});
+
+const upload = multer({ storage: storage });
 
 // Register route GOOD
 router.post('/register', async (req, res) => {
@@ -48,9 +62,6 @@ router.post('/register', async (req, res) => {
     res.status(400).json({ message: 'An error occurred while registering' });
   }
 });
-
-
-
 
 // Login route GOOD
 
@@ -98,7 +109,6 @@ router.post('/login', async (req, res) => {
 
 });
 
-
 // Logout route CHECK THIS
 router.post('/logout', (req, res) => {
   if (req.session.logged_in) {
@@ -109,5 +119,79 @@ router.post('/logout', (req, res) => {
     res.status(404).end();
   }
 });
+
+// Change Password route GOOD
+router.put('/update/password', withAuth, async (req, res) => {
+  
+  try {
+    const { currentPassword, newPassword } = req.body;
+    const user = await User.findOne({ where: { id: req.session.user.id } });
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const validPassword = await bcrypt.compare(currentPassword, user.password);
+
+    console.log('LN: 128 - validPassword:', validPassword)
+
+    if (!validPassword) {
+      return res.status(400).json({ error: 'Current password is incorrect' });
+    }
+
+    const saltRounds = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(newPassword, saltRounds);
+
+    await user.update({ password: hashedPassword });
+
+    res.json({ message: 'Password updated successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'An error occurred while updating the password' });
+  }
+});
+
+// Change Email route GOOD
+
+router.put('/update/username', withAuth, async (req, res) => {
+  try {
+    const { newUsername } = req.body;
+    const user = await User.findOne({ where: { id: req.session.user.id } });
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    await user.update({ username: newUsername });
+
+    res.json({ message: 'Username updated successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'An error occurred while updating the username' });
+  }
+});
+
+// Change Profile Picture route
+
+router.put('/update/profile-picture', withAuth, upload.single('profilePicture'), async (req, res) => {
+  try {
+    const user = await User.findOne({ where: { id: req.session.user.id } });
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const newPicturePath = req.file.path;
+
+    await user.update({ profilePicture: newPicturePath });
+
+    res.json({ message: 'Profile picture updated successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'An error occurred while updating the profile picture' });
+  }
+});
+
+
+
+
+
 
 module.exports = router;

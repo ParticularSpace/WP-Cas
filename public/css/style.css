@@ -129,16 +129,68 @@ body {
 }
 
 
-#forgot_buttons {
+
+.register_container {
   display: flex;
-  justify-content: space-between;
-  width: 30%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 250px;
+  max-height: 250px;
+  background-color: #333;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: auto;
+  margin-top: 100px;
+  margin-bottom: 20px; 
 }
 
-#registar_buttons {
+
+.register-title {
+  font-family: 'Raleway', sans-serif;
+  font-size: 30px;
   display: flex;
-  justify-content: space-between;
-  width: 30%;
+  color: white;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  padding: 10px;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: auto;
+  width: 100%;
+}
+
+.register-form input {
+  margin-bottom: 10px;
+  padding: 8px;
+  width: 80%;
+}
+
+.register-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #8a8a8a;
+  color: white;
+  padding: 10px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  width: 80%;
+  cursor: pointer;
+}
+
+.register-button:hover {
+  opacity: 0.8;
 }
 
 .nav-icon {
