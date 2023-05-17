@@ -69,6 +69,24 @@ const registerFormHandler = async (event) => {
   }
 };
 
+const logoutHandler = async (event) => {
+  event.preventDefault();
+
+  const response = await fetch('/api/users/logout', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  if (response.ok) {
+    document.location.replace('/login');
+  } else {
+    alert('Failed to logout');
+  }
+};
+
+
 function updateEventListeners() {
   let loginForm = document.querySelector('.login-form');
   if (loginForm) {
@@ -84,4 +102,10 @@ function updateEventListeners() {
 document.addEventListener("DOMContentLoaded", function () {
   updateEventListeners();
 });
+
+let logoutButton = document.querySelector('#logout-button');
+if (logoutButton) {
+  logoutButton.addEventListener('click', logoutHandler);
+}
+
 
