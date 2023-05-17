@@ -365,4 +365,16 @@ button:hover {
   align-items: center;
 }
 
+.submitBtn {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  padding: 8px 16px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 2%;
+}
 
