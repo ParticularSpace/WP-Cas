@@ -5,21 +5,11 @@ const bcrypt = require('bcrypt');
 const CryptoJS = require('crypto-js');
 require('dotenv').config();
 const withAuth = require('../../utils/auth');
-const multer = require('multer');
-const path = require('path');
+const upload = require('../../config/s3');
 
+const bucketName = process.env.AWS_S3_BUCKET; 
+const region = process.env.AWS_REGION; 
 
-
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads/');
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname));
-  }
-});
-
-const upload = multer({ storage: storage });
 
 // Register route GOOD
 router.post('/register', async (req, res) => {
@@ -66,7 +56,6 @@ router.post('/register', async (req, res) => {
 });
 
 // Login route GOOD
-
 router.post('/login', async (req, res) => {
   console.log('LN: 57 - req.body:', req.body);
   try {
@@ -93,7 +82,7 @@ router.post('/login', async (req, res) => {
     req.session.user = {
       id: userData.id,
       username: userData.username,
-      profilePicture: `http://localhost:3001/${userData.profile_picture}`,
+      profilePicture: userData.profile_picture,
     };
    
     req.session.logged_in = true;
@@ -111,7 +100,6 @@ router.post('/login', async (req, res) => {
   }
 
 });
-
 
 // Logout route CHECK THIS
 router.post('/logout', (req, res) => {
@@ -155,7 +143,6 @@ router.put('/update/password', withAuth, async (req, res) => {
 });
 
 // Change username route GOOD
-
 router.put('/update/username', withAuth, async (req, res) => {
   try {
     const { password, newUsername } = req.body;
@@ -179,34 +166,58 @@ router.put('/update/username', withAuth, async (req, res) => {
   }
 });
 
+// Upload GOOD
+router.post('/upload', upload.single('profilePicture'), async (req, res) => {
+  console.log('File uploaded to S3');
+  const fileName = req.file.key; // the key of the uploaded file
+  const fileUrl = `https://${bucketName}.s3.${region}.amazonaws.com/${fileName}`;
 
-// Change Profile Picture route
-router.put('/update/profile-picture', withAuth, upload.single('profilePicture'), async (req, res) => {
-  console.log('req.file:', req.file);
+  console.log('fileUrl:', fileUrl);
+
+  // Update the session
+  req.session.user.profilePicture = fileUrl;
+
+  // Update the database
   try {
-    const user = await User.findOne({ where: { id: req.session.user.id } });
-
-    console.log('user: LN - 181', user);
-
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-
-    const newPicturePath = req.file.path;
-
-    req.session.user.profilePicture = `http://localhost:3001/${newPicturePath}`;
-
-
-    console.log('newPicturePath:', newPicturePath)
-
-    await user.update({ profile_picture: newPicturePath });
-
-    res.json({ message: 'Profile picture updated successfully', newPictureUrl: `http://localhost:3001/${newPicturePath}` });
-
+    await User.update(
+      { profile_picture: fileUrl }, // new data to update
+      { where: { id: req.session.user.id } } // where clause
+    );
+    console.log('User profile_picture updated in the database');
   } catch (error) {
-    res.status(500).json({ error: 'An error occurred while updating the profile picture' });
+    console.error('Failed to update profile_picture in the database:', error);
+  }
+
+  res.json({ message: 'File uploaded successfully', fileUrl: fileUrl });
+});
+
+
+router.put('/update/profile-picture', withAuth, async (req, res) => {
+
+  try {
+      const user = await User.findOne({ where: { id: req.session.user.id } });
+      console.log('user inside of /update/profile-picture:', user);
+      if (!user) {
+          return res.status(404).json({ error: 'User not found' });
+      }
+
+      const newPicturePath = req.body.location; // Use req.body.location to get the URL
+
+      console.log('newPicturePath:', newPicturePath)
+
+      await user.update({ profile_picture: newPicturePath });
+      res.json({ message: 'Profile picture updated successfully', newPictureUrl: user.profile_picture });
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'An error occurred while updating the profile picture' });
   }
 });
+
+
+
+
+
+
 
 
 

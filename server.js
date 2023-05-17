@@ -6,7 +6,6 @@ const hbs = exphbs.create({});
 const sequelize = require('./config/connection');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
-
 const chatRoutes = require('./routes/apiRoutes/chatRoutes');
 
 

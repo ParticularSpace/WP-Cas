@@ -13,24 +13,49 @@ document.addEventListener("DOMContentLoaded", function () {
         const formData = new FormData();
         formData.append('profilePicture', file);
 
-        fetch('/api/users/update/profile-picture', {
-            method: 'PUT',
+        console.log('formData:', formData);
+        console.log('About to fetch to upload file');
+
+        // First, upload the file
+        fetch('/api/users/upload', {
+            method: 'POST',
             body: formData
         })
             .then(response => response.json())
             .then(data => {
+                console.log('data test in LINE 26 IN ACCOUNT>JS:', data);
                 if (data.error) {
                     console.error(data.error);
                 } else {
-                    console.log('Profile picture updated successfully!');
-                    // Optionally, update the profile picture on the page
-                    console.log(data.newPictureUrl);
-                    document.querySelector('#profile-pic').src = data.newPictureUrl;
+                    console.log('File uploaded successfully!');
+                    // Then, update the profile picture
+                    return fetch('/api/users/update/profile-picture', {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ location: data.fileUrl })
+                    });
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('data test in LINE 42 IN ACCOUNT>JS:', data);
+                if (data.error) {
+                    console.error(data.error);
+                } else {
+                    // Update the image on the page
+                    let profileImage = document.querySelector('#profile-pic'); // replace '#profile-image' with the actual ID of your img element
+                    console.log('newPictureUrl:', data.newPictureUrl);
+                    profileImage.src = `${data.newPictureUrl}?timestamp=${new Date().getTime()}`;
+
+                    console.log('Profile picture updated successfully on the page!');
                 }
             })
             .catch((error) => {
-                console.error('Error:', error);
+                console.error('Error: this is the one', error);
             });
+
     }
 
     // Change password GOOD
@@ -70,31 +95,31 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Change username GOOD
-  function updateUsername() {
-    const password = document.querySelector('#password').value;
-    const newUsername = document.querySelector('#new-username').value;
+    function updateUsername() {
+        const password = document.querySelector('#password').value;
+        const newUsername = document.querySelector('#new-username').value;
 
-    fetch('/api/users/update/username', {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ password, newUsername }), // include the password here
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.error) {
-                console.error(data.error);
-            } else {
-                //update teh username on the page
-                document.querySelector('#username').textContent = newUsername;
-                console.log('username updated successfully!');
-            }
+        fetch('/api/users/update/username', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ password, newUsername }), // include the password here
         })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
-}
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    console.error(data.error);
+                } else {
+                    //update teh username on the page
+                    document.querySelector('#username').textContent = newUsername;
+                    console.log('username updated successfully!');
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    }
 
 
     function updateStatus() {
@@ -126,8 +151,8 @@ document.addEventListener("DOMContentLoaded", function () {
         updateStatus();
     });
 
-    document.querySelector('#delete-account').addEventListener('click',(event) => {
+    document.querySelector('#delete-account').addEventListener('click', (event) => {
         event.preventDefault();
         deleteAccount();
-        });
-        });
+    });
+});

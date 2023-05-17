@@ -13,8 +13,14 @@ router.get('/account', withAuth, async (req, res) => {
     });
 
     const user = userData.get({ plain: true });
+    console.log(user, 'this is user in accountRoutes 16');
 
-    user.profilePicture = req.session.user.profilePicture;
+if(user.profile_picture) {
+  user.profilePicture = user.profile_picture;
+} else {
+  user.profilePicture = 'images/fullDeck/2-heart.png';
+}
+
 
     res.render('account', {
       ...user,
