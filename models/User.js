@@ -28,6 +28,10 @@ User.init(
         len: [8], // Validates that the password must be at least 8 characters long
       },
     },
+    profile_picture: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
   },
   {
     sequelize, // Connects the model to the Sequelize instance

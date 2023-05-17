@@ -1,6 +1,6 @@
 // Importing the required dependencies
 const router = require('express').Router();
-const sequelize = require('../../config/connection'); n
+const sequelize = require('../../config/connection');
 const { User, Wallet } = require('../../models');
 const bcrypt = require('bcrypt');
 const CryptoJS = require('crypto-js');
