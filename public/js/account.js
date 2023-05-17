@@ -68,30 +68,34 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.error('Error:', error);
             });
     }
-    // Change username GOOD
-    function updateUsername() {
-        const currentUsername = document.querySelector('#current-username').value;
-        const newUsername = document.querySelector('#new-username').value;
 
-        fetch('/api/users/update/username', {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ currentUsername, newUsername }),
+    // Change username GOOD
+  function updateUsername() {
+    const password = document.querySelector('#password').value;
+    const newUsername = document.querySelector('#new-username').value;
+
+    fetch('/api/users/update/username', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ password, newUsername }), // include the password here
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                console.error(data.error);
+            } else {
+                //update teh username on the page
+                document.querySelector('#username').textContent = newUsername;
+                console.log('username updated successfully!');
+            }
         })
-            .then(response => response.json())
-            .then(data => {
-                if (data.error) {
-                    console.error(data.error);
-                } else {
-                    console.log('username updated successfully!');
-                }
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
-    }
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+}
+
 
     function updateStatus() {
         // Code to update status

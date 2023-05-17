@@ -154,15 +154,21 @@ router.put('/update/password', withAuth, async (req, res) => {
   }
 });
 
-// Change Email route GOOD
+// Change username route GOOD
 
 router.put('/update/username', withAuth, async (req, res) => {
   try {
-    const { newUsername } = req.body;
+    const { password, newUsername } = req.body;
     const user = await User.findOne({ where: { id: req.session.user.id } });
 
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
+    }
+
+    const validPassword = await bcrypt.compare(password, user.password);
+
+    if (!validPassword) {
+      return res.status(400).json({ error: 'Password is incorrect' });
     }
 
     await user.update({ username: newUsername });
@@ -172,6 +178,7 @@ router.put('/update/username', withAuth, async (req, res) => {
     res.status(500).json({ error: 'An error occurred while updating the username' });
   }
 });
+
 
 // Change Profile Picture route
 router.put('/update/profile-picture', withAuth, upload.single('profilePicture'), async (req, res) => {
