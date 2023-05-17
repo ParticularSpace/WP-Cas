@@ -11,9 +11,19 @@
 
     <!-- Profile Picture -->
     <div class="profile-picture">
-        <img id="profile-pic" src="/images/fullDeck/10-diamond.png" alt="Profile Picture">
+        <img id="profile-pic" src="{{profilePicture}}" alt="Profile Picture">
+
         <input type="file" id="upload-picture" accept="image/*">
         <button id="update-picture">Update Picture</button>
+    </div>
+
+     <!-- Update Username -->
+    <div class="update-username">
+        <h2>Update Username</h2>
+        <h4 id="username">Currently {{username}}</h4>
+        <input type="username" id="new-username" placeholder="New username">
+        <input type="password" id="password" placeholder="Password">
+        <button id="update-username">Update Username</button>
     </div>
 
     <!-- Change Password -->
@@ -23,14 +33,6 @@
         <input type="password" id="new-password" placeholder="New Password">
         <input type="password" id="confirm-password" placeholder="Confirm New Password">
         <button id="change-password">Change Password</button>
-    </div>
-
-    <!-- Update Email -->
-    <div class="update-email">
-        <h2>Update Email</h2>
-        <input type="email" id="current-email" placeholder="Current Email">
-        <input type="email" id="new-email" placeholder="New Email">
-        <button id="update-email">Update Email</button>
     </div>
 
     <!-- Status Input -->
@@ -46,5 +48,8 @@
         <p>Please note that this action cannot be undone.</p>
         <button id="delete-account">Delete Account</button>
     </div>
+
+
+    <script src="/js/account.js"></script>
 </body>
 </html>

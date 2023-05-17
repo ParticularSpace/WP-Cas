@@ -1,21 +1,19 @@
-
-
 const loginFormHandler = async (event) => {
-  event.preventDefault();
+  event.preventDefault(); // Prevent form submission
 
   console.log('loginFormHandler');
 
-  const username = document.querySelector('#username-login').value.trim();
-  const password = document.querySelector('#password-login').value.trim();
+  const username = document.querySelector('#username-login').value.trim(); // Get the entered username
+  const password = document.querySelector('#password-login').value.trim(); // Get the entered password
 
   console.log(username, password, 'app.js loginFormHandler 11')
 
   if (username && password) {
     try {
       console.log('About to call fetch');
-      const response = await fetch('/api/users/login', {
+      const response = await fetch('/api/users/login', { // Send a POST request to the login endpoint
         method: 'POST',
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ username, password }), // Send the username and password as JSON in the request body
         headers: {
           'Content-Type': 'application/json',
         },
@@ -30,7 +28,7 @@ const loginFormHandler = async (event) => {
 
       if (response.ok) {
         console.log('Response was OK');
-        const data = await response.json();
+        const data = await response.json(); // Get the response data as JSON
         console.log(data, 'app.js loginFormHandler 31');
         // If the login is successful, redirect to the dashboard page.
         document.location.replace('/dashboard');
@@ -44,20 +42,19 @@ const loginFormHandler = async (event) => {
   }
 };
 
-
 const registerFormHandler = async (event) => {
-  event.preventDefault();
+  event.preventDefault(); // Prevent form submission
 
-  const username = document.querySelector('#username-register').value.trim();
-  const password = document.querySelector('#password-register').value.trim();
+  const username = document.querySelector('#username-register').value.trim(); // Get the entered username
+  const password = document.querySelector('#password-register').value.trim(); // Get the entered password
 
   if (username && password) {
-    const response = await fetch('/api/users/register', {
+    const response = await fetch('/api/users/register', { // Send a POST request to the register endpoint
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ username, password }), // Send the username and password as JSON in the request body
     });
 
     if (response.ok) {
@@ -72,16 +69,15 @@ const registerFormHandler = async (event) => {
 function updateEventListeners() {
   let loginForm = document.querySelector('.login-form');
   if (loginForm) {
-    loginForm.addEventListener('submit', loginFormHandler);
+    loginForm.addEventListener('submit', loginFormHandler); // Attach the loginFormHandler function to the login form submit event
   }
 
   let registerForm = document.querySelector('.register-form');
   if (registerForm) {
-    registerForm.addEventListener('submit', registerFormHandler);
+    registerForm.addEventListener('submit', registerFormHandler); // Attach the registerFormHandler function to the register form submit event
   }
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  updateEventListeners();
+  updateEventListeners(); // Call the updateEventListeners function when the DOM is loaded
 });
-

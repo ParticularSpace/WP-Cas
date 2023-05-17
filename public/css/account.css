@@ -16,7 +16,7 @@ h2 {
 
 .profile-picture,
 .change-password,
-.update-email,
+.update-username,
 .status-input,
 .delete-account {
     display: flex;
@@ -42,7 +42,7 @@ input[type="file"] {
 }
 
 input[type="password"],
-input[type="email"],
+input[type="username"],
 input[type="text"] {
     padding: 10px;
     width: 100%;
