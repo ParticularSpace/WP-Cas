@@ -4,13 +4,14 @@
       {{#if logged_in}}
         {{!-- Profile picture --}}
         <li class="navbar-item dropdown">
-          <img src="{{profilePicture}}" alt="Profile Picture" class="profile-picture dropdown-toggle nav-profile-pic"
+          <img src="{{profilePicture}}" alt="Profile Picture" class="dropdown-toggle nav-profile-pic"
             id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
           <div class="dropdown-menu" aria-labelledby="profileDropdown">
-            <span class="dropdown-item">Account: {{username}}</span>
-            <span class="dropdown-item">Wallet: {{walletBalance}}</span>
-            <a id="logout-button" class="dropdown-item">Log Out</a>
-          </div>
+  <a href="/account" class="dropdown-item">Username: {{username}}</a>
+  <span class="dropdown-item">Wallet: {{walletBalance}}</span>
+  <a id="logout-button" class="dropdown-item">Log Out</a>
+</div>
+
         </li>
         {{!-- Games --}}
         <li class="navbar-item dropdown">
