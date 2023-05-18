@@ -4,7 +4,15 @@
 </p>
 <p>This is a full-stack casino application featuring games like blackjack and intergrating AI through chatGBT to create an interactive experience</p>
 </div>
-{{> loginForm }}
+
+<form action="http://localhost:3001/login">
+    <input type="submit" value="Go to Login" class="submitBtn"/>
+</form>
+
+<form action="http://localhost:3001/account">
+    <input type="submit" value="Go to Account" class="submitBtn"/>
+</form>
+{{!-- {{> loginForm }}
 {{log user}}
 
 <div class="welcome_container">
@@ -12,11 +20,11 @@
   <h2>LOGIN</h2>
   <input id='username' type="text" name="username" placeholder="Username"/>
   <input id='password' type="password" name="password" placeholder="Enter Password"/>
-  <button id="submitBtn">Log In</button>
+  
   <p>_________</p>
   <a href="http://localhost:3001/register" id='signupLink'>Need a username? Sign Up </a>
 </form>
-</div>
+</div> --}}
 
 
 
