@@ -57,10 +57,10 @@ router.post('/register', async (req, res) => {
 
 // Login route GOOD
 router.post('/login', async (req, res) => {
-  console.log('LN: 57 - req.body:', req.body);
+  
   try {
     const { username, password } = req.body;
-    console.log('LN: 59 - username:', username);
+    
 
     const userData = await User.findOne({
       where: { username }, // Find the user with the provided username
@@ -87,7 +87,7 @@ router.post('/login', async (req, res) => {
 
     req.session.logged_in = true; // Set the session as logged in
 
-    console.log(req.session);
+   
 
     res.json({ user: userData, message: 'ok' }); // Respond with the user data and a success message
 

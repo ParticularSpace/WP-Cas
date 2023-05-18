@@ -13,9 +13,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const formData = new FormData();
         formData.append('profilePicture', file);
 
-        console.log('formData:', formData);
-        console.log('About to fetch to upload file');
-
         // First, upload the file
         fetch('/api/users/upload', {
             method: 'POST',
@@ -23,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
         })
             .then(response => response.json())
             .then(data => {
-                console.log('data test in LINE 26 IN ACCOUNT>JS:', data);
+                
                 if (data.error) {
                     console.error(data.error);
                 } else {
@@ -40,13 +37,12 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .then(response => response.json())
             .then(data => {
-                console.log('data test in LINE 42 IN ACCOUNT>JS:', data);
+               
                 if (data.error) {
                     console.error(data.error);
                 } else {
                     // Update the image on the page
                     let profileImage = document.querySelector('#profile-pic'); // replace '#profile-image' with the actual ID of your img element
-                    console.log('newPictureUrl:', data.newPictureUrl);
                     profileImage.src = `${data.newPictureUrl}?timestamp=${new Date().getTime()}`;
 
                     console.log('Profile picture updated successfully on the page!');
