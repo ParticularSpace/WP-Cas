@@ -1,26 +1,28 @@
 <div class="welcome-body">
-<h2>Welcome Back, {{user.username}}!</h2>
-<p>Four-leaf Casino, since 2023
-</p>
-<p>This is a full-stack casino application featuring games like blackjack and intergrating AI through chatGBT to create an interactive experience</p>
+  <h2>Welcome Back, {{user.username}}!</h2>
+  <p>Four-leaf Casino, since 2023
+  </p>
+  <p>This is a full-stack casino application featuring games like blackjack and intergrating AI through chatGBT to
+    create an interactive experience</p>
 </div>
-{{> loginForm }}
-{{log user}}
+{{!-- {{> loginForm }} --}}
+{{!-- {{log user}} --}}
 
-<div class="welcome_container">
-<form class="login-form" method="POST" action="/login">
-  <h2>LOGIN</h2>
-  <input id='username' type="text" name="username" placeholder="Username"/>
-  <input id='password' type="password" name="password" placeholder="Enter Password"/>
-  <button id="submitBtn">Log In</button>
-  <p>_________</p>
-  <a href="http://localhost:3001/register" id='signupLink'>Need a username? Sign Up </a>
-</form>
-</div>
+{{!-- <div class="welcome_container">
+  <form class="login-form" method="POST" action="/login">
+    <h2>LOGIN</h2>
+    <input id='username' type="text" name="username" placeholder="Username" />
+    <input id='password' type="password" name="password" placeholder="Enter Password" />
+    <button id="submitBtn">Log In</button>
+    <p>_________</p>
+    <a href="http://localhost:3001/register" id='signupLink'>Need a username? Sign Up </a>
+  </form>
+</div> --}}
 
 
 
-{{!-- <script src="/js/app.js"></script> --}}
+{{!--
+<script src="/js/app.js"></script> --}}
 
 
 {{!-- <div class="container dashboard">
@@ -29,7 +31,8 @@
       <img src="/images/unnamed.jpg" class="card-img-top" alt="Game 1">
       <div class="card-body">
         <h5 class="card-title">Black Jack</h5>
-        <p class="card-text">Test your strategy and skills in this classic casino card game. The aim is to beat the dealer by getting a score as close to 21 as possible, without going over.</p>
+        <p class="card-text">Test your strategy and skills in this classic casino card game. The aim is to beat the
+          dealer by getting a score as close to 21 as possible, without going over.</p>
         <a href="/games" class="btn btn-primary">Play Game 1</a>
       </div>
     </div>
@@ -61,4 +64,3 @@
     </div>
   </div>
 </div> --}}
-

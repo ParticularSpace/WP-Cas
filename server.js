@@ -48,6 +48,7 @@ app.use(routes); // Include the application routes
 
 app.use('/api', chatRoutes); // Include the chat API routes
 
+
 sequelize.sync({ force: false }).then(() => { // Sync the database models with the database
   app.listen(PORT, () => {
     console.log(`App listening on port ${PORT}!`); // Start the server and listen on the specified port

@@ -1,34 +1,31 @@
 <nav class="navbar">
   <div class="container-fluid">
+    <ul class="navbar-menu">
+      {{#if logged_in}}
+        {{!-- Profile picture --}}
+        <li class="navbar-item dropdown">
+          <img src="{{profilePicture}}" alt="Profile Picture" class="profile-picture dropdown-toggle nav-profile-pic"
+            id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+          <div class="dropdown-menu" aria-labelledby="profileDropdown">
+            <span class="dropdown-item">Account: {{username}}</span>
+            <span class="dropdown-item">Wallet: {{walletBalance}}</span>
+            <a id="logout-button" class="dropdown-item">Log Out</a>
+          </div>
+        </li>
+        {{!-- Games --}}
+        <li class="navbar-item dropdown">
+          <a href="#" class="navbar-link dropdown-toggle" data-bs-toggle="dropdown">Games</a>
+          <ul class="dropdown-menu">
+            <li><a href="/games" class="dropdown-item">BlackJack</a></li>
+          </ul>
+        </li>
+      {{else}}
+        <li class="navbar-item"><a href="/login" class="navbar-link">Log In</a></li>
+        <li class="navbar-item"><a href="/register" class="navbar-link">Register</a></li>
+      {{/if}}
+    </ul>
     <a href="/dashboard" class="navbar-brand">
       <img src="/images/clover.png" alt="Four-Leaf Cas" class="nav-icon">
     </a>
-    <ul class="navbar-menu">
-      <li class="navbar-item dropdown">
-        <a href="#" class="navbar-link dropdown-toggle" data-bs-toggle="dropdown">Games</a>
-        <ul class="dropdown-menu">
-          <li><a href="/games" class="dropdown-item">BlackJack</a></li>
-          <li>
-            <hr class="dropdown-divider">
-          </li>
-          <li><a href="#" class="dropdown-item disabled">Clover</a></li>
-          <!-- remove `disabled` to update if the game becomes available ;) -->
-          <li><a href="#" class="dropdown-item disabled">Roulette</a></li>
-          <li><a href="#" class="dropdown-item disabled">Slots</a></li>
-          <li><a href="#" class="dropdown-item disabled">Poker</a></li>
-          <li><a href="#" class="dropdown-item disabled">Craps</a></li>
-        </ul>
-      </li>
-      <li class="navbar-item"><a href="http://localhost:3001/account" class="navbar-link">Account</a></li>
-
-      <li class="navbar-item"><a href="http://localhost:3001/login" class="navbar-link">Log In</a></li>
-      <li class="navbar-item"><a href="http://localhost:3001/register" class="navbar-link">Register</a></li>
-      <li class="navbar-item"><button id="logout-button" class="navbar-link">Log Out</button></li>
-
-      {{#if logged_in}}
-      <li class="navbar-item"><a href="http://localhost:3001/account" class="navbar-link">{{username}}</a></li>
-      {{/if}}
-    </ul>
-  </div>
   </div>
 </nav>

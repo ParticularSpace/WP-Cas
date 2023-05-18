@@ -81,3 +81,21 @@ function updateEventListeners() {
 document.addEventListener("DOMContentLoaded", function () {
   updateEventListeners(); // Call the updateEventListeners function when the DOM is loaded
 });
+
+// logout function and listener
+
+const logout = async () => {
+  const response = await fetch('/api/users/logout', { // Send a POST request to the logout endpoint
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+  if (response.ok) {
+    // If the logout is successful, redirect to the login page.
+    document.location.replace('/login');
+  } else {
+    alert('Failed to log out');
+  }
+}
+
+document.querySelector('#logout-button').addEventListener('click', logout); // 
