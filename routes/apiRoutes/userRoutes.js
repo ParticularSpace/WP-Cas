@@ -188,7 +188,7 @@ router.post('/upload', upload.single('profilePicture'), async (req, res) => {
   res.json({ message: 'File uploaded successfully', fileUrl: fileUrl });
 });
 
-
+// update profile picture GOOD
 router.put('/update/profile-picture', withAuth, async (req, res) => {
 
   try {
@@ -207,6 +207,25 @@ router.put('/update/profile-picture', withAuth, async (req, res) => {
   } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'An error occurred while updating the profile picture' });
+  }
+});
+
+// Delete user
+router.delete('/delete', withAuth, async (req, res) => {
+  try {
+    const user = await User.findOne({ where: { id: req.session.user.id } });
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' }); // If the user is not found, respond with an error message
+    }
+
+    await user.destroy(); // Delete the user
+
+    req.session.destroy(() => {
+      res.status(204).end(); // Destroy the session and respond with a 204 status code
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'An error occurred while deleting the user' }); // If an error occurs during the user deletion, respond with an error message
   }
 });
 

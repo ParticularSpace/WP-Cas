@@ -117,14 +117,32 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
-
-    function updateStatus() {
-        // Code to update status
+    async function deleteAccount() {
+        // Add confirmation
+        const confirmation = window.confirm('Are you sure you want to delete your account? This action cannot be undone.');
+    
+        // If the user clicked "OK", confirmation will be true.
+        if (confirmation) {
+            try {
+                const response = await fetch('/api/users/delete', { // replace '/api/users' with the correct endpoint to delete a user
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+    
+                if (response.ok) {
+                    alert('Account deleted successfully!');
+                    // If deletion was successful, redirect to the login page or some other appropriate page.
+                    document.location.replace('/login'); // replace '/login' with the correct URL
+                } else {
+                    alert('Failed to delete account.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+        // If the user clicked "Cancel", the function will end here.
     }
-
-    function deleteAccount() {
-        // Code to delete account
-    }
+    
 
     // Attach event listeners
     document.querySelector('#update-picture').addEventListener('click', (event) => {
@@ -140,11 +158,6 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelector('#update-username').addEventListener('click', (event) => {
         event.preventDefault();
         updateUsername();
-    });
-
-    document.querySelector('#update-status').addEventListener('click', (event) => {
-        event.preventDefault();
-        updateStatus();
     });
 
     document.querySelector('#delete-account').addEventListener('click', (event) => {

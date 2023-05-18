@@ -83,7 +83,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // logout function and listener
-
 const logout = async () => {
   const response = await fetch('/api/users/logout', { // Send a POST request to the logout endpoint
     method: 'POST',
@@ -96,7 +95,30 @@ const logout = async () => {
   } else {
     alert('Failed to log out');
   }
-}
+}; 
 
-document.querySelector('#logout-button').addEventListener('click', logout); 
+// making a call to /games when the user clicks the Get Started button
+
+const getStarted = async () => {
+  const response = await fetch('/games', { // Send a GET request to the games endpoint
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+  });
+
+  if (response.ok) {
+    // If the call is successful, redirect to the games page.
+    document.location.replace('/games');
+  } else {
+    alert('Failed to get started');
+  }
+};
+
+// now add event listener for the get started button and call the getStarted function
+
+let getStartedButton = document.querySelector('.getStarted');
+if (getStartedButton) {
+  getStartedButton.addEventListener('click', getStarted);
+};
+
+
 
