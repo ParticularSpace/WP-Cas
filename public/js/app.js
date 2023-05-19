@@ -34,9 +34,11 @@ const loginFormHandler = async (event) => {
         document.location.replace('/dashboard');
       } else {
         console.log('Response was not OK');
-        alert('Failed to log in');
+        
       }
     } catch (err) {
+      window.alert('Password or username is incorrect. Please try again.');
+      document.location.reload();
       console.error('Error in fetch call', err);
     }
   }
