@@ -19,23 +19,8 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-// Display balance amount
-router.get('/:id/balance_display', async (req, res) => {
-    try {
-        const walletId = req.params.id;
-        const wallet = await Wallet.findByPk(walletId); 
-    
-        if (!wallet) {
-            return res.status(404).json({ message: 'Wallet not found' }); 
-        }
-    
-        const balance = wallet.balance;
-        res.render('fundz', balance); 
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Internal server error' }); 
-    }
-});
+
+
 
 // Get wallet's balance by ID
 router.get('/:id/balance', async (req, res) => {
