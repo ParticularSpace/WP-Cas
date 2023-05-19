@@ -25,6 +25,8 @@ body {
   align-items: center;
 }
 
+
+
 .navbar {
   background-color: #333;
 }
@@ -64,7 +66,7 @@ body {
   color: white;
 }
 
-.login_container {
+/* .login_container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -79,9 +81,9 @@ body {
   margin-top: 100px;
   margin-bottom: 20px;
   /* Add a bottom margin to create space */
-}
-
-
+/* } */ 
+/* login register need and apply them to   */
+/* 
 .login-title {
   font-family: 'Raleway', sans-serif;
   font-size: 30px;
@@ -126,9 +128,12 @@ body {
 
 .login-button:hover {
   opacity: 0.8;
-}
+} */
 
-.register_container {
+/* -------------------------------------------- */
+/* -------------REGISTER------------------- */
+
+/* .register_container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -189,7 +194,9 @@ body {
 
 .register-button:hover {
   opacity: 0.8;
-}
+} */
+/* -------------------------------------------- */
+
 
 .nav-icon {
   width: 30px;
@@ -269,6 +276,7 @@ button:hover {
   text-align: center;
   padding: 10px;
   margin-top: 20px;
+  bottom: 0px;
 }
 
 .game_layout {
