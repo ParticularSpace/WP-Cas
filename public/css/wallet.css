@@ -1,0 +1,54 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 80vh;
+  }
+  
+  .wallet-wrapper {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    width: 30%;
+    min-width: 300px;
+    text-align: center;
+  }
+  
+  .wallet-wrapper h2 {
+    color: #333;
+  }
+  
+  .wallet-wrapper p {
+    color: #666;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+  }
+  
+  #addFundsForm {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  #amount {
+    padding: 10px;
+    font-size: 1em;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  button {
+    padding: 10px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  

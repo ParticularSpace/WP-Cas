@@ -14,8 +14,8 @@ BlackjackGame.init(
     user_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'user', // References the 'user' model
-        key: 'id' // References the primary key of the 'user' model
+        model: 'user', 
+        key: 'id' 
       }
     },
     bet: {

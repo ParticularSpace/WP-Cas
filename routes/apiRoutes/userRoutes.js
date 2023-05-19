@@ -57,10 +57,10 @@ router.post('/register', async (req, res) => {
 
 // Login route GOOD
 router.post('/login', async (req, res) => {
-  console.log('LN: 57 - req.body:', req.body);
+  
   try {
     const { username, password } = req.body;
-    console.log('LN: 59 - username:', username);
+    
 
     const userData = await User.findOne({
       where: { username }, // Find the user with the provided username
@@ -87,7 +87,7 @@ router.post('/login', async (req, res) => {
 
     req.session.logged_in = true; // Set the session as logged in
 
-    console.log(req.session);
+   
 
     res.json({ user: userData, message: 'ok' }); // Respond with the user data and a success message
 
@@ -102,6 +102,7 @@ router.post('/logout', (req, res) => {
   if (req.session.logged_in) {
     req.session.destroy(() => {
       res.status(204).end(); // Destroy the session and respond with a 204 status code
+      res.render('login');
     });
   } else {
     res.status(404).end(); // If the user is not logged in, respond with a 404 status code
@@ -188,7 +189,7 @@ router.post('/upload', upload.single('profilePicture'), async (req, res) => {
   res.json({ message: 'File uploaded successfully', fileUrl: fileUrl });
 });
 
-
+// update profile picture GOOD
 router.put('/update/profile-picture', withAuth, async (req, res) => {
 
   try {
@@ -207,6 +208,25 @@ router.put('/update/profile-picture', withAuth, async (req, res) => {
   } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'An error occurred while updating the profile picture' });
+  }
+});
+
+// Delete user
+router.delete('/delete', withAuth, async (req, res) => {
+  try {
+    const user = await User.findOne({ where: { id: req.session.user.id } });
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' }); // If the user is not found, respond with an error message
+    }
+
+    await user.destroy(); // Delete the user
+
+    req.session.destroy(() => {
+      res.status(204).end(); // Destroy the session and respond with a 204 status code
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'An error occurred while deleting the user' }); // If an error occurs during the user deletion, respond with an error message
   }
 });
 

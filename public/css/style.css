@@ -25,6 +25,8 @@ body {
   align-items: center;
 }
 
+
+
 .navbar {
   background-color: #333;
 }
@@ -64,7 +66,7 @@ body {
   color: white;
 }
 
-.login_container {
+/* .login_container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -79,9 +81,9 @@ body {
   margin-top: 100px;
   margin-bottom: 20px;
   /* Add a bottom margin to create space */
-}
-
-
+/* } */ 
+/* login register need and apply them to   */
+/* 
 .login-title {
   font-family: 'Raleway', sans-serif;
   font-size: 30px;
@@ -126,11 +128,12 @@ body {
 
 .login-button:hover {
   opacity: 0.8;
-}
+} */
 
+/* -------------------------------------------- */
+/* -------------REGISTER------------------- */
 
-
-.register_container {
+/* .register_container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -191,7 +194,9 @@ body {
 
 .register-button:hover {
   opacity: 0.8;
-}
+} */
+/* -------------------------------------------- */
+
 
 .nav-icon {
   width: 30px;
@@ -271,6 +276,7 @@ button:hover {
   text-align: center;
   padding: 10px;
   margin-top: 20px;
+  bottom: 0px;
 }
 
 .game_layout {
@@ -317,55 +323,26 @@ button:hover {
 }
 
 /* HOMEPAGE */
-.welcome-body p {
-  color: white;
-  display: flex;
-  /* flex-direction: column;
-  align-items: center; */
-  justify-content: left;
-  text-align: left;
-}
-
-.welcome-body h2 {
-  color: white;
+.welcome-wrapper  {
   display: flex;
   flex-direction: column;
-
-
-  text-align: start;
-}
-
-.welcome_container {
-  display: flex;
-  flex-direction: column;
-  justify-content: left;
-  align-items: left;
+  align-items: center;
   background-color: #333;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  /* margin: auto;
-  margin-top: 100px;
-  margin-bottom: 20px; */
-
-  width: 35%;
-  max-width: 300px;
-  border-radius: 25px;
-  padding: 20px;
+  color:#fff;
+  border-radius: 10px;
+  padding: 30px;
 }
 
-#welcome_login {
+.getStarted {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-#welcome_login h2 {
-  color: #ddd;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  background-color: #387629;
+  color:#fff
 }
 
 .nav-profile-pic {
+  display: flex;
   width: 50px; 
   height: 50px; 
   border-radius: 50%; 
@@ -387,6 +364,9 @@ button:hover {
 }
 
 .navbar-item {
+  display: flex;
+  align-items: center;
+  margin: 5px;
   float: left;
 }
 

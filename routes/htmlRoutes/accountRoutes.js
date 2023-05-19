@@ -15,9 +15,17 @@ router.get('/account', withAuth, async (req, res) => {
       attributes: { exclude: ['password'] },
     });
 
+    // get the user's wallet
+    const walletData = await Wallet.findOne({
+      where: {
+        user_id: req.session.user.id,
+      },
+    });
+
     // Serialize data so the template can read it
     const user = userData.get({ plain: true });
-    console.log(user, 'this is user in accountRoutes 16');
+    const wallet = walletData.get({ plain: true });
+
 
 if(user.profile_picture) {
   user.profilePicture = user.profile_picture;
@@ -29,7 +37,9 @@ if(user.profile_picture) {
     // Pass serialized data and session flag into template
     res.render('account', {
       ...user,
+      walletBalance: wallet.balance,
       logged_in: req.session.logged_in,
+      
     });
   } catch (err) {
     res.status(500).json(err);
@@ -51,7 +61,6 @@ router.get('/account/:id', async (req, res) => {
     res.status(500).json({error});
   }
 });
-
 
 
 router.get('/dashboard', withAuth, async (req, res) => {
@@ -92,43 +101,44 @@ router.get('/dashboard', withAuth, async (req, res) => {
   }
 });
 
+router.get('/wallet', withAuth, async (req, res) => {
+  try {
+    const userData = await User.findOne({
+      where: {
+        id: req.session.user.id,
+      },
+      attributes: { exclude: ['password'] },
+    });
+
+    // get the user's wallet
+    const walletData = await Wallet.findOne({
+      where: {
+        user_id: req.session.user.id,
+      },
+    });
+
+    // Serialize data so the template can read it
+    const user = userData.get({ plain: true });
+    const wallet = walletData.get({ plain: true });
+    console.log(user, 'this is user in /dashboard route');
+
+    if(user.profile_picture) {
+      user.profilePicture = user.profile_picture;
+    } else {
+      user.profilePicture = 'images/fullDeck/2-heart.png';
+    }
+
+    // Pass serialized data and session flag into template
+    res.render('wallet', {
+      ...user,
+      walletBalance: wallet.balance, // passing wallet balance to the front-end
+      logged_in: req.session.logged_in,
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
 
 
-
-// const userData = await User.findOne({ 
-//   where: { username },
-//   include: [{ model: Wallet }] 
-//   });
-
-// router.get('/dashboard', async (req, res) => {
-//   // const user = req.body;
-//   const {logged_in, user} = req.session;
-//   if (!logged_in) {
-//     res.render('login')
-//   }
-//   console.log('accountROutes', req.session)
-//   console.log('user', user)
-//   res.render('dashboard', {user});
-// });
-
-// router.get('/', async (req, res) => {
-//   try {
-//   const {username} = req.body;
-//   const userData = await User.findByPk(username);
-//   const user = userData.get({plain: true});
-//   res.render('dashboard', {
-//     user
-//   })
-// } catch (err) {
-//   res.status(500).json({err})
-// }
-// });
-
-// router.get('/dashboard', function(req, res) {
-//   User.find(function (err, users, res) {
-//     if (err) return res.sendStatus(500);
-//     res.render('dashboard', { userList : users });
-//   });
-// });
 
 module.exports = router;

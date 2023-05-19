@@ -13,9 +13,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const formData = new FormData();
         formData.append('profilePicture', file);
 
-        console.log('formData:', formData);
-        console.log('About to fetch to upload file');
-
         // First, upload the file
         fetch('/api/users/upload', {
             method: 'POST',
@@ -23,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
         })
             .then(response => response.json())
             .then(data => {
-                console.log('data test in LINE 26 IN ACCOUNT>JS:', data);
+                
                 if (data.error) {
                     console.error(data.error);
                 } else {
@@ -40,13 +37,12 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .then(response => response.json())
             .then(data => {
-                console.log('data test in LINE 42 IN ACCOUNT>JS:', data);
+               
                 if (data.error) {
                     console.error(data.error);
                 } else {
                     // Update the image on the page
                     let profileImage = document.querySelector('#profile-pic'); // replace '#profile-image' with the actual ID of your img element
-                    console.log('newPictureUrl:', data.newPictureUrl);
                     profileImage.src = `${data.newPictureUrl}?timestamp=${new Date().getTime()}`;
 
                     console.log('Profile picture updated successfully on the page!');
@@ -121,14 +117,32 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
-
-    function updateStatus() {
-        // Code to update status
+    async function deleteAccount() {
+        // Add confirmation
+        const confirmation = window.confirm('Are you sure you want to delete your account? This action cannot be undone.');
+    
+        // If the user clicked "OK", confirmation will be true.
+        if (confirmation) {
+            try {
+                const response = await fetch('/api/users/delete', { // replace '/api/users' with the correct endpoint to delete a user
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+    
+                if (response.ok) {
+                    alert('Account deleted successfully!');
+                    // If deletion was successful, redirect to the login page or some other appropriate page.
+                    document.location.replace('/login'); // replace '/login' with the correct URL
+                } else {
+                    alert('Failed to delete account.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+        // If the user clicked "Cancel", the function will end here.
     }
-
-    function deleteAccount() {
-        // Code to delete account
-    }
+    
 
     // Attach event listeners
     document.querySelector('#update-picture').addEventListener('click', (event) => {
@@ -144,11 +158,6 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelector('#update-username').addEventListener('click', (event) => {
         event.preventDefault();
         updateUsername();
-    });
-
-    document.querySelector('#update-status').addEventListener('click', (event) => {
-        event.preventDefault();
-        updateStatus();
     });
 
     document.querySelector('#delete-account').addEventListener('click', (event) => {

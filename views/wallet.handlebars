@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallet</title>
+    <link rel="stylesheet" href="/css/wallet.css">
+</head>
+
+<body>
+
+<div class="container">
+  <div class="wallet-wrapper">
+    <h2>Your Wallet</h2>
+    <p>Current Balance: {{walletBalance}} Four-Leaf Coins</p>
+
+    <h3>Add More Funds</h3>
+    <form id="addFundsForm">
+      <input type="number" id="amount" name="amount" min="1" step="1" placeholder="Enter amount to add">
+      <button type="submit">Add Funds</button>
+    </form>
+  </div>
+</div>
+
+
+<script src="/js/wallet.js"></script>
+</body>
+
+
+
+
+

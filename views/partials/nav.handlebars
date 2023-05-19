@@ -7,8 +7,9 @@
           <img src="{{profilePicture}}" alt="Profile Picture" class="dropdown-toggle nav-profile-pic"
             id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
           <div class="dropdown-menu" aria-labelledby="profileDropdown">
-  <a href="/account" class="dropdown-item">Username: {{username}}</a>
-  <span class="dropdown-item">Wallet: {{walletBalance}}</span>
+  <a href="/dashboard" class="dropdown-item">Home</a>
+  <a href="/account" class="dropdown-item">Account: {{username}}</a>
+  <a href="/wallet" class="dropdown-item">Wallet: {{walletBalance}}</a>
   <a id="logout-button" class="dropdown-item">Log Out</a>
 </div>
 
@@ -25,7 +26,7 @@
         <li class="navbar-item"><a href="/register" class="navbar-link">Register</a></li>
       {{/if}}
     </ul>
-    <a href="/dashboard" class="navbar-brand">
+    <a href="/dashboard" class="navbar-brand"> Four-Leaf Casino
       <img src="/images/clover.png" alt="Four-Leaf Cas" class="nav-icon">
     </a>
   </div>
