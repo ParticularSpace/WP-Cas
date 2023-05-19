@@ -97,6 +97,13 @@ const logout = async () => {
   }
 }; 
 
+// logout event listener
+let logoutButton = document.querySelector('#logout-button');
+if (logoutButton) {
+  logoutButton.addEventListener('click', logout);
+};
+
+
 // making a call to /games when the user clicks the Get Started button
 
 const getStarted = async () => {
