@@ -35,19 +35,25 @@ $(".flip").click(function(){
 
 
 
-function updateWallet (input) {
-
-    let updateBalance = input;
-
-    Wallet.findByPk(user_id) 
-  .then((wallet) => {
-    if (wallet) {
-      wallet.balance = updateBalance; // Apply the change to the balance property
-      return wallet.save(); // Save the changes to the database
+async function updateWalletBalance ( input ) {
+    try {
+      const response = await fetch('/api/wallet/fund', {
+        method: 'POST',
+        body: JSON.stringify({ input }),
+        headers: { 'Content-Type': 'application/json' }
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to communicate with balance');
+      }
+  
     }
-    throw new Error('Wallet not found');
-});
+     catch (err) {
+    res.status(500).json(err);
+    }
 }
+  
+ 
 
 // make leave button route back to dashboard 
 // 
