@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{!-- <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -25,4 +25,69 @@
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="/js/game.js"></script>
     </body>
+</html> --}}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BlackJack</title>
+    <link rel="stylesheet" href="../../css/style-d.css">
+</head>
+<body>
+    <div class="capsule" id="caps">
+        <div class="me-score-container"><h5 class="meScore"> YOU: <h5 id="yourScore"> </h5> </h5></div>
+    <div class="content-info" id="c-i">
+    <section class="full-card" id="f-c">
+        <div class="front">
+            <h5 class="balance-amount" id="balance"> Balance: {{ walletBal }} </h5>
+            <p> Place your bet! </p>
+            <div class="chip-container" id="chips">
+                <button class="bet-1" id="b-1"> 1 </button>
+                <button class="bet-5" id="b-5"> 5 </button>
+                <button class="bet-10" id="b-10"> 10 </button>
+                <button class="bet-20" id="b-20"> 20 </button>
+            </div>
+            <button class="make-bet flip" id="betBtn"> BET </button>
+        </div>
+
+        <div class="back">
+            <div class="table">
+                <div class="dealerHand" id="dealer">
+                    <div id="a"></div>
+                    <div id="b"><img id="faceDown" src="../images/fullDeck/back.png" alt=""></div>
+                    <div id="c"></div>
+                    <div id="d"></div>
+                </div>
+        
+                <div class="myHand" id="me">
+                    <div id="e"></div>
+                    <div id="f"></div>
+                    <div id="g"></div>
+                    <div id="h"></div>
+                </div>
+            </div>   
+                <div class="button-container" id="chip-c">
+                    <button class="hit" id="hitBtn"> HIT </button>
+                    <button class="stay" id="stayBtn"> STAY </button>
+                    
+                    <button class="double" id="doubleBtn"> DOUBLE </button>
+                </div>
+            <div class="final-buttons">
+                <button class="flip replay"> Go Again? </button>
+                <button class="dont-worry-about-what-this-is"> Secret message </button>
+                <button class="leave"> No thanks... </button>
+            </div>
+        </div>
+    </section>
+    </div>
+        <div class="not-me-score-container"><h5 class="notMeScore"> DEALER: <h5 id="notYourScore"> </h5></div>
+    </div>
+    <div class="little-helper" > <div class="chat-window"> {{> chatWindow }}</div><!-- set chat here --> <img src="../images/sal.gif" alt="lil-helper"></div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="../js/blackjack.js"></script>
+</body>
 </html>
