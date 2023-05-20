@@ -12,10 +12,20 @@ let unFlipped;
 let deck;
 
 const stay = document.getElementById("stayBtn");
+const dbl = document.getElementById("doubleBtn");
+const HIT = document.getElementById("hitBtn");
+
 
 const bButton = document.getElementById("betBtn");
 bButton.disabled = true;
 let allowHit = true;
+
+const exit = document.getElementById("exit-game-id");
+
+
+
+// let lieDetector = true; // just a general variable set to true
+
 
 // gets only the number that's being displayed
 let balanceView = document.getElementById('balance'); //======= 
@@ -45,6 +55,10 @@ $(".flip").click(function(){
 });
 
 
+
+
+
+
 //========================================================================================================
 async function updateWalBal (input) {
     try {
@@ -69,6 +83,10 @@ $("#leave_game").click(function() {
     window.location.href = "../dashboard";
 
 });
+
+$(".exit-game").click(function() {
+    window.location.href = "../dashboard";
+})
 // ========== Apply chat partial =========
 
 $("#applyChatPartial").click(function(event) {
@@ -109,7 +127,7 @@ $("#betBtn").click(function() {
 $(".replay").click(function() {
     stopSound(audio2);
     playSound(audio1);
-
+    
 
     dealerSum = 0;
     dealerAce = 0;
@@ -119,7 +137,9 @@ $(".replay").click(function() {
     betAmount = 0;
 
     stay.disabled = false;
-
+    exit.disabled = false;
+    dbl.disabled = false;
+    HIT.disabled = false;
     $(".not-me-score-container").hide();
     $(".me-score-container").hide();
     // call function that adds or subracts amount to user wallet database
@@ -129,7 +149,7 @@ $(".replay").click(function() {
 });
 
 $("#hitBtn").click(function() {
-    $("#doubleBtn").hide();
+    dbl.disabled = true;
     hitbtn();
 
 });
@@ -138,6 +158,7 @@ $("#stayBtn").click(function() {
     $(".replay").show();
     $(".leave").show();
     stay.disabled = true;
+    
     if(dealerSum < 17){
         dealerHand();
     }
@@ -191,7 +212,23 @@ $("#stayBtn").click(function() {
 // double bet amount
 $("#doubleBtn").click(function() {
     betAmount += betAmount;
-    $("#doubleBtn").hide();
+    dbl.disabled = true;
+    HIT.disabled = true;
+
+    //===== add hit 1 card
+    let $newCard = $('<img />');
+    let card = deck.pop();
+    let url = "/../images/fullDeck/" + card +".png";
+    $newCard.attr('src', url);
+    yourSum += cardValue(card);
+    yourAce += checkForAce(card);
+    let $insertCard = $('#e');
+    $insertCard.append($newCard);
+        
+    document.getElementById("yourScore").innerHTML = yourSum;
+
+
+
 });
 
 // bet 1
@@ -309,7 +346,7 @@ function gameStart() {
     $(".replay").hide();
     $(".leave").hide();
     $("#doubleBtn").show();
-
+    exit.disabled = true;
     //=================================== fade these in...
     $(".not-me-score-container").show();
     $(".me-score-container").show();
