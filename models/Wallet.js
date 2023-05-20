@@ -14,18 +14,18 @@ Wallet.init(
     },
     encrypted_id: {
       type: DataTypes.STRING,
-      allowNull: true, // Temporarily allow null
+      allowNull: true, 
     },
     balance: {
       type: DataTypes.DECIMAL(10,2),
       allowNull: false,
-      defaultValue: 1, // Sets a default value for the balance field
+      defaultValue: 5000,
     },
     user_id: {
       type: DataTypes.INTEGER,
       references: {
-        model: 'user', // References the 'user' model
-        key: 'id' // References the primary key of the 'user' model
+        model: 'user', 
+        key: 'id' 
       }
     },
   },

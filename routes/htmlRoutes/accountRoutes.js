@@ -41,6 +41,8 @@ if(user.profile_picture) {
       logged_in: req.session.logged_in,
       showNav: true,
       
+     
+      
     });
   } catch (err) {
     res.status(500).json(err);
@@ -55,7 +57,8 @@ router.get('/account/:id', async (req, res) => {
     res.render('dashboard', 
       {
         ...user,
-        logged_in: req.session.logged_in
+        logged_in: req.session.logged_in,
+        showNav: true,
       }
     );
   } catch (error) {
@@ -97,6 +100,7 @@ router.get('/dashboard', withAuth, async (req, res) => {
       walletBalance: wallet.balance, // passing wallet balance to the front-end
       logged_in: req.session.logged_in,
       showNav: true,
+      
     });
   } catch (err) {
     res.status(500).json(err);
@@ -116,7 +120,7 @@ router.get('/wallet', withAuth, async (req, res) => {
     const walletData = await Wallet.findOne({
       where: {
         user_id: req.session.user.id,
-        showNav: true,
+        
       },
     });
 
@@ -134,8 +138,10 @@ router.get('/wallet', withAuth, async (req, res) => {
     // Pass serialized data and session flag into template
     res.render('wallet', {
       ...user,
-      walletBalance: wallet.balance, // passing wallet balance to the front-end
+      walletBalance: wallet.balance, 
       logged_in: req.session.logged_in,
+      showNav: true,
+      
     });
   } catch (err) {
     res.status(500).json(err);

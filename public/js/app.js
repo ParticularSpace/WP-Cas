@@ -1,3 +1,14 @@
+
+
+
+
+
+
+
+
+
+
+
 const loginFormHandler = async (event) => {
   event.preventDefault(); // Prevent form submission
 
@@ -18,31 +29,51 @@ const loginFormHandler = async (event) => {
           'Content-Type': 'application/json',
         },
       });
-      
-      console.log(response, 'app.js loginFormHandler 21');
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      
+
 
       if (response.ok) {
-        console.log('Response was OK');
         const data = await response.json(); // Get the response data as JSON
-        console.log(data, 'app.js loginFormHandler 31');
-        // If the login is successful, redirect to the dashboard page.
+        console.log('Response data:', data);
+      
+        const welcomeMessage = data.message; // Get the welcome message from the server
+        console.log('Welcome message:', welcomeMessage);
+      
+        sessionStorage.setItem('welcomeMessage', welcomeMessage); // Store the welcome message in sessionStorage
+      
         document.location.replace('/dashboard');
       } else {
         console.log('Response was not OK');
-        
       }
-    } catch (err) {
-      window.alert('Password or username is incorrect. Please try again.');
-      document.location.reload();
-      console.error('Error in fetch call', err);
-    }
+      } catch (err) {
+        window.alert('Password or username is incorrect. Please try again.');
+        document.location.reload();
+        console.error('Error in fetch call', err);
+      }
+      
+      
   }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 const registerFormHandler = async (event) => {
   event.preventDefault(); // Prevent form submission
@@ -61,7 +92,7 @@ const registerFormHandler = async (event) => {
 
     if (response.ok) {
       // If the registration is successful, redirect to the login page.
-      document.location.replace('/login');
+      // document.location.replace('/login');
     } else {
       alert('Failed to register');
     }
@@ -97,7 +128,7 @@ const logout = async () => {
   } else {
     alert('Failed to log out');
   }
-}; 
+};
 
 // logout event listener
 let logoutButton = document.querySelector('#logout-button');

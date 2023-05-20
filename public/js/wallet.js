@@ -1,4 +1,11 @@
 async function addFunds(amount) {
+  // if amount is less then 1 or more then 1000 return window.alert with message
+  if (amount < 1 || amount > 1000) {
+    window.alert('Please enter an amount between 1 and 1000');
+    // clear the amountInputElement
+    amountInputElement.value = '';
+    return;
+  }
     try {
       const response = await fetch('/api/wallet/fund', {
         method: 'POST',

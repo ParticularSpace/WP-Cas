@@ -16,17 +16,18 @@
 
   <div class="container">
     <div class="wallet-wrapper">
-      <h2>Your Wallet</h2>
-      <p>Current Balance: {{walletBalance}} Four-Leaf Coins</p>
+      <h2>Current Balance:</h2> <p>{{walletBalance}} Coins</p>
 
       <h3>Add More Funds</h3>
+      <p>Enter an amount between 1 and 1000</p>
       <form id="addFundsForm">
-        <input type="number" id="amount" name="amount" min="1" step="1" placeholder="Enter amount to add">
+        <input type="number" id="amount" name="amount" min="1" max="1000" placeholder="Enter amount to add">
         <button type="submit">Add Funds</button>
       </form>
     </div>
   </div>
 
+{{> chatWindow }}
 
   <script src="/js/wallet.js"></script>
 </body>

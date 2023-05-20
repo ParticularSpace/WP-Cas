@@ -61,10 +61,7 @@ body {
   text-decoration: none;
 }
 
-.navbar-link:hover {
-  background-color: #555;
-  color: white;
-}
+
 
 .nav-icon {
   width: 30px;
@@ -248,6 +245,19 @@ button:hover {
 .navbar-link:hover {
   background-color: #555;
   color: white;
+}
+
+.welcome {
+  font-family: 'Raleway', sans-serif;
+  font-size: 50px;
+  display: flex;
+  color: white;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 30px;
+  border-radius: 20px;
+  padding: 10px;
 }
 
 

@@ -8,6 +8,8 @@ require('dotenv').config();
 const withAuth = require('../../utils/auth');
 const upload = require('../../config/s3');
 
+const { generateResponse } = require('../../utils/openAIService');
+
 const bucketName = process.env.AWS_S3_BUCKET; 
 const region = process.env.AWS_REGION; 
 
@@ -57,6 +59,7 @@ router.post('/register', async (req, res) => {
 
 // Login route GOOD
 router.post('/login', async (req, res) => {
+  console.log('req.body:', req.body);
   
   try {
     const { username, password } = req.body;
@@ -78,25 +81,29 @@ router.post('/login', async (req, res) => {
       res.status(400).json({ message: 'Incorrect password, please try again' }); // Respond with an error message if the password is incorrect
       return;
     }
+    
+const welcomeMessage = await generateResponse(`My name is ${userData.username}`);
+
+console.log('welcomeMessage:', welcomeMessage);
+
 
     req.session.user = {
       id: userData.id,
       username: userData.username,
       profilePicture: userData.profile_picture,
-      showNav: true,
+      
     };
 
     req.session.logged_in = true; // Set the session as logged in
 
-   
-
-    res.json({ user: userData, message: 'ok' }); // Respond with the user data and a success message
+    res.json({ user: userData, message: welcomeMessage }); // Respond with the user data and a success message
 
   } catch (err) {
     console.error(err.message);
     res.status(400).json(err); // Respond with an error message if an error occurs during the login process
   }
 });
+
 
 // Logout route CHECK THIS
 router.post('/logout', (req, res) => {
@@ -210,6 +217,10 @@ router.put('/update/profile-picture', withAuth, async (req, res) => {
       console.error(error);
       res.status(500).json({ error: 'An error occurred while updating the profile picture' });
   }
+});
+
+// Put to call generatResponse after game win or loss
+router.put('/update/ai', withAuth, async (req, res) => {
 });
 
 // Delete user
