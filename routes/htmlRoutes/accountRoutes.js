@@ -39,6 +39,7 @@ if(user.profile_picture) {
       ...user,
       walletBalance: wallet.balance,
       logged_in: req.session.logged_in,
+      showNav: true,
       
     });
   } catch (err) {
@@ -95,6 +96,7 @@ router.get('/dashboard', withAuth, async (req, res) => {
       ...user,
       walletBalance: wallet.balance, // passing wallet balance to the front-end
       logged_in: req.session.logged_in,
+      showNav: true,
     });
   } catch (err) {
     res.status(500).json(err);
@@ -114,6 +116,7 @@ router.get('/wallet', withAuth, async (req, res) => {
     const walletData = await Wallet.findOne({
       where: {
         user_id: req.session.user.id,
+        showNav: true,
       },
     });
 

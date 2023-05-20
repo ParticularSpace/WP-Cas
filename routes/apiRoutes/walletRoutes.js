@@ -32,29 +32,4 @@ router.post('/fund', async (req, res) => {
   }
 });
 
-// router.post('/fund', async (req, res) => {
-//   try {
-//     const walletData = await Wallet.findOne({
-//       where: {
-//         user_id: req.session.user.id,
-//       },
-//     });
-
-//     if(walletData) {
-//       walletData.balance = Number(req.body.input);
-
-//       console.log( "blackjack has reached route to update wallet balance");
-
-//       await walletData.save();
-//       res.status(200).json(walletData);
-//     }else {
-//       res.status(404).json({ message: 'The wallet has not been found' });
-//     } 
-//     }
-//     catch (err) {
-//       res.status(500).json(err);
-//     }
-
-// });
-
 module.exports = router;

@@ -83,6 +83,7 @@ router.post('/login', async (req, res) => {
       id: userData.id,
       username: userData.username,
       profilePicture: userData.profile_picture,
+      showNav: true,
     };
 
     req.session.logged_in = true; // Set the session as logged in
