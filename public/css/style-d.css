@@ -363,6 +363,28 @@ p {
     animation: fade-slideDown 1000ms;
 }
 
+.chat-window {
+    /* display: none; */
+    position: absolute;
+    right: 150px;
+    bottom: 0;
+    width: 200px;
+    max-width: 100px;
+}
+
+.exit-game {
+    position: absolute;
+    top:2px;
+    left: 5px;
+    width: 55px;
+    height: 35px;
+    background: darkred;
+    color: white;
+    border: 2px solid white;
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    border-radius: 8%;
+}
 
 #double {
     box-shadow: 0 0 0 #aaa;
