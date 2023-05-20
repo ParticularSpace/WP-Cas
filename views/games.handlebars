@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../../css/style-d.css">
 </head>
 <body>
+    <a href="" id=""> Exit </a>
     <div class="capsule" id="caps">
         <div class="me-score-container"><h5 class="meScore"> YOU: <h5 id="yourScore"> </h5> </h5></div>
     <div class="content-info" id="c-i">
@@ -49,14 +50,15 @@
             <div class="final-buttons">
                 <button class="flip replay"> Go Again? </button>
                 <button class="dont-worry-about-what-this-is"> Secret message </button>
-                <button class="leave"> No thanks... </button>
+                <button class="leave" id="leave_game"> Leave </button>
             </div>
         </div>
     </section>
     </div>
         <div class="not-me-score-container"><h5 class="notMeScore"> DEALER: <h5 id="notYourScore"> </h5></div>
     </div>
-    <div class="little-helper" > <div class="chat-window"> {{> chatWindow }}</div><!-- set chat here --> <img src="../images/sal.gif" alt="lil-helper"></div>
+    
+     <div class="little-helper" > <div id="lilHChat" class="chat-window"> {{> chatWindow }}</div> <a href="#" id="applyChatPartial"><img src="../images/sal.gif" alt="lil-helper"></a></div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="../js/blackjack.js"></script>

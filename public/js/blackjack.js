@@ -26,13 +26,18 @@ let playerBalance;
 playerBalance = walletBalance; 
 // extra variable for holding temp player balalnce for bet buttons.
 let tempBalance;
+const audio1 = new Audio("../sounds/intro_2.mp3");
+const audio2 = new Audio("../sounds/play_song.mp3");
 
-
+const chat_window = document.getElementById("lilHChat");
+let isShowing = false;
 
 
 window.onload = function() {
     $(".not-me-score-container").hide();
     $(".me-score-container").hide();
+    $(".chat-window").hide();
+    playSound(audio1);
 }
 
 $(".flip").click(function(){
@@ -60,11 +65,40 @@ async function updateWalBal (input) {
  // ==========================================================================================================
 
 // make leave button route back to dashboard 
-// 
+$("#leave_game").click(function() {
+    window.location.href = "../dashboard";
+
+});
+// ========== Apply chat partial =========
+
+$("#applyChatPartial").click(function(event) {
+    event.preventDefault();
+
+    if(isShowing == false){
+    $(".chat-window").show();
+    isShowing = true;
+    return;
+    }
+    else if(isShowing == true){
+    $(".chat-window").hide();
+    isShowing = false;
+    return;
+    }
+    
+});
 
 
-function revertBalanceDisplay () {
 
+function playSound(Y) {
+    Y.loop = true;
+    Y.play();
+}
+
+function stopSound(X) {
+    if (X) {
+      X.pause();
+      X.currentTime = 0;
+    }
 }
 
 
@@ -73,6 +107,10 @@ $("#betBtn").click(function() {
 });
 
 $(".replay").click(function() {
+    stopSound(audio2);
+    playSound(audio1);
+
+
     dealerSum = 0;
     dealerAce = 0;
     yourSum = 0;
@@ -265,6 +303,8 @@ function hitbtn(){
 
 
 function gameStart() { 
+    stopSound(audio1);
+    playSound(audio2);
     endGameRefresh();
     $(".replay").hide();
     $(".leave").hide();
