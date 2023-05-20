@@ -100,37 +100,40 @@ $("#stayBtn").click(function() {
 
     // displays who won ===========
 
-     if(yourSum > 21){
+    if(yourSum > 21){
         endMessage = 'YOU LOSE';
-        playerBalance = betAmount - playerBalance;
+        playerBalance = playerBalance - betAmount;
         balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
         updateWalBal(playerBalance);
      }
     else if(dealerSum > 21){
         endMessage = 'YOU WIN';
-        playerBalance = betAmount + playerBalance;
+        playerBalance = playerBalance + betAmount;
         balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
         updateWalBal(playerBalance);
     }
     else if(yourSum == dealerSum){
         endMessage = 'TIE';
         //=====
+        
 
     }
     else if(yourSum > dealerSum){
         endMessage = 'YOU WIN';
-        playerBalance = betAmount + playerBalance;
+        playerBalance = playerBalance + betAmount;
         balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
         updateWalBal(playerBalance);
     }
     else if(yourSum < dealerSum){
         endMessage = 'YOU LOSE';
-        playerBalance = betAmount - playerBalance;
+        playerBalance = playerBalance - betAmount;
         balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
         updateWalBal(playerBalance);
     }
+    
     document.getElementById("notYourScore").innerHTML = dealerSum;
     document.getElementById("yourScore").innerHTML = yourSum;
+    
 
 });
 
