@@ -363,6 +363,14 @@ p {
     animation: fade-slideDown 1000ms;
 }
 
+.chat-window {
+    /* display: none; */
+    position: absolute;
+    right: 150px;
+    bottom: 0;
+    width: 200px;
+    max-width: 100px;
+}
 
 #double {
     box-shadow: 0 0 0 #aaa;
