@@ -15,7 +15,7 @@
     --C-6: ;
 }
 body {
-    background: white;
+    background: dimgray;
     
 }
 .capsule {
@@ -74,7 +74,7 @@ body {
     box-sizing: border-box;
     border-radius: 5%;
     padding: 2%;
-    box-shadow: 0 15px 10px grey;
+    box-shadow: 0 15px 10px black;
     background: black;
     
 }
@@ -100,10 +100,10 @@ body {
     display: grid;
     grid-template-rows: repeat(4, 1fr);
     /* background:burlywood; */
-    background-image: url(../images/wood_back2.jpg);
-    background-size: 100% 100%;
+    background-image: url(../images/wood_back3.jpg);
+    background-size: 100% 50%;
     z-index: 1;
-    box-shadow: 0 15px 10px grey;
+    box-shadow: 0 15px 10px black;
     border-radius: 5%;
     padding-bottom: 10%;
     
@@ -150,6 +150,7 @@ body {
     border-radius: 25%;
     padding: 2%;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    /* animation: fadeIn 1000ms; */
 }
 .chip-container {
     display: grid;
@@ -163,10 +164,8 @@ body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .make-bet {
-    
     position: absolute;
     width: 75px;
-    
 
     left: 0;
     right: 0;
@@ -180,7 +179,7 @@ body {
     background:darkred;
     color: white;
     border-radius: 20%;
-    border-color: white; 
+    border-color: white;
     /*box-shadow: 0 4px 4px black;*/
 }
 
@@ -297,7 +296,7 @@ p {
     bottom: 0;
     width: 95px;
     max-width: 95px;
-    
+    animation: fade-slideLeft 2000ms;
 }
 
 .dealerHand div {
@@ -306,12 +305,12 @@ p {
 }
 .myHand div {
     justify-self: center;
-    
+   
 }
 
 .table img {
     /* animation: fadeIn 1000ms; */
-    animation: fade-slideLeft 1300ms;
+    animation: fade-slideLeftandDown 1300ms;
 }
 .bet-1 {
     width: 75px;
@@ -387,10 +386,17 @@ p {
 
 }
 
-@keyframes fade-slideLeft {
+@keyframes fade-slideLeftandDown {
     0% {opacity: 0;
         transform: translateX(50px) translateY(-50px) scale(0.9);}
     100% {opacity: 1;
         transform: translateX(0px) translateY(0px) scale(1);}
+
+}
+@keyframes fade-slideLeft {
+    0% {opacity: 0;
+        transform: translateX(50px)  scale(0.9);}
+    100% {opacity: 1;
+        transform: translateX(0px)  scale(1);}
 
 }

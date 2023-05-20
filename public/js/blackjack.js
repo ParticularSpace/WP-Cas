@@ -24,6 +24,10 @@ let walletBalance = parseFloat(balanceText.split(':')[1]);
 // holds that number
 let playerBalance;
 playerBalance = walletBalance; 
+// extra variable for holding temp player balalnce for bet buttons.
+let tempBalance;
+
+
 
 
 window.onload = function() {
@@ -58,6 +62,10 @@ async function updateWalBal (input) {
 // make leave button route back to dashboard 
 // 
 
+
+function revertBalanceDisplay () {
+
+}
 
 
 $("#betBtn").click(function() {
@@ -150,37 +158,65 @@ $("#doubleBtn").click(function() {
 
 // bet 1
 $("#b-1").click(function() {
+    balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
+    
     if(playerBalance < 1){
         return;
     }
     betAmount = 1;
+
+    tempBalance = playerBalance
+    tempBalance = tempBalance - betAmount;
+    balanceView.textContent = "Balance: " + tempBalance.toFixed(2);
+
     bButton.disabled = false;
 });
 
 // bet 5
 $("#b-5").click(function() {
+    balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
+
     if(playerBalance < 5){
         return;
     }
     betAmount = 5;
+
+    tempBalance = playerBalance
+    tempBalance = tempBalance - betAmount;
+    balanceView.textContent = "Balance: " + tempBalance.toFixed(2);
+
     bButton.disabled = false;
 });
 
 // bet 10
 $("#b-10").click(function() {
+    balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
+
     if(playerBalance < 10){
         return;
     }
     betAmount = 10;
+
+    tempBalance = playerBalance
+    tempBalance = tempBalance - betAmount;
+    balanceView.textContent = "Balance: " + tempBalance.toFixed(2);
+
     bButton.disabled = false;
 });
 
 // bet 20
 $("#b-20").click(function() {
+    balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
+
     if(playerBalance < 20){
         return;
     }
     betAmount = 20;
+
+    tempBalance = playerBalance
+    tempBalance = tempBalance - betAmount;
+    balanceView.textContent = "Balance: " + tempBalance.toFixed(2);
+
     bButton.disabled = false;
 });
 // =========================================================================
