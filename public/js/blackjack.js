@@ -11,6 +11,8 @@ let yourAce = 0;
 let unFlipped;
 let deck;
 
+const stay = document.getElementById("stayBtn");
+
 const bButton = document.getElementById("betBtn");
 bButton.disabled = true;
 let allowHit = true;
@@ -69,6 +71,9 @@ $(".replay").click(function() {
     yourAce = 0;
     allowHit = true;
     betAmount = 0;
+
+    stay.disabled = false;
+
     $(".not-me-score-container").hide();
     $(".me-score-container").hide();
     // call function that adds or subracts amount to user wallet database
@@ -86,7 +91,7 @@ $("#hitBtn").click(function() {
 $("#stayBtn").click(function() {
     $(".replay").show();
     $(".leave").show();
-
+    stay.disabled = true;
     if(dealerSum < 17){
         dealerHand();
     }
