@@ -34,26 +34,24 @@ $(".flip").click(function(){
 });
 
 
-
-async function updateWalletBalance ( input ) {
+//========================================================================================================
+async function updateWalBal (input) {
     try {
-      const response = await fetch('/api/wallet/fund', {
-        method: 'POST',
-        body: JSON.stringify({ input }),
-        headers: { 'Content-Type': 'application/json' }
-      });
-  
-      if (!response.ok) {
-        throw new Error('Failed to communicate with balance');
-      }
-  
+        const response = await fetch('/api/profile/wallet/user_wallet/U_W_bal', {
+          method: 'POST',
+          body: JSON.stringify({ input }),
+          headers: { 'Content-Type': 'application/json' }
+        });
+        if (!response.ok) {
+            throw new Error('Failed to add funds');
+        }
+    } catch (error) {
+        console.error('Error:', error);
     }
-     catch (err) {
-    res.status(500).json(err);
-    }
+
+    
 }
-  
- 
+ // ==========================================================================================================
 
 // make leave button route back to dashboard 
 // 
@@ -100,19 +98,19 @@ $("#stayBtn").click(function() {
     document.getElementById('faceDown').src = "/../images/fullDeck/" + unFlipped + ".png";
 
 
-    // just displays who won ===========
+    // displays who won ===========
 
      if(yourSum > 21){
         endMessage = 'YOU LOSE';
         playerBalance = betAmount - playerBalance;
         balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
-        updateWallet(playerBalance.toFixed(2));
+        updateWalBal(playerBalance);
      }
     else if(dealerSum > 21){
         endMessage = 'YOU WIN';
         playerBalance = betAmount + playerBalance;
         balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
-
+        updateWalBal(playerBalance);
     }
     else if(yourSum == dealerSum){
         endMessage = 'TIE';
@@ -123,13 +121,13 @@ $("#stayBtn").click(function() {
         endMessage = 'YOU WIN';
         playerBalance = betAmount + playerBalance;
         balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
-
+        updateWalBal(playerBalance);
     }
     else if(yourSum < dealerSum){
         endMessage = 'YOU LOSE';
         playerBalance = betAmount - playerBalance;
         balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
-
+        updateWalBal(playerBalance);
     }
     document.getElementById("notYourScore").innerHTML = dealerSum;
     document.getElementById("yourScore").innerHTML = yourSum;
