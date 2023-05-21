@@ -43,12 +43,21 @@ const chat_window = document.getElementById("lilHChat");
 let isShowing = false;
 
 
-window.onload = function() {
-    $(".not-me-score-container").hide();
-    $(".me-score-container").hide();
-    $(".chat-window").hide();
+// window.onload = function() {
+//     $(".not-me-score-container").hide();
+//     $(".me-score-container").hide();
+//     $(".chat-window").hide();
+//     playSound(audio1);
+// }
+
+window.addEventListener('DOMContentLoaded', function() {
+    
+        $(".not-me-score-container").hide();
+        $(".me-score-container").hide();
+     $(".chat-window").hide();
     playSound(audio1);
-}
+   
+});
 
 $(".flip").click(function(){
     $(this).parents(".full-card").toggleClass("flipped");
