@@ -10,6 +10,8 @@ let yourAce = 0;
 
 let unFlipped;
 let deck;
+let un; 
+
 
 const stay = document.getElementById("stayBtn");
 const dbl = document.getElementById("doubleBtn");
@@ -56,6 +58,7 @@ window.addEventListener('DOMContentLoaded', function() {
     $(".me-score-container").hide();
     $(".chat-window").hide();
     playSound(audio1);
+    $(".endGameResults").hide();
    
 });
 
@@ -149,6 +152,7 @@ $(".replay").click(function() {
     exit.disabled = false;
     dbl.disabled = false;
     HIT.disabled = false;
+    $(".endGameResults").hide();
     $(".not-me-score-container").hide();
     $(".me-score-container").hide();
     // call function that adds or subracts amount to user wallet database
@@ -166,8 +170,9 @@ $("#hitBtn").click(function() {
 $("#stayBtn").click(function() {
     $(".replay").show();
     $(".leave").show();
+    $(".endGameResults").show();
     stay.disabled = true;
-    
+    let displayResult = document.querySelector(".endGameResults");
     if(dealerSum < 17){
         dealerHand();
     }
@@ -182,34 +187,38 @@ $("#stayBtn").click(function() {
     // displays who won ===========
 
     if(yourSum > 21){
-        endMessage = 'BUST';
+        endMessage = 'BUST ';
+        displayResult.textContent = endMessage + "-" + betAmount;
         playerBalance = playerBalance - betAmount;
         balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
         updateWalBal(playerBalance);
      }
     else if(dealerSum > 21){
-        endMessage = 'YOU WIN';
+        endMessage = 'YOU WIN ';
         playerBalance = playerBalance + betAmount;
         balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
         updateWalBal(playerBalance);
+        displayResult.textContent = endMessage + "+" + betAmount;
     }
     else if(yourSum == dealerSum){
-        endMessage = 'TIE';
+        endMessage = 'TIE ';
         //=====
         balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
-
+        displayResult.textContent = endMessage + "+0";
     }
     else if(yourSum > dealerSum){
-        endMessage = 'YOU WIN';
+        endMessage = 'YOU WIN ';
         playerBalance = playerBalance + betAmount;
         balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
         updateWalBal(playerBalance);
+        displayResult.textContent = endMessage + "+" + betAmount;
     }
     else if(yourSum < dealerSum){
-        endMessage = 'BUST';
+        endMessage = 'BUST ';
         playerBalance = playerBalance - betAmount;
         balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
         updateWalBal(playerBalance);
+        displayResult.textContent = endMessage + "-" + betAmount;
     }
     
     document.getElementById("notYourScore").innerHTML = dealerSum;
@@ -366,9 +375,10 @@ function gameStart() {
     unFlipped = deck.pop();
     dealerSum += cardValue(unFlipped);
     dealerAce += checkForAce(unFlipped);
-
+    un = dealerSum;
     dealerHand();
-
+    
+    document.getElementById("notYourScore").innerHTML = dealerSum - un; 
 
     for(i = 0; i < 2; i++){
         
@@ -410,7 +420,9 @@ function changeAce(a, b){
     while(a > 21 && b > 0){
         a -= 10;
         b -= 1;
+        
     }
+    
     return a;
 }
 
@@ -438,10 +450,12 @@ function dealerHand(){
     let url = "/../images/fullDeck/" + card +".png";
     $newCard.attr('src', url);
     dealerSum += cardValue(card);
+    
     dealerAce += checkForAce(card);
     let $dealerHand = $('#b');
     $dealerHand.append($newCard);
-        
+
+    
     
     return;
 }
