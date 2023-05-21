@@ -36,8 +36,8 @@ let playerBalance;
 playerBalance = walletBalance; 
 // extra variable for holding temp player balalnce for bet buttons.
 let tempBalance;
-const audio1 = new Audio("../sounds/intro_2.mp3");
-const audio2 = new Audio("../sounds/play_song.mp3");
+const audio1 = new Audio("../sounds/intro_game_music_1a.mp3");
+// const audio2 = new Audio("../sounds/play_song.mp3");
 
 const chat_window = document.getElementById("lilHChat");
 let isShowing = false;
@@ -125,8 +125,8 @@ $("#betBtn").click(function() {
 });
 
 $(".replay").click(function() {
-    stopSound(audio2);
-    playSound(audio1);
+    // stopSound(audio2);
+    // playSound(audio1);
     
 
     dealerSum = 0;
@@ -340,8 +340,8 @@ function hitbtn(){
 
 
 function gameStart() { 
-    stopSound(audio1);
-    playSound(audio2);
+    // stopSound(audio1);
+    // playSound(audio2);
     endGameRefresh();
     $(".replay").hide();
     $(".leave").hide();
