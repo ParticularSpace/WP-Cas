@@ -171,7 +171,9 @@ $("#stayBtn").click(function() {
     $(".replay").show();
     $(".leave").show();
     $(".endGameResults").show();
+    dbl.disabled = true;
     stay.disabled = true;
+    HIT.disabled = true;
     let displayResult = document.querySelector(".endGameResults");
     if(dealerSum < 17){
         dealerHand();
