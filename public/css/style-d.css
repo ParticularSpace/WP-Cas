@@ -22,10 +22,11 @@ body {
     width: 100%;
     height: 100vh;
     position: relative;
-    
+    transition: 0.3s ease-in-out;
 }
 body.second-img {
     background-image: url("../images/game_play.gif");
+    transition: 0.3s ease-in-out;
 }
 
 
@@ -428,6 +429,7 @@ p {
     width: 200px;
     max-width: 100px;
     color: white;
+    
 
 } */
 
@@ -443,6 +445,24 @@ p {
     text-align: center;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     border-radius: 8%;
+}
+.endGameContainer {
+     text-align:left;
+}
+.endGameResults {
+    transition: 0.3 ease-in-out;
+    padding: 1% 3% 1% 3%;
+    z-index: 2;
+    background: black;
+    color: gold;
+    border: 2px solid gold;
+    border-radius: 8%;
+    position: absolute;
+    right: 45%;
+    bottom: 0;
+    width: 150px;
+    max-width: 150px;
+    animation: fade-slideUp 2000ms;
 }
 
 #double {
@@ -477,6 +497,13 @@ p {
 @keyframes fade-slideLeft {
     0% {opacity: 0;
         transform: translateX(50px)  scale(0.9);}
+    100% {opacity: 1;
+        transform: translateX(0px)  scale(1);}
+
+}
+@keyframes fade-slideUp {
+    0% {opacity: 0;
+        transform: translatey(50px)  scale(0.9);}
     100% {opacity: 1;
         transform: translateX(0px)  scale(1);}
 
