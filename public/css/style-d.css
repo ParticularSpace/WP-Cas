@@ -15,6 +15,9 @@
     --C-6: ;
 }
 body {
+    /* background-image: url("../images/game_play.gif");
+    background-size: cover;
+    background-repeat: no-repeat; */
     background: dimgray;
     
 }
@@ -315,31 +318,47 @@ p {
 .bet-1 {
     width: 75px;
     height: 75px;
-    background: green;
+    /* background: white; */
+    background-image: url("../images/gre.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
     color: white;
-    border-color: white;
+    /* border-color: white; */
     
 }
 .bet-5 {
     width: 75px;
     height: 75px;
-    background: red;
+    /* background: white; */
+    background-image: url("../images/red.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
     color: white;
-    border-color: white;
+    /* border-color: white; */
 }
 .bet-10 {
     width: 75px;
     height: 75px;
-    background: purple;
+    /* background: white; */
+    background-image: url("../images/bla.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
     color: white;
-    border-color: white;
+    /* border-color: white; */
 }
 .bet-20 {
     width: 75px;
     height: 75px;
-    background: yellow;
+    /* background: white; */
+    background-image: url("../images/blu.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
     color: white;
-    border-color: white;
+    /* border-color: white; */
 }
 
 .me-score-container {
@@ -370,6 +389,8 @@ p {
     bottom: 0;
     width: 200px;
     max-width: 100px;
+    color: white;
+
 }
 
 .exit-game {
