@@ -14,7 +14,7 @@ let deck;
 const stay = document.getElementById("stayBtn");
 const dbl = document.getElementById("doubleBtn");
 const HIT = document.getElementById("hitBtn");
-
+const Body = document.querySelector("body");
 
 const bButton = document.getElementById("betBtn");
 bButton.disabled = true;
@@ -52,9 +52,9 @@ let isShowing = false;
 
 window.addEventListener('DOMContentLoaded', function() {
     
-        $(".not-me-score-container").hide();
-        $(".me-score-container").hide();
-     $(".chat-window").hide();
+    $(".not-me-score-container").hide();
+    $(".me-score-container").hide();
+    $(".chat-window").hide();
     playSound(audio1);
    
 });
@@ -136,7 +136,7 @@ $("#betBtn").click(function() {
 $(".replay").click(function() {
     // stopSound(audio2);
     // playSound(audio1);
-    
+    Body.classList.toggle('second-img');
 
     dealerSum = 0;
     dealerAce = 0;
@@ -182,7 +182,7 @@ $("#stayBtn").click(function() {
     // displays who won ===========
 
     if(yourSum > 21){
-        endMessage = 'YOU LOSE';
+        endMessage = 'BUST';
         playerBalance = playerBalance - betAmount;
         balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
         updateWalBal(playerBalance);
@@ -196,7 +196,7 @@ $("#stayBtn").click(function() {
     else if(yourSum == dealerSum){
         endMessage = 'TIE';
         //=====
-        
+        balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
 
     }
     else if(yourSum > dealerSum){
@@ -206,7 +206,7 @@ $("#stayBtn").click(function() {
         updateWalBal(playerBalance);
     }
     else if(yourSum < dealerSum){
-        endMessage = 'YOU LOSE';
+        endMessage = 'BUST';
         playerBalance = playerBalance - betAmount;
         balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
         updateWalBal(playerBalance);
@@ -311,7 +311,7 @@ function build() {
 
     for(let i = 0; i < type.length; i++){
         for(let j = 0; j < values.length; j++){
-            deck.push(values[j] + '-' + type[i]);
+            deck.push(values[j] + '_' + type[i]);
         }
     }
 }
@@ -351,6 +351,7 @@ function hitbtn(){
 function gameStart() { 
     // stopSound(audio1);
     // playSound(audio2);
+    Body.classList.toggle("second-img");
     endGameRefresh();
     $(".replay").hide();
     $(".leave").hide();
@@ -386,7 +387,7 @@ function gameStart() {
 
 // checks for the value of non numbered cards.
 function cardValue(card) {
-    let data = card.split('-');
+    let data = card.split('_');
     let value = data[0];
 
     if(isNaN(value)){

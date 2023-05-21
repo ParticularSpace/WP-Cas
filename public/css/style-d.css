@@ -15,12 +15,30 @@
     --C-6: ;
 }
 body {
-    /* background-image: url("../images/game_play.gif");
+    
+    background:silver;
     background-size: cover;
-    background-repeat: no-repeat; */
-    background: dimgray;
+    background-repeat: no-repeat; 
+    width: 100%;
+    height: 100vh;
+    position: relative;
     
 }
+body.second-img {
+    background-image: url("../images/game_play.gif");
+}
+
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+}
+
 .capsule {
     width: 100%;
     margin: 100px auto;
@@ -211,7 +229,7 @@ p {
 
 }
 .flipped {
-    transform: rotateY(180deg)rotateX(-45deg);
+    transform: rotateY(180deg)rotateX(-40deg);
     
 }
 
@@ -311,6 +329,19 @@ p {
    
 }
 
+.dealerHand img {
+    height: 75px;
+    width: 55px;
+    
+}
+.myHand img {
+    height: 75px;
+    width: 55px;
+   
+}
+
+
+
 .table img {
     /* animation: fadeIn 1000ms; */
     animation: fade-slideLeftandDown 1300ms;
@@ -363,6 +394,7 @@ p {
 
 .me-score-container {
     padding: 1% 2% 1% 2%;
+    z-index: 2;
     background: black;
     color: green;
     border: 2px solid green;
@@ -373,6 +405,7 @@ p {
 }
 .not-me-score-container {
     padding: 1% 2% 1% 2%;
+    z-index: 2;
     background: black;
     color: red;
     border: 2px solid red;
@@ -395,7 +428,7 @@ p {
 
 .exit-game {
     position: absolute;
-    top:2px;
+    top:0;
     left: 5px;
     width: 55px;
     height: 35px;
