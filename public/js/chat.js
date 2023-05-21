@@ -5,9 +5,16 @@ document.querySelector('#chat-form').addEventListener('submit', async (event) =>
   const userMessage = messageInput.value;
   messageInput.value = '';
 
+
+  //store username in userName variable
+  console.log(sessionStorage, "session storage");
+
   // Add user message to the chat window
   const chatMessages = document.querySelector('#chat-messages');
   chatMessages.innerHTML += `<div class="user-message"><strong>You:</strong> ${userMessage}</div>`;
+
+  // Scroll to the bottom of the chat window
+  chatMessages.scrollTop = chatMessages.scrollHeight;
 
   // Send the message to the server and get the AI response
   const response = await fetch('/api/chat', {
@@ -39,5 +46,31 @@ window.onload = function() {
 
   if (welcomeMessage) { // If there is a welcome message
     chatWindow.innerHTML += `<div class="ai-message"><strong>AI:</strong> ${welcomeMessage}</div>`; // Display the welcome message
+    //scroll to bottom of chat window
+    chatWindow.scrollTop = chatWindow.scrollHeight;
   }
+
+
+
+// const chat_window = document.getElementById("lilHChat");
+let isShowing = false;
+
+
+
+$("#applyChatPartial").click(function(event) {
+  event.preventDefault();
+
+  if(isShowing == false){
+  $(".chat-window").show();
+  isShowing = true;
+  return;
+  }
+  else if(isShowing == true){
+  $(".chat-window").hide();
+  isShowing = false;
+  return;
+  }
+  
+});
+
 }

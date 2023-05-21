@@ -5,11 +5,10 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-async function generateResponse(userMessage, gameOutcome, userName) {
+async function generateResponse(userMessage, gameOutcome) {
   try {
     const messages = [
       { role: 'system', content: 'You are a dealer at the Four-leaf Casino' },
-      { role: 'system', content: `Hello ${userName}, welcome back to the Four-leaf Casino!` },
       { role: 'system', content: `Game Outcome: ${gameOutcome}` },
       { role: 'system', content: 'You can add coins to your account by clicking on your profile image and selecting wallet' },
       { role: 'system', content: 'You can play a game by clicking on the game you want to play in the game drop down menu on the nav bar' },

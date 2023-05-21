@@ -306,7 +306,7 @@ p {
     margin-top: 2%;
     
 }
-.little-helper{
+/* .little-helper{
     display: flex;
     position: relative;
     
@@ -318,6 +318,11 @@ p {
     width: 95px;
     max-width: 95px;
     animation: fade-slideLeft 2000ms;
+} */
+
+.little-helper{
+    position: absolute;
+    z-index: 2;
 }
 
 .dealerHand div {
@@ -415,8 +420,8 @@ p {
     animation: fade-slideDown 1000ms;
 }
 
-.chat-window {
-    /* display: none; */
+/* .chat-window {
+    display: none;
     position: absolute;
     right: 150px;
     bottom: 0;
@@ -424,7 +429,7 @@ p {
     max-width: 100px;
     color: white;
 
-}
+} */
 
 .exit-game {
     position: absolute;

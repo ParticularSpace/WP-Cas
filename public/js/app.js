@@ -1,14 +1,5 @@
 
 
-
-
-
-
-
-
-
-
-
 const loginFormHandler = async (event) => {
   event.preventDefault(); // Prevent form submission
 
@@ -37,12 +28,15 @@ const loginFormHandler = async (event) => {
 
       if (response.ok) {
         const data = await response.json(); // Get the response data as JSON
-        console.log('Response data:', data);
+        console.log('Response data:', data.user);
+
+        const userName = data.user.username; // Get the username from the response data
+        console.log('Username:', userName);
       
         const welcomeMessage = data.message; // Get the welcome message from the server
         console.log('Welcome message:', welcomeMessage);
       
-        sessionStorage.setItem('welcomeMessage', welcomeMessage); // Store the welcome message in sessionStorage
+        sessionStorage.setItem('welcomeMessage',welcomeMessage); // Store the welcome message in sessionStorage
       
         document.location.replace('/dashboard');
       } else {
@@ -57,22 +51,6 @@ const loginFormHandler = async (event) => {
       
   }
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 const registerFormHandler = async (event) => {
@@ -155,10 +133,6 @@ const getStarted = async () => {
 
 // now add event listener for the get started button and call the getStarted function
 
-let getStartedButton = document.querySelector('.getStarted');
-if (getStartedButton) {
-  getStartedButton.addEventListener('click', getStarted);
-};
 
 
 

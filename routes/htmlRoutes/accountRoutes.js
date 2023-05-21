@@ -40,9 +40,8 @@ if(user.profile_picture) {
       walletBalance: wallet.balance,
       logged_in: req.session.logged_in,
       showNav: true,
-      
-     
-      
+      showCoin: true,
+    
     });
   } catch (err) {
     res.status(500).json(err);
@@ -59,6 +58,7 @@ router.get('/account/:id', async (req, res) => {
         ...user,
         logged_in: req.session.logged_in,
         showNav: true,
+        showCoin: true,
       }
     );
   } catch (error) {
@@ -100,6 +100,7 @@ router.get('/dashboard', withAuth, async (req, res) => {
       walletBalance: wallet.balance, // passing wallet balance to the front-end
       logged_in: req.session.logged_in,
       showNav: true,
+      showCoin: true,
       
     });
   } catch (err) {
@@ -141,6 +142,7 @@ router.get('/wallet', withAuth, async (req, res) => {
       walletBalance: wallet.balance, 
       logged_in: req.session.logged_in,
       showNav: true,
+      showCoin: true,
       
     });
   } catch (err) {

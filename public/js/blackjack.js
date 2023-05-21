@@ -39,8 +39,8 @@ let tempBalance;
 const audio1 = new Audio("../sounds/intro_game_music_1a.mp3");
 // const audio2 = new Audio("../sounds/play_song.mp3");
 
-const chat_window = document.getElementById("lilHChat");
-let isShowing = false;
+// const chat_window = document.getElementById("lilHChat");
+// let isShowing = false;
 
 
 // window.onload = function() {
@@ -98,21 +98,21 @@ $(".exit-game").click(function() {
 })
 // ========== Apply chat partial =========
 
-$("#applyChatPartial").click(function(event) {
-    event.preventDefault();
+// $("#applyChatPartial").click(function(event) {
+//     event.preventDefault();
 
-    if(isShowing == false){
-    $(".chat-window").show();
-    isShowing = true;
-    return;
-    }
-    else if(isShowing == true){
-    $(".chat-window").hide();
-    isShowing = false;
-    return;
-    }
+//     if(isShowing == false){
+//     $(".chat-window").show();
+//     isShowing = true;
+//     return;
+//     }
+//     else if(isShowing == true){
+//     $(".chat-window").hide();
+//     isShowing = false;
+//     return;
+//     }
     
-});
+// });
 
 
 

@@ -4,14 +4,17 @@ const router = express.Router(); // Using the Router module from Express
 const { generateResponse } = require('../../utils/openAIService'); // Importing the 'generateResponse' function from the 'openAIService' module in the 'utils' directory
 const { User } = require('../../models'); // Importing the User model
 
-// Handling POST request for '/chat' endpoint
+// Handling POST request for '/chat' endpoint 
 router.post('/chat', async (req, res) => {
-  try {
+  try { 
+ 
+    console.log(req.body, 'chat route');
     const message = req.body.message; // Extracting the message from the request body
-    const username = req.body.username; // Extracting the username from the request body
+    console.log(req.session, 'session')
+    const username = req.session.user.username; // Extracting the username from the session
 
     // Fetch the user's name from the database
-    const user = await User.findOne({ where: { username: username } });
+    const user = await User.findOne({ where: { userName: username } });
 
     // If the user doesn't exist, return an error
     if (!user) {
