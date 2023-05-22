@@ -26,7 +26,8 @@
   
   ## Images
   
-    ![Login](public/images/loginImage.png "Login")
+    ![Placeholder Image](https://via.placeholder.com/150)
+
 
     ![Dashboard](public/images/dashboard.png "Dashboard")
 
