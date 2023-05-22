@@ -25,6 +25,7 @@ router.get('/games', withAuth, async (req, res) => {
       profilePicture: user.profile_picture, 
       walletBal: wallet.balance,
       username: user.username,
+      showCoin: true,
       
     });
 

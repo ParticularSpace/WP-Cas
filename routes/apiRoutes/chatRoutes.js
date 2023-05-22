@@ -35,4 +35,18 @@ router.post('/chat', async (req, res) => {
   }
 });
 
+// Handling POST request for '/chat/announce' endpoint
+router.post('/chat/announce', async (req, res) => {
+  const { userMessage, gameOutcome } = req.body;
+  try {
+    const response = await generateResponse(userMessage, gameOutcome);
+    res.json({ message: response });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to generate response' });
+  }
+});
+
+
+
 module.exports = router; // Exporting the router for use in other files
