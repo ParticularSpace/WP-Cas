@@ -26,9 +26,11 @@
   
   ## Images
   
-    ![Login](public/images/dashboard.png "Login")
-    ![Dashboard](/images/dashboard.png "Dashboard")
-    ![Games](/images/dashboard.png "Games")
+    ![Login](public/images/loginImage.png "Login")
+
+    ![Dashboard](public/images/dashboard.png "Dashboard")
+
+    ![Games](public/images/gameScreenshot.png "Games")
   
 
   ## License
