@@ -18,7 +18,7 @@
 
   ## Installation
 
-    N/A
+  N/A
 
   ## Usage
 
@@ -26,19 +26,15 @@
   
   ## Images
   
-    ![Placeholder Image](https://via.placeholder.com/150)
-
-
-    ![Dashboard](public/images/dashboard.png "Dashboard")
-
-    ![Games](public/images/gameScreenshot.png "Games")
+  ![Login](public/images/loginImage.png "Login")
+  ![Dashboard](public/images/dashboard.png "Dashboard")
+  ![Games](public/images/gameScreenshot.png "Games")
   
-
   ## License
 
  This project is licensed under the MIT license. To learn more please visit https://choosealicense.com/licenses/mit/
 
-  ## Contributing
+  ## Cedits
 
   Sam Jones,
   Al,
