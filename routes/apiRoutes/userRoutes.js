@@ -84,14 +84,13 @@ router.post('/login', async (req, res) => {
     
 const welcomeMessage = await generateResponse(`My name is ${userData.username}`);
 
-console.log('welcomeMessage:', welcomeMessage);
 
 
     req.session.user = {
       id: userData.id,
       username: userData.username,
       profilePicture: userData.profile_picture,
-      
+      welcomeMessage: welcomeMessage,
     };
 
     req.session.logged_in = true; // Set the session as logged in
@@ -217,10 +216,6 @@ router.put('/update/profile-picture', withAuth, async (req, res) => {
       console.error(error);
       res.status(500).json({ error: 'An error occurred while updating the profile picture' });
   }
-});
-
-// Put to call generatResponse after game win or loss
-router.put('/update/ai', withAuth, async (req, res) => {
 });
 
 // Delete user

@@ -7,33 +7,32 @@ const { User } = require('../../models'); // Importing the User model
 // Handling POST request for '/chat' endpoint 
 router.post('/chat', async (req, res) => {
   try { 
- 
-    console.log(req.body, 'chat route');
-    const message = req.body.message; // Extracting the message from the request body
-    console.log(req.session, 'session')
-    const username = req.session.user.username; // Extracting the username from the session
+    const message = req.body.message;
+    const username = req.session.user.username;
 
-    // Fetch the user's name from the database
     const user = await User.findOne({ where: { username: username } });
 
-    // If the user doesn't exist, return an error
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    let response = await generateResponse(message); // Generating a response using the 'generateResponse' function
-
-    // If the message from the user was a login attempt, customize the AI's response
-    if (message === 'login') {
-      response = `Hello, ${user.username}, welcome back to the Four-leaf Casino.`;
+    let response = await generateResponse(message);
+    console.log(req.session, 'req.session inside of chatRoutes.js')
+    // If there is a welcome message in the session, display it
+    if (req.session.user.welcomeMessage) {
+      response = req.session.user.welcomeMessage;
+      delete req.session.user.welcomeMessage; // Remove the welcome message from the session
     }
+    console.log('after delete', req.session);
 
-    res.json({ message: response }); // Sending the response content as a JSON response
+    res.json({ message: response });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'An error occurred while processing your request.' }); // Returning a 500 error for any error during processing
+    res.status(500).json({ message: 'An error occurred while processing your request.' });
   }
 });
+
+
 
 // Handling POST request for '/chat/announce' endpoint
 router.post('/chat/announce', async (req, res) => {

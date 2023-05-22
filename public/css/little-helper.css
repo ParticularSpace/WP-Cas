@@ -28,8 +28,6 @@
 .chat-container {
     display: flex;
     flex-direction: column;
-    /* margin-top: 400px; */
-    border: 1px dotted red; 
 }
 
 .chat-messages {
@@ -74,4 +72,5 @@
 .ai-message {
     align-self: flex-start;
     background-color: rgb(76, 76, 76);
+    color: #fff;
 }

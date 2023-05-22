@@ -6,7 +6,6 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 async function generateResponse(userMessage, gameOutcome) {
-  console.log(gameOutcome, 'gameOutcome in generateResponse')
   try {
     const messages = [
       { role: 'system', content: 'You are a dealer at the Four-leaf Casino' },
@@ -26,9 +25,6 @@ async function generateResponse(userMessage, gameOutcome) {
       messages,
       temperature: 0.5,
     });
-
-    console.log('Completion:', completion.data.choices);
-    console.log('Generated AI response:', completion.data.choices[0].text);
 
     return completion.data.choices[0].message.content;
   } catch (err) {
