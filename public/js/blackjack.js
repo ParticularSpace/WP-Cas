@@ -99,6 +99,48 @@ async function updateWalBal (input) {
 
     
 }
+
+
+// ====================
+
+
+// function gameAnnounce to send the gameOutcome to chat route /api/chat/announce
+async function gameAnnounce (userMessage, gameOutcome) {
+    console.log(userMessage, gameOutcome, ' in gameAnnounce')
+    try {
+        const response = await fetch('/api/chat/announce', {
+            method: 'POST',
+            body: JSON.stringify({userMessage, gameOutcome }),
+            headers: { 'Content-Type': 'application/json' }
+        });
+        if (!response.ok) {
+            throw new Error('Failed to announce');
+        }
+
+        if (response.ok) {
+            const data = await response.json();
+            console.log(data, 'data in gameAnnounce')
+            const aiMessage = data.message;
+            console.log(aiMessage, 'AI response');
+
+            // Add the AI message to the chat window
+            const chatMessages = document.querySelector('#chat-messages');
+            chatMessages.innerHTML += `<div class="ai-message"><strong>AI:</strong> ${aiMessage}</div>`;
+
+            // Scroll to the bottom of the chat window
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+    } catch (error) {
+        console.error('Error:', error);
+    }
+};
+
+
+
+
+
+// ====================
  // ==========================================================================================================
 
 // make leave button route back to dashboard 
@@ -184,7 +226,7 @@ $("#hitBtn").click(function() {
 
 });
 
-$("#stayBtn").click(function() {
+$("#stayBtn").click(async function() {
 
     $(".replay").show();
     $(".leave").show();
@@ -192,7 +234,7 @@ $("#stayBtn").click(function() {
     dbl.disabled = true;
     stay.disabled = true;
     HIT.disabled = true;
-    let displayResult = document.querySelector(".endGameResults");
+    // let displayResult = document.querySelector(".endGameResults");
     if(dealerSum < 17){
         dealerHand();
     }
@@ -205,11 +247,10 @@ $("#stayBtn").click(function() {
 
 
     // displays who won ===========
-
+    let gameOutcome;
     if(yourSum > 21){
         playSoundOnce(sound4);
-        endMessage = 'BUST ';
-        displayResult.textContent = endMessage + "-" + betAmount;
+        gameOutcome = 'BUST';
         playerBalance = playerBalance - betAmount;
         balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
         updateWalBal(playerBalance);
@@ -220,13 +261,13 @@ $("#stayBtn").click(function() {
         playerBalance = playerBalance + betAmount;
         balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
         updateWalBal(playerBalance);
-        displayResult.textContent = endMessage + "+" + betAmount;
+        gameOutcome = endMessage + "+" + betAmount;
     }
     else if(yourSum == dealerSum){
         endMessage = 'PUSH ';
         //=====
         balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
-        displayResult.textContent = endMessage + "+0";
+        gameOutcome = endMessage + "+0";
     }
     else if(yourSum > dealerSum){
         playSoundOnce(sound5);
@@ -234,16 +275,17 @@ $("#stayBtn").click(function() {
         playerBalance = playerBalance + betAmount;
         balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
         updateWalBal(playerBalance);
-        displayResult.textContent = endMessage + "+" + betAmount;
+        gameOutcome = endMessage + "+" + betAmount;
     }
     else if(yourSum < dealerSum){
         playSoundOnce(sound4);
-        endMessage = 'BUST ';
+        gameOutcome = 'BUST ';
         playerBalance = playerBalance - betAmount;
         balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
         updateWalBal(playerBalance);
-        displayResult.textContent = endMessage + "-" + betAmount;
     }
+    const announceMessage = await gameAnnounce('blackjack ending', gameOutcome);
+    console.log(announceMessage, 'announceMessage');
     
     document.getElementById("notYourScore").innerHTML = dealerSum;
     document.getElementById("yourScore").innerHTML = yourSum;

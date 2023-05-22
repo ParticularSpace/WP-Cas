@@ -6,15 +6,20 @@ const configuration = new Configuration({
 const openai = new OpenAIApi(configuration);
 
 async function generateResponse(userMessage, gameOutcome) {
+  console.log(gameOutcome, 'gameOutcome in generateResponse')
   try {
     const messages = [
       { role: 'system', content: 'You are a dealer at the Four-leaf Casino' },
-      { role: 'system', content: `Game Outcome: ${gameOutcome}` },
       { role: 'system', content: 'You can add coins to your account by clicking on your profile image and selecting wallet' },
       { role: 'system', content: 'You can play a game by clicking on the game you want to play in the game drop down menu on the nav bar' },
       { role: 'system', content: 'You can view your account by clicking on your profile image and selecting account' },
       { role: 'user', content: userMessage },
     ];
+
+    if (gameOutcome) {
+      return `You ${gameOutcome}!`
+    }
+    
 
     const completion = await openai.createChatCompletion({
       model: 'gpt-3.5-turbo',
