@@ -71,7 +71,13 @@ $(".flip").click(function(){
     $(this).parents(".full-card").toggleClass("flipped");
 });
 
-
+// function correctSumDisplay() {
+//     if(yourAce == 1 && yourSum > 21){
+//         yourSum = changeAce(yourSum, yourAce);
+//         document.getElementById("yourScore").innerHTML = yourSum;
+//     }
+//     return;
+// }
 
 
 
@@ -197,7 +203,7 @@ $(".replay").click(function() {
     yourAce = 0;
     allowHit = true;
     betAmount = 0;
-
+    document.getElementById("stayBtn").innerHTML = "STAND";
     stay.disabled = false;
     exit.disabled = false;
     dbl.disabled = false;
@@ -214,7 +220,9 @@ $(".replay").click(function() {
 $("#hitBtn").click(function() {
     playSoundOnce(sound6);
     dbl.disabled = true;
+    document.getElementById("stayBtn").innerHTML = "Stay";
     hitbtn();
+    // correctSumDisplay();
 
 });
 
@@ -256,7 +264,7 @@ $("#stayBtn").click(async function() {
         gameOutcome = endMessage + "+" + betAmount;
     }
     else if(yourSum == dealerSum){
-        endMessage = 'TIE ';
+        endMessage = 'PUSH ';
         //=====
         balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
         gameOutcome = endMessage + "+0";
