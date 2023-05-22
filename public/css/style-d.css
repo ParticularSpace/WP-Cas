@@ -307,7 +307,7 @@ p {
     margin-top: 2%;
     
 }
-/* .little-helper{
+.little-helper{
     display: flex;
     position: relative;
     
@@ -319,12 +319,12 @@ p {
     width: 95px;
     max-width: 95px;
     animation: fade-slideLeft 2000ms;
-} */
+}
 
-.little-helper{
+/* .little-helper{
     position: absolute;
     z-index: 2;
-}
+} */
 
 .dealerHand div {
     justify-self: center;
