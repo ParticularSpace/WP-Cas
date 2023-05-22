@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    // Functions to handle each action
+    // function to update profile picture
     function updatePicture() {
         const fileInput = document.querySelector('#upload-picture');
         const file = fileInput.files[0];
@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
+        // Create a new FormData object
         const formData = new FormData();
         formData.append('profilePicture', file);
 
@@ -24,7 +25,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (data.error) {
                     console.error(data.error);
                 } else {
-                    console.log('File uploaded successfully!');
                     // Then, update the profile picture
                     return fetch('/api/users/update/profile-picture', {
                         method: 'PUT',
@@ -42,10 +42,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     console.error(data.error);
                 } else {
                     // Update the image on the page
-                    let profileImage = document.querySelector('#profile-pic'); // replace '#profile-image' with the actual ID of your img element
+                    let profileImage = document.querySelector('#profile-pic'); 
+                    // Add a timestamp to the URL to force the browser to refresh the image
                     profileImage.src = `${data.newPictureUrl}?timestamp=${new Date().getTime()}`;
-
-                    console.log('Profile picture updated successfully on the page!');
                 }
             })
             .catch((error) => {
@@ -54,19 +53,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
-    // Change password GOOD
+    // Change password 
     function changePassword() {
         const currentPassword = document.querySelector('#current-password').value;
         const newPassword = document.querySelector('#new-password').value;
         const confirmPassword = document.querySelector('#confirm-password').value;
 
+        // Check that the new password match
         if (newPassword !== confirmPassword) {
             console.error('New passwords do not match');
             return;
         }
-        console.log(currentPassword, newPassword, confirmPassword, 'account.js password change');
-
-        console.log('About to fetch to update password');
+        
+        // Send the request to the server
         fetch('/api/users/update/password', {
             method: 'PUT',
             headers: {
@@ -90,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
-    // Change username GOOD
+    // Change username 
     function updateUsername() {
         const password = document.querySelector('#password').value;
         const newUsername = document.querySelector('#new-username').value;
@@ -100,7 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ password, newUsername }), // include the password here
+            body: JSON.stringify({ password, newUsername }), // Send the username and password as JSON in the request body
         })
             .then(response => response.json())
             .then(data => {
@@ -121,18 +120,18 @@ document.addEventListener("DOMContentLoaded", function () {
         // Add confirmation
         const confirmation = window.confirm('Are you sure you want to delete your account? This action cannot be undone.');
     
-        // If the user clicked "OK", confirmation will be true.
+        // If the user clicked ok
         if (confirmation) {
             try {
-                const response = await fetch('/api/users/delete', { // replace '/api/users' with the correct endpoint to delete a user
+                const response = await fetch('/api/users/delete', { 
                     method: 'DELETE',
                     headers: { 'Content-Type': 'application/json' }
                 });
     
                 if (response.ok) {
                     alert('Account deleted successfully!');
-                    // If deletion was successful, redirect to the login page or some other appropriate page.
-                    document.location.replace('/login'); // replace '/login' with the correct URL
+                    // If deletion was successful, redirect to the login page
+                    document.location.replace('/login'); 
                 } else {
                     alert('Failed to delete account.');
                 }
@@ -140,7 +139,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.error('Error:', error);
             }
         }
-        // If the user clicked "Cancel", the function will end here.
     }
     
 

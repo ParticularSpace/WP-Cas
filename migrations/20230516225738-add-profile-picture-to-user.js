@@ -1,3 +1,5 @@
+//Created to test the migration of the profile picture column (wanted to try this out so i wouldnt have to delete the database and start over)
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     // Add the 'profile_picture' column to the 'user' table

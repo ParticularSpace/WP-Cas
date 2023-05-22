@@ -1,3 +1,4 @@
+// Description: This file contains the OpenAI API service that is used to generate responses for the chatbot.
 const { Configuration, OpenAIApi } = require('openai');
 
 const configuration = new Configuration({

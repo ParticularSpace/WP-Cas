@@ -1,21 +1,22 @@
 
-
+// handle the login form submission
 const loginFormHandler = async (event) => {
   event.preventDefault(); // Prevent form submission
 
-  console.log('loginFormHandler');
 
   const username = document.querySelector('#username-login').value.trim(); // Get the entered username
   const password = document.querySelector('#password-login').value.trim(); // Get the entered password
 
   console.log(username, password, 'app.js loginFormHandler 11')
 
+  // Check that the username and password are not empty
   if (username && password) {
     try {
       console.log('About to call fetch');
-      const response = await fetch('/api/users/login', { // Send a POST request to the login endpoint
+      // send a POST request to the login endpoint
+      const response = await fetch('/api/users/login', {
         method: 'POST',
-        body: JSON.stringify({ username, password }), // Send the username and password as JSON in the request body
+        body: JSON.stringify({ username, password }),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -28,13 +29,8 @@ const loginFormHandler = async (event) => {
 
       if (response.ok) {
         const data = await response.json(); // Get the response data as JSON
-        console.log('Response data:', data.user);
-
-        const userName = data.user.username; // Get the username from the response data
-        console.log('Username:', userName);
       
         const welcomeMessage = data.message; // Get the welcome message from the server
-        console.log('Welcome message:', welcomeMessage);
       
         sessionStorage.setItem('welcomeMessage',welcomeMessage); // Store the welcome message in sessionStorage
       
@@ -46,9 +42,7 @@ const loginFormHandler = async (event) => {
         window.alert('Password or username is incorrect. Please try again.');
         document.location.reload();
         console.error('Error in fetch call', err);
-      }
-      
-      
+      } 
   }
 };
 
@@ -60,18 +54,17 @@ const registerFormHandler = async (event) => {
   const password = document.querySelector('#password-register').value.trim(); // Get the entered password
 
   if (username && password) {
-    const response = await fetch('/api/users/register', { // Send a POST request to the register endpoint
+    // Send a POST request to the register endpoint
+    const response = await fetch('/api/users/register', { 
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ username, password }), // Send the username and password as JSON in the request body
+      body: JSON.stringify({ username, password }),
     });
 
-    console.log(response, 'app.js registerFormHandler 71')
-
+    // If the registration is successful, redirect to the login page.
     if (response.ok) {
-      // If the registration is successful, redirect to the login page.
       document.location.replace('/login');
     } else {
       alert('Failed to register');
@@ -118,7 +111,6 @@ if (logoutButton) {
 
 
 // making a call to /games when the user clicks the Get Started button
-
 const getStarted = async () => {
   const response = await fetch('/games', { // Send a GET request to the games endpoint
     method: 'GET',
@@ -133,7 +125,6 @@ const getStarted = async () => {
   }
 };
 
-// now add event listener for the get started button and call the getStarted function
 
 
 

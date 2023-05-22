@@ -1,9 +1,10 @@
-const { Model, DataTypes } = require('sequelize'); // Import necessary Sequelize components
-const sequelize = require('../config/connection'); // Import the Sequelize connection
+const { Model, DataTypes } = require('sequelize'); 
+const sequelize = require('../config/connection'); 
 const CryptoJS = require("crypto-js"); // Import the CryptoJS library for encryption
 
 class Wallet extends Model {}
 
+// set wallet attributes
 Wallet.init(
   {
     id: {
@@ -38,12 +39,12 @@ Wallet.init(
         }
       },
     },
-    sequelize, // Connects the model to the Sequelize instance
-    timestamps: false, // Disables timestamps for createdAt and updatedAt columns
-    freezeTableName: true, // Prevents Sequelize from pluralizing the table name
-    underscored: true, // Uses underscored naming convention for attributes
-    modelName: 'wallet', // Sets the model name
+    sequelize, 
+    timestamps: false, 
+    freezeTableName: true, 
+    underscored: true, 
+    modelName: 'wallet', 
   }
 );
 
-module.exports = Wallet; // Export the Wallet model
+module.exports = Wallet; 

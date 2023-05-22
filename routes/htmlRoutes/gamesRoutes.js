@@ -35,49 +35,5 @@ router.get('/games', withAuth, async (req, res) => {
   }
 });
 
-// router.get('/games', withAuth, async(req, res) => {
-    
-//     try{
- 
-//              const walletData = await Wallet.findOne({
-//                  where: { user_id: req.session.user.id, },
-                     
-//              });
-         
-//              const wallet = walletData.get({plain: true});
-            
-//             res.render('games', { walletBal: wallet.balance,});
-//             res.render('games');
-//             }
-//              catch (err) {
-//              res.status(500).json({ message: 'Error retrieving wallet balance' });
-//             }
-    
-
-// });
-
-
-
-
-
-
-// router.get('/games/:id',  async (req, res) => {
-//     try{
- 
-//      const walletData = await Wallet.findOne({
-//          where: { user_id: req.session.user.id, },
-             
-//      });
- 
-//      const wallet = walletData.get({plain: true});
- 
-//     res.render('fundz', { walletBal: wallet.balance,});
- 
-//     }
-//      catch (err) {
-//      res.status(500).json({ message: 'Error retrieving wallet balance' });
-//     }
-     
-//  });
 
 module.exports = router;

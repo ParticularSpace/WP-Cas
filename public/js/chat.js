@@ -6,9 +6,6 @@ document.querySelector('#chat-form').addEventListener('submit', async (event) =>
   messageInput.value = '';
 
 
-  //store username in userName variable
-  console.log(sessionStorage, "session storage");
-
   // Add user message to the chat window
   const chatMessages = document.querySelector('#chat-messages');
   chatMessages.innerHTML += `<div class="user-message"><strong>You:</strong> ${userMessage}</div>`;

@@ -48,6 +48,7 @@ if(user.profile_picture) {
   }
 });
 
+// GET route for getting the user's account page
 router.get('/account/:id', async (req, res) => {
   try {
     const userId = req.params.id; // Use the id from the request parameters
@@ -66,7 +67,7 @@ router.get('/account/:id', async (req, res) => {
   }
 });
 
-
+// GET route for getting the user's account page
 router.get('/dashboard', withAuth, async (req, res) => {
   try {
     const userData = await User.findOne({
@@ -108,6 +109,7 @@ router.get('/dashboard', withAuth, async (req, res) => {
   }
 });
 
+// get route for getting the user's info and wallet page
 router.get('/wallet', withAuth, async (req, res) => {
   try {
     const userData = await User.findOne({

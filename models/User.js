@@ -1,5 +1,5 @@
-const { Model, DataTypes } = require('sequelize'); // Import necessary Sequelize components
-const sequelize = require('../config/connection'); // Import the Sequelize connection
+const { Model, DataTypes } = require('sequelize'); 
+const sequelize = require('../config/connection'); 
 const bcrypt = require('bcrypt'); // Import the bcrypt library for password hashing
 
 class User extends Model {
@@ -25,7 +25,7 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [8], // Validates that the password must be at least 8 characters long
+        len: [8], 
       },
     },
     profile_picture: {
@@ -35,11 +35,11 @@ User.init(
   },
   {
     sequelize, // Connects the model to the Sequelize instance
-    timestamps: false, // Disables timestamps for createdAt and updatedAt columns
-    freezeTableName: true, // Prevents Sequelize from pluralizing the table name
-    underscored: true, // Uses underscored naming convention for attributes
-    modelName: 'user', // Sets the model name
+    timestamps: false, 
+    freezeTableName: true, 
+    underscored: true, 
+    modelName: 'user', 
   }
 );
 
-module.exports = User; // Export the User model
+module.exports = User; 

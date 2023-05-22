@@ -1,7 +1,6 @@
-// Importing the required dependencies
 const express = require('express'); // Importing Express
 const router = express.Router(); // Using the Router module from Express
-const { generateResponse } = require('../../utils/openAIService'); // Importing the 'generateResponse' function from the 'openAIService' module in the 'utils' directory
+const { generateResponse } = require('../../utils/openAIService'); // Importing the 'generateResponse' function from openAIService.js
 const { User } = require('../../models'); // Importing the User model
 
 // Handling POST request for '/chat' endpoint 
@@ -17,7 +16,7 @@ router.post('/chat', async (req, res) => {
     }
 
     let response = await generateResponse(message);
-    console.log(req.session, 'req.session inside of chatRoutes.js')
+    
     // If there is a welcome message in the session, display it
     if (req.session.user.welcomeMessage) {
       response = req.session.user.welcomeMessage;

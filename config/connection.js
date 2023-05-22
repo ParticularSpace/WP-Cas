@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const { Sequelize } = require('sequelize'); 
 
-// Create a new Sequelize instance with database configuration
+// Create a new Sequelize instance with database configuration for Heroku deployment
 
 const sequelize = process.env.DATABASE_URL
     ? new Sequelize(process.env.DATABASE_URL, {
@@ -18,7 +18,7 @@ const sequelize = process.env.DATABASE_URL
     : new Sequelize(database, username, password, config);
 
 
-
+// Create a new Sequelize instance with database configuration for local deployment
 
 // const sequelize = new Sequelize(
 //   process.env.DB_NAME,

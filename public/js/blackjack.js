@@ -106,7 +106,6 @@ async function updateWalBal (input) {
 
 // function gameAnnounce to send the gameOutcome to chat route /api/chat/announce
 async function gameAnnounce (userMessage, gameOutcome) {
-    console.log(userMessage, gameOutcome, ' in gameAnnounce')
     try {
         const response = await fetch('/api/chat/announce', {
             method: 'POST',
@@ -119,9 +118,7 @@ async function gameAnnounce (userMessage, gameOutcome) {
 
         if (response.ok) {
             const data = await response.json();
-            console.log(data, 'data in gameAnnounce')
             const aiMessage = data.message;
-            console.log(aiMessage, 'AI response');
 
             // Add the AI message to the chat window
             const chatMessages = document.querySelector('#chat-messages');

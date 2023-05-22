@@ -1,7 +1,9 @@
-const { Model, DataTypes } = require('sequelize'); // Import necessary Sequelize components
-const sequelize = require('../config/connection'); // Import the Sequelize connection
+// not in production yet for future development
 
-class BlackjackGame extends Model {} // Define the BlackjackGame model
+const { Model, DataTypes } = require('sequelize') 
+const sequelize = require('../config/connection');
+
+class BlackjackGame extends Model {} // Defines the BlackjackGame model
 
 BlackjackGame.init(
   {
@@ -41,11 +43,11 @@ BlackjackGame.init(
     },
   },
   {
-    sequelize, // Connects the model to the Sequelize instance
-    timestamps: true, // Enables timestamps for createdAt and updatedAt columns
-    freezeTableName: true, // Prevents Sequelize from pluralizing the table name
-    underscored: true, // Uses underscored naming convention for attributes
-    modelName: 'blackjack_game', // Sets the model name
+    sequelize, 
+    timestamps: true, 
+    freezeTableName: true,
+    underscored: true,
+    modelName: 'blackjack_game', 
   }
 );
 
