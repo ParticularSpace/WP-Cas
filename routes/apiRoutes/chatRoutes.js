@@ -14,7 +14,7 @@ router.post('/chat', async (req, res) => {
     const username = req.session.user.username; // Extracting the username from the session
 
     // Fetch the user's name from the database
-    const user = await User.findOne({ where: { userName: username } });
+    const user = await User.findOne({ where: { username: username } });
 
     // If the user doesn't exist, return an error
     if (!user) {
