@@ -20,7 +20,7 @@ router.get('/', withAuth, async (req, res) => {
 
 // Login Page
 router.get('/login', (req, res) => {
-  res.render('login');
+  res.render('login', { showNav: true, showCoin: false });
 });
 
 // Register Page
