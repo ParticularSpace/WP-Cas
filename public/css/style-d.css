@@ -15,7 +15,9 @@
     --C-6: ;
 }
 body {
-    
+    display:flex;
+    justify-content: center;
+    align-items: center;
     background:silver;
     background-size: cover;
     background-repeat: no-repeat; 
@@ -59,8 +61,8 @@ body::before {
 }
 
 .content-info {
-    width: 480px;
-    height: 320px;
+    width: 560px;
+    height: 380px;
     margin: 15px;
     perspective: 1000px;
     border-radius: 5%;
@@ -464,6 +466,26 @@ p {
     max-width: 150px;
     animation: fade-slideUp 2000ms;
 }
+/* .double {
+    border: 2px solid gold;
+}
+.hit {
+    border: 2px solid crimson
+}
+.stay {
+    border: 2px solid blue;
+} */
+
+.double:hover {
+    background: lightgoldenrodyellow;
+}
+.hit:hover {
+    background: lightcoral;
+}
+.stay:hover {
+    background: lightskyblue;
+}
+
 
 #double {
     box-shadow: 0 0 0 #aaa;
