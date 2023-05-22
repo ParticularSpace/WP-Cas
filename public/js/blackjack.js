@@ -41,7 +41,7 @@ let tempBalance;
 const audio1 = new Audio("../sounds/intro_game_music_1a.mp3");
 const sound1 = new Audio("../sounds/coin_select.wav");
 const sound2 = new Audio("../sounds/machine.wav");
-const sound3 = new Audio("../sounds/machine3.wav");
+const sound3 = new Audio("../sounds/machine2.wav");
 const sound4 = new Audio("../sounds/loss.wav ");
 const sound5 = new Audio("../sounds/win.wav ");
 const sound6 = new Audio("../sounds/button2.wav");
