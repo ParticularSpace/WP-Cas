@@ -30,7 +30,7 @@ router.get('/account', withAuth, async (req, res) => {
 if(user.profile_picture) {
   user.profilePicture = user.profile_picture;
 } else {
-  user.profilePicture = 'images/fullDeck/2-heart.png';
+  user.profilePicture = 'images/fullDeck/2_heart.png';
 }
 
 
@@ -40,7 +40,7 @@ if(user.profile_picture) {
       walletBalance: wallet.balance,
       logged_in: req.session.logged_in,
       showNav: true,
-      showCoin: true,
+      showCoin: false,
     
     });
   } catch (err) {
@@ -86,12 +86,12 @@ router.get('/dashboard', withAuth, async (req, res) => {
     // Serialize data so the template can read it
     const user = userData.get({ plain: true });
     const wallet = walletData.get({ plain: true });
-    console.log(user, 'this is user in /dashboard route');
+    
 
     if(user.profile_picture) {
       user.profilePicture = user.profile_picture;
     } else {
-      user.profilePicture = 'images/fullDeck/2-heart.png';
+      user.profilePicture = '../../images/fullDeck/2_heart.png';
     }
 
     // Pass serialized data and session flag into template
@@ -133,7 +133,7 @@ router.get('/wallet', withAuth, async (req, res) => {
     if(user.profile_picture) {
       user.profilePicture = user.profile_picture;
     } else {
-      user.profilePicture = 'images/fullDeck/2-heart.png';
+      user.profilePicture = 'images/fullDeck/2_heart.png';
     }
 
     // Pass serialized data and session flag into template

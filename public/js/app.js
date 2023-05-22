@@ -68,9 +68,11 @@ const registerFormHandler = async (event) => {
       body: JSON.stringify({ username, password }), // Send the username and password as JSON in the request body
     });
 
+    console.log(response, 'app.js registerFormHandler 71')
+
     if (response.ok) {
       // If the registration is successful, redirect to the login page.
-      // document.location.replace('/login');
+      document.location.replace('/login');
     } else {
       alert('Failed to register');
     }
