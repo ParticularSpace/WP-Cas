@@ -1,4 +1,11 @@
 async function addFunds(amount) {
+  // if amount is less then 1 or more then 1000 return window.alert with message
+  if (amount < 1 || amount > 1000) {
+    window.alert('Please enter an amount between 1 and 1000');
+    // clear the amountInputElement
+    amountInputElement.value = '';
+    return;
+  }
     try {
       const response = await fetch('/api/wallet/fund', {
         method: 'POST',
@@ -15,11 +22,11 @@ async function addFunds(amount) {
       // Get the paragraph tag that displays the balance
       const balanceElement = document.querySelector('.wallet-wrapper p');
       if (balanceElement) {
-        balanceElement.innerText = 'Current Balance: ' + walletData.balance + ' Four-Leaf Coins';
+        balanceElement.innerText = 'Current Balance: ' + walletData.balance + ' Coins';
       }
 
       // Get the navigation balance
-    const navBalanceElement = document.querySelector('.navbar-item .dropdown-item:nth-child(2)');
+    const navBalanceElement = document.querySelector('.navbar-item .dropdown-item:nth-child(3)');
     if (navBalanceElement) {
       navBalanceElement.innerText = 'Wallet: ' + walletData.balance;
     }

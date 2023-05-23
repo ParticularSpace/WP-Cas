@@ -13,6 +13,7 @@
     width: 30%;
     min-width: 300px;
     text-align: center;
+    margin-top: 100px;
   }
   
   .wallet-wrapper h2 {
@@ -40,15 +41,14 @@
   }
   
   button {
-    padding: 10px;
-    color: #fff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #387629;
+    color:#fff
   }
   
   button:hover {
-    background-color: #0056b3;
+    background-color: #29581d;
   }
   

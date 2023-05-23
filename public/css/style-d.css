@@ -15,9 +15,33 @@
     --C-6: ;
 }
 body {
-    background: white;
-    
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    background:silver;
+    background-size: cover;
+    background-repeat: no-repeat; 
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    transition: 0.3s ease-in-out;
 }
+body.second-img {
+    background-image: url("../images/game_play.gif");
+    transition: 0.3s ease-in-out;
+}
+
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+}
+
 .capsule {
     width: 100%;
     margin: 100px auto;
@@ -37,8 +61,8 @@ body {
 }
 
 .content-info {
-    width: 480px;
-    height: 320px;
+    width: 560px;
+    height: 380px;
     margin: 15px;
     perspective: 1000px;
     border-radius: 5%;
@@ -74,7 +98,7 @@ body {
     box-sizing: border-box;
     border-radius: 5%;
     padding: 2%;
-    box-shadow: 0 15px 10px grey;
+    box-shadow: 0 15px 10px black;
     background: black;
     
 }
@@ -100,10 +124,10 @@ body {
     display: grid;
     grid-template-rows: repeat(4, 1fr);
     /* background:burlywood; */
-    background-image: url(../images/wood_back2.jpg);
-    background-size: 100% 100%;
+    background-image: url(../images/wood_back3.jpg);
+    background-size: 100% 50%;
     z-index: 1;
-    box-shadow: 0 15px 10px grey;
+    box-shadow: 0 15px 10px black;
     border-radius: 5%;
     padding-bottom: 10%;
     
@@ -150,6 +174,7 @@ body {
     border-radius: 25%;
     padding: 2%;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    /* animation: fadeIn 1000ms; */
 }
 .chip-container {
     display: grid;
@@ -163,10 +188,8 @@ body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .make-bet {
-    
     position: absolute;
     width: 75px;
-    
 
     left: 0;
     right: 0;
@@ -180,7 +203,7 @@ body {
     background:darkred;
     color: white;
     border-radius: 20%;
-    border-color: white; 
+    border-color: white;
     /*box-shadow: 0 4px 4px black;*/
 }
 
@@ -209,7 +232,7 @@ p {
 
 }
 .flipped {
-    transform: rotateY(180deg)rotateX(-45deg);
+    transform: rotateY(180deg)rotateX(-40deg);
     
 }
 
@@ -286,7 +309,7 @@ p {
     margin-top: 2%;
     
 }
-.little-helper{
+/* .little-helper{
     display: flex;
     position: relative;
     
@@ -297,7 +320,12 @@ p {
     bottom: 0;
     width: 95px;
     max-width: 95px;
-    
+    animation: fade-slideLeft 2000ms;
+} */
+
+.little-helper{
+    position: absolute;
+    z-index: 2;
 }
 
 .dealerHand div {
@@ -306,45 +334,75 @@ p {
 }
 .myHand div {
     justify-self: center;
+   
+}
+
+.dealerHand img {
+    height: 75px;
+    width: 55px;
     
 }
+.myHand img {
+    height: 75px;
+    width: 55px;
+   
+}
+
+
 
 .table img {
     /* animation: fadeIn 1000ms; */
-    animation: fade-slideLeft 1300ms;
+    animation: fade-slideLeftandDown 1300ms;
 }
 .bet-1 {
     width: 75px;
     height: 75px;
-    background: green;
+    /* background: white; */
+    background-image: url("../images/gre.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
     color: white;
-    border-color: white;
+    /* border-color: white; */
     
 }
 .bet-5 {
     width: 75px;
     height: 75px;
-    background: red;
+    /* background: white; */
+    background-image: url("../images/red.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
     color: white;
-    border-color: white;
+    /* border-color: white; */
 }
 .bet-10 {
     width: 75px;
     height: 75px;
-    background: purple;
+    /* background: white; */
+    background-image: url("../images/bla.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
     color: white;
-    border-color: white;
+    /* border-color: white; */
 }
 .bet-20 {
     width: 75px;
     height: 75px;
-    background: yellow;
+    /* background: white; */
+    background-image: url("../images/blu.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
     color: white;
-    border-color: white;
+    /* border-color: white; */
 }
 
 .me-score-container {
     padding: 1% 2% 1% 2%;
+    z-index: 2;
     background: black;
     color: green;
     border: 2px solid green;
@@ -355,6 +413,7 @@ p {
 }
 .not-me-score-container {
     padding: 1% 2% 1% 2%;
+    z-index: 2;
     background: black;
     color: red;
     border: 2px solid red;
@@ -363,6 +422,62 @@ p {
     align-self: self-start;
     animation: fade-slideDown 1000ms;
 }
+
+/* .chat-window {
+    display: none;
+    position: absolute;
+    right: 150px;
+    bottom: 0;
+    width: 200px;
+    max-width: 100px;
+    color: white;
+    
+
+} */
+
+.exit-game {
+    position: absolute;
+    top:0;
+    left: 5px;
+    width: 55px;
+    height: 35px;
+    background: darkred;
+    color: white;
+    border: 2px solid white;
+    text-align: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    border-radius: 8%;
+}
+ /* .endGameContainer {
+     text-align:left;
+}  */
+ /* .endGameResults {
+    transition: 0.3 ease-in-out;
+    padding: 1% 3% 1% 3%;
+    z-index: 2;
+    background: black;
+    color: gold;
+    border: 2px solid gold;
+    border-radius: 8%;
+    position: absolute;
+    right: 45%;
+    bottom: 0;
+    width: 150px;
+    max-width: 150px;
+    animation: fade-slideUp 2000ms; */
+
+.double:hover {
+    background: lightgoldenrodyellow;
+}
+.hit:hover {
+    background: lightcoral;
+}
+.stay:hover {
+    background: lightskyblue;
+}
+
+
+
 
 
 #double {
@@ -387,10 +502,24 @@ p {
 
 }
 
-@keyframes fade-slideLeft {
+@keyframes fade-slideLeftandDown {
     0% {opacity: 0;
         transform: translateX(50px) translateY(-50px) scale(0.9);}
     100% {opacity: 1;
         transform: translateX(0px) translateY(0px) scale(1);}
+
+}
+@keyframes fade-slideLeft {
+    0% {opacity: 0;
+        transform: translateX(50px)  scale(0.9);}
+    100% {opacity: 1;
+        transform: translateX(0px)  scale(1);}
+
+}
+@keyframes fade-slideUp {
+    0% {opacity: 0;
+        transform: translatey(50px)  scale(0.9);}
+    100% {opacity: 1;
+        transform: translateX(0px)  scale(1);}
 
 }

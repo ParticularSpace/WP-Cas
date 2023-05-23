@@ -1,13 +1,16 @@
 // Importing the required dependencies
-const router = require('express').Router();
+const router = require('express').Router(); 
 const sequelize = require('../../config/connection');
-const { User, Wallet } = require('../../models');
+const { User, Wallet } = require('../../models'); // models
 const bcrypt = require('bcrypt');
 const CryptoJS = require('crypto-js');
 require('dotenv').config();
-const withAuth = require('../../utils/auth');
-const upload = require('../../config/s3');
+const withAuth = require('../../utils/auth'); // auth middleware
+const upload = require('../../config/s3'); // s3 middleware
 
+const { generateResponse } = require('../../utils/openAIService'); // AI middleware
+
+// AWS S3 bucket configuration
 const bucketName = process.env.AWS_S3_BUCKET; 
 const region = process.env.AWS_REGION; 
 
@@ -24,7 +27,7 @@ router.post('/register', async (req, res) => {
       password: hashedPassword,
     }, { transaction: t }); // Create a new user record with the provided username and hashed password within the transaction
 
-    // Create wallet with a placeholder encrypted_id
+    // Create wallet with a placeholder encrypted_id to ensure there is a unique encrypted_id for each user before the wallet is updated with the real encrypted_id
     const walletData = await Wallet.create({
       balance: 1.00,
       user_id: userData.id,
@@ -33,14 +36,9 @@ router.post('/register', async (req, res) => {
 
 
     // Update the wallet with the real encrypted_id
-    console.log('Before walletData.save');
-    console.log('walletData.id:', walletData.id);
-    console.log('process.env.CRYPTOJS_SECRET:', process.env.CRYPTOJS_SECRET);
-
     walletData.encrypted_id = CryptoJS.AES.encrypt(walletData.id.toString(), process.env.CRYPTOJS_SECRET).toString();
     await walletData.save({ transaction: t }); // Encrypt the wallet ID using CryptoJS and the provided secret, then save the updated wallet data within the transaction
-    console.log('After walletData.save');
-
+    
     await t.commit(); // Commit the transaction
 
     req.session.save(() => {
@@ -57,6 +55,7 @@ router.post('/register', async (req, res) => {
 
 // Login route GOOD
 router.post('/login', async (req, res) => {
+  console.log('req.body:', req.body);
   
   try {
     const { username, password } = req.body;
@@ -68,28 +67,32 @@ router.post('/login', async (req, res) => {
     });
 
     if (!userData) {
-      res.status(400).json({ message: 'Incorrect username, please try again' }); // Respond with an error message if the user doesn't exist
+      res.status(400).json({ message: 'Incorrect username or password, please try again' }); // Respond with an error message if the user doesn't exist
       return;
     }
 
     const validPassword = await userData.checkPassword(password); // Check if the provided password matches the user's stored password
 
     if (!validPassword) {
-      res.status(400).json({ message: 'Incorrect password, please try again' }); // Respond with an error message if the password is incorrect
+      res.status(400).json({ message: 'Incorrect password or password, please try again' }); // Respond with an error message if the password is incorrect
       return;
     }
+    
+    // Generate a welcome message using the user's username
+const welcomeMessage = await generateResponse(`My name is ${userData.username}`);
+
+
 
     req.session.user = {
       id: userData.id,
       username: userData.username,
       profilePicture: userData.profile_picture,
+      welcomeMessage: welcomeMessage,
     };
 
     req.session.logged_in = true; // Set the session as logged in
 
-   
-
-    res.json({ user: userData, message: 'ok' }); // Respond with the user data and a success message
+    res.json({ user: userData, message: welcomeMessage }); // Respond with the user data and a success message
 
   } catch (err) {
     console.error(err.message);
@@ -97,8 +100,10 @@ router.post('/login', async (req, res) => {
   }
 });
 
+
 // Logout route CHECK THIS
 router.post('/logout', (req, res) => {
+  console.log('req.session:', req.session);
   if (req.session.logged_in) {
     req.session.destroy(() => {
       res.status(204).end(); // Destroy the session and respond with a 204 status code
@@ -121,8 +126,6 @@ router.put('/update/password', withAuth, async (req, res) => {
     }
 
     const validPassword = await bcrypt.compare(currentPassword, user.password); // Check if the provided current password matches the user's stored password
-
-    console.log('LN: 128 - validPassword:', validPassword)
 
     if (!validPassword) {
       return res.status(400).json({ error: 'Current password is incorrect' }); // If the current password is incorrect, respond with an error message
@@ -147,7 +150,7 @@ router.put('/update/username', withAuth, async (req, res) => {
     const user = await User.findOne({ where: { id: req.session.user.id } });
 
     if (!user) {
-      return res.status(404).json({ error: 'User not found' }); // If the user is not found, respond with an error message
+      return res.status(404).json({ error: 'User not found' }); 
     }
 
     const validPassword = await bcrypt.compare(password, user.password); // Check if the provided password matches the user's stored password
@@ -166,11 +169,8 @@ router.put('/update/username', withAuth, async (req, res) => {
 
 // Upload GOOD
 router.post('/upload', upload.single('profilePicture'), async (req, res) => {
-  console.log('File uploaded to S3');
   const fileName = req.file.key; // the key of the uploaded file
   const fileUrl = `https://${bucketName}.s3.${region}.amazonaws.com/${fileName}`;
-
-  console.log('fileUrl:', fileUrl);
 
   // Update the session
   req.session.user.profilePicture = fileUrl;
@@ -181,7 +181,7 @@ router.post('/upload', upload.single('profilePicture'), async (req, res) => {
       { profile_picture: fileUrl }, // new data to update
       { where: { id: req.session.user.id } } // where clause
     );
-    console.log('User profile_picture updated in the database');
+    
   } catch (error) {
     console.error('Failed to update profile_picture in the database:', error);
   }
@@ -194,14 +194,12 @@ router.put('/update/profile-picture', withAuth, async (req, res) => {
 
   try {
       const user = await User.findOne({ where: { id: req.session.user.id } });
-      console.log('user inside of /update/profile-picture:', user);
+    
       if (!user) {
           return res.status(404).json({ error: 'User not found' });
       }
 
       const newPicturePath = req.body.location; // Use req.body.location to get the URL
-
-      console.log('newPicturePath:', newPicturePath)
 
       await user.update({ profile_picture: newPicturePath });
       res.json({ message: 'Profile picture updated successfully', newPictureUrl: user.profile_picture });
@@ -217,7 +215,7 @@ router.delete('/delete', withAuth, async (req, res) => {
     const user = await User.findOne({ where: { id: req.session.user.id } });
 
     if (!user) {
-      return res.status(404).json({ error: 'User not found' }); // If the user is not found, respond with an error message
+      return res.status(404).json({ error: 'User not found' }); 
     }
 
     await user.destroy(); // Delete the user

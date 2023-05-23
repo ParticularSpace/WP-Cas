@@ -30,7 +30,7 @@ router.get('/account', withAuth, async (req, res) => {
 if(user.profile_picture) {
   user.profilePicture = user.profile_picture;
 } else {
-  user.profilePicture = 'images/fullDeck/2-heart.png';
+  user.profilePicture = 'images/fullDeck/2_heart.png';
 }
 
 
@@ -39,13 +39,16 @@ if(user.profile_picture) {
       ...user,
       walletBalance: wallet.balance,
       logged_in: req.session.logged_in,
-      
+      showNav: true,
+      showCoin: false,
+    
     });
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
+// GET route for getting the user's account page
 router.get('/account/:id', async (req, res) => {
   try {
     const userId = req.params.id; // Use the id from the request parameters
@@ -54,7 +57,9 @@ router.get('/account/:id', async (req, res) => {
     res.render('dashboard', 
       {
         ...user,
-        logged_in: req.session.logged_in
+        logged_in: req.session.logged_in,
+        showNav: true,
+        showCoin: true,
       }
     );
   } catch (error) {
@@ -62,7 +67,7 @@ router.get('/account/:id', async (req, res) => {
   }
 });
 
-
+// GET route for getting the user's account page
 router.get('/dashboard', withAuth, async (req, res) => {
   try {
     const userData = await User.findOne({
@@ -82,12 +87,12 @@ router.get('/dashboard', withAuth, async (req, res) => {
     // Serialize data so the template can read it
     const user = userData.get({ plain: true });
     const wallet = walletData.get({ plain: true });
-    console.log(user, 'this is user in /dashboard route');
+    
 
     if(user.profile_picture) {
       user.profilePicture = user.profile_picture;
     } else {
-      user.profilePicture = 'images/fullDeck/2-heart.png';
+      user.profilePicture = '../../images/fullDeck/2_heart.png';
     }
 
     // Pass serialized data and session flag into template
@@ -95,12 +100,16 @@ router.get('/dashboard', withAuth, async (req, res) => {
       ...user,
       walletBalance: wallet.balance, // passing wallet balance to the front-end
       logged_in: req.session.logged_in,
+      showNav: true,
+      showCoin: true,
+      
     });
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
+// get route for getting the user's info and wallet page
 router.get('/wallet', withAuth, async (req, res) => {
   try {
     const userData = await User.findOne({
@@ -114,6 +123,7 @@ router.get('/wallet', withAuth, async (req, res) => {
     const walletData = await Wallet.findOne({
       where: {
         user_id: req.session.user.id,
+        
       },
     });
 
@@ -125,14 +135,17 @@ router.get('/wallet', withAuth, async (req, res) => {
     if(user.profile_picture) {
       user.profilePicture = user.profile_picture;
     } else {
-      user.profilePicture = 'images/fullDeck/2-heart.png';
+      user.profilePicture = 'images/fullDeck/2_heart.png';
     }
 
     // Pass serialized data and session flag into template
     res.render('wallet', {
       ...user,
-      walletBalance: wallet.balance, // passing wallet balance to the front-end
+      walletBalance: wallet.balance, 
       logged_in: req.session.logged_in,
+      showNav: true,
+      showCoin: true,
+      
     });
   } catch (err) {
     res.status(500).json(err);

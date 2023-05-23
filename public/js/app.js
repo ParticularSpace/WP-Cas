@@ -1,48 +1,51 @@
+
+// handle the login form submission
 const loginFormHandler = async (event) => {
   event.preventDefault(); // Prevent form submission
 
-  console.log('loginFormHandler');
 
   const username = document.querySelector('#username-login').value.trim(); // Get the entered username
   const password = document.querySelector('#password-login').value.trim(); // Get the entered password
 
   console.log(username, password, 'app.js loginFormHandler 11')
 
+  // Check that the username and password are not empty
   if (username && password) {
     try {
       console.log('About to call fetch');
-      const response = await fetch('/api/users/login', { // Send a POST request to the login endpoint
+      // send a POST request to the login endpoint
+      const response = await fetch('/api/users/login', {
         method: 'POST',
-        body: JSON.stringify({ username, password }), // Send the username and password as JSON in the request body
+        body: JSON.stringify({ username, password }),
         headers: {
           'Content-Type': 'application/json',
         },
       });
-      
-      console.log(response, 'app.js loginFormHandler 21');
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      
+
 
       if (response.ok) {
-        console.log('Response was OK');
         const data = await response.json(); // Get the response data as JSON
-        console.log(data, 'app.js loginFormHandler 31');
-        // If the login is successful, redirect to the dashboard page.
+      
+        const welcomeMessage = data.message; // Get the welcome message from the server
+      
+        sessionStorage.setItem('welcomeMessage',welcomeMessage); // Store the welcome message in sessionStorage
+      
         document.location.replace('/dashboard');
       } else {
         console.log('Response was not OK');
-        
       }
-    } catch (err) {
-      window.alert('Password or username is incorrect. Please try again.');
-      document.location.reload();
-      console.error('Error in fetch call', err);
-    }
+      } catch (err) {
+        window.alert('Password or username is incorrect. Please try again.');
+        document.location.reload();
+        console.error('Error in fetch call', err);
+      } 
   }
 };
+
 
 const registerFormHandler = async (event) => {
   event.preventDefault(); // Prevent form submission
@@ -51,16 +54,17 @@ const registerFormHandler = async (event) => {
   const password = document.querySelector('#password-register').value.trim(); // Get the entered password
 
   if (username && password) {
-    const response = await fetch('/api/users/register', { // Send a POST request to the register endpoint
+    // Send a POST request to the register endpoint
+    const response = await fetch('/api/users/register', { 
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ username, password }), // Send the username and password as JSON in the request body
+      body: JSON.stringify({ username, password }),
     });
 
+    // If the registration is successful, redirect to the login page.
     if (response.ok) {
-      // If the registration is successful, redirect to the login page.
       document.location.replace('/login');
     } else {
       alert('Failed to register');
@@ -97,7 +101,7 @@ const logout = async () => {
   } else {
     alert('Failed to log out');
   }
-}; 
+};
 
 // logout event listener
 let logoutButton = document.querySelector('#logout-button');
@@ -107,7 +111,6 @@ if (logoutButton) {
 
 
 // making a call to /games when the user clicks the Get Started button
-
 const getStarted = async () => {
   const response = await fetch('/games', { // Send a GET request to the games endpoint
     method: 'GET',
@@ -122,12 +125,7 @@ const getStarted = async () => {
   }
 };
 
-// now add event listener for the get started button and call the getStarted function
 
-let getStartedButton = document.querySelector('.getStarted');
-if (getStartedButton) {
-  getStartedButton.addEventListener('click', getStarted);
-};
 
 
 

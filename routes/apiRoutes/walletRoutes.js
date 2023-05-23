@@ -4,7 +4,6 @@ const { Wallet } = require('../../models');
 
 // Route to add funds to wallet
 router.post('/fund', async (req, res) => {
-    console.log(req.body, "this is req.body in walletRoutes.js");
   try {
     const walletData = await Wallet.findOne({
       where: {
@@ -12,15 +11,11 @@ router.post('/fund', async (req, res) => {
       },
     });
 
-    console.log(walletData);
-
     if (walletData) {
         
       // Update the wallet balance
       walletData.balance = Number(walletData.balance) + Number(req.body.amount);
-      console.log(walletData.balance, "this is walletData.balance in walletRoutes.js");
-
-
+      
       await walletData.save();
 
       res.status(200).json(walletData);
@@ -31,7 +26,5 @@ router.post('/fund', async (req, res) => {
     res.status(500).json(err);
   }
 });
-
-
 
 module.exports = router;

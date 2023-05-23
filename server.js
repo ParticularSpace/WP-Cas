@@ -1,7 +1,6 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const routes = require('./routes');
-// const path = require('path');
 const hbs = exphbs.create({});
 const sequelize = require('./config/connection');
 const session = require('express-session');
@@ -51,6 +50,6 @@ app.use('/api', chatRoutes); // Include the chat API routes
 
 sequelize.sync({ force: false }).then(() => { // Sync the database models with the database
   app.listen(PORT, () => {
-    console.log(`App listening on port ${PORT}!`); // Start the server and listen on the specified port
+    console.log(`App listening on port ${PORT}!`);
   });
 });

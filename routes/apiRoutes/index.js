@@ -1,4 +1,3 @@
-// Importing the required dependencies
 const router = require('express').Router(); // Using the Router module from Express
 const gameRoutes = require('../htmlRoutes/gamesRoutes'); // Importing the 'gamesRoutes' module from the '../htmlRoutes' directory
 const userRoutes = require('./userRoutes'); // Importing the 'userRoutes' module
@@ -16,4 +15,4 @@ router.use('/profile', userProfile);
 
 router.use('/wallet', userWallet);
 
-module.exports = router; // Exporting the router for use in other files
+module.exports = router;
