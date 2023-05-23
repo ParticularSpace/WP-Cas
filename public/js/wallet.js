@@ -22,7 +22,7 @@ async function addFunds(amount) {
       // Get the paragraph tag that displays the balance
       const balanceElement = document.querySelector('.wallet-wrapper p');
       if (balanceElement) {
-        balanceElement.innerText = 'Current Balance: ' + walletData.balance + ' Four-Leaf Coins';
+        balanceElement.innerText = 'Current Balance: ' + walletData.balance + ' Coins';
       }
 
       // Get the navigation balance
