@@ -103,6 +103,7 @@ const welcomeMessage = await generateResponse(`My name is ${userData.username}`)
 
 // Logout route CHECK THIS
 router.post('/logout', (req, res) => {
+  console.log('req.session:', req.session);
   if (req.session.logged_in) {
     req.session.destroy(() => {
       res.status(204).end(); // Destroy the session and respond with a 204 status code

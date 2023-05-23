@@ -26,7 +26,7 @@ async function addFunds(amount) {
       }
 
       // Get the navigation balance
-    const navBalanceElement = document.querySelector('.navbar-item .dropdown-item:nth-child(3)');
+    const navBalanceElement = document.querySelector('.navbar-item .dropdown-item:nth-child(2)');
     if (navBalanceElement) {
       navBalanceElement.innerText = 'Wallet: ' + walletData.balance;
     }
