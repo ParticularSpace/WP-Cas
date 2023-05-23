@@ -38,7 +38,7 @@ https://warm-dawn-26665.herokuapp.com/login
 
  This project is licensed under the MIT license. To learn more please visit https://choosealicense.com/licenses/mit/
 
-  ## Cedits
+  ## Credits
 
   Sam Jones,
   Al,
