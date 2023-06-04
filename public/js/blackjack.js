@@ -293,77 +293,43 @@ $("#doubleBtn").click(function() {
 
 });
 
-// bet 1
-$("#b-1").click(function() {
-    // playSoundOnce(sound1);
 
-    balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
+function updateBet(betIncrement) {
+
     
-    if(playerBalance < 1){
+
+    if (playerBalance < betIncrement || betAmount + betIncrement > 500) {
         return;
     }
-    betAmount = 1;
 
-    tempBalance = playerBalance
-    tempBalance = tempBalance - betAmount;
-    balanceView.textContent = "Balance: " + tempBalance.toFixed(2);
+    betAmount += betIncrement;
+
+    playerBalance -= betIncrement;
+    balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
 
     bButton.disabled = false;
+}
+
+// bet 1
+$("#b-1").click(function() {
+    updateBet(1);
 });
 
 // bet 5
 $("#b-5").click(function() {
-    // playSoundOnce(sound1);
-
-    balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
-
-    if(playerBalance < 5){
-        return;
-    }
-    betAmount = 5;
-
-    tempBalance = playerBalance
-    tempBalance = tempBalance - betAmount;
-    balanceView.textContent = "Balance: " + tempBalance.toFixed(2);
-
-    bButton.disabled = false;
+    updateBet(5);
 });
 
 // bet 10
 $("#b-10").click(function() {
-    // playSoundOnce(sound1);
-
-    balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
-
-    if(playerBalance < 10){
-        return;
-    }
-    betAmount = 10;
-
-    tempBalance = playerBalance
-    tempBalance = tempBalance - betAmount;
-    balanceView.textContent = "Balance: " + tempBalance.toFixed(2);
-
-    bButton.disabled = false;
+    updateBet(10);
 });
 
 // bet 20
 $("#b-20").click(function() {
-    // playSoundOnce(sound1);
-
-    balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
-
-    if(playerBalance < 20){
-        return;
-    }
-    betAmount = 20;
-
-    tempBalance = playerBalance
-    tempBalance = tempBalance - betAmount;
-    balanceView.textContent = "Balance: " + tempBalance.toFixed(2);
-
-    bButton.disabled = false;
+    updateBet(20);
 });
+
 
 // creaete deck
 function build() {
