@@ -149,14 +149,76 @@ footer p {
     margin: 20px 0;
 }
 
-button {
+#b-1 {
     padding: 10px 20px;
+    border: none;
+    background-image: url("/images/blu.png");
+    color: #ffffff;
+    font-size: 1.6em;
+    font-weight: bold;
+    cursor: pointer;
+    background-size: cover;
+    min-width: 90px;
+    min-height: 90px;
+    border-radius: 40px;
+    
+}
+
+#b-5 {
+    padding: 10px 20px;
+    border: none;
+    background-image: url("/images/red.png");
+    color: #ffffff;
+    font-size: 1.6em;
+    font-weight: bold;
+    cursor: pointer;
+    background-size: cover;
+    min-width: 90px;
+    min-height: 90px;
+    border-radius: 40px;
+    
+}
+
+#b-10 {
+    padding: 10px 20px;
+    border: none;
+    background-image: url("/images/gre.png");
+    color: #ffffff;
+    font-size: 1.6em;
+    font-weight: bold;
+    cursor: pointer;
+    background-size: cover;
+    min-width: 90px;
+    min-height: 90px;
+    border-radius: 40px;
+    
+}
+
+#b-20 {
+    padding: 10px 20px;
+    border: none;
+    background-image: url("/images/bla.png");
+    color: #ffffff;
+    font-size: 1.6em;
+    font-weight: bold;
+    cursor: pointer;
+    background-size: cover;
+    min-width: 90px;
+    min-height: 90px;
+    border-radius: 40px;
+    
+}
+
+ #betBtn {
+    padding: 10px 40px;
     border: none;
     background-color: #ffcd05;
     color: #000000;
     cursor: pointer;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
+    border-radius: 20px;
+} 
+
 
 button:disabled {
     background-color: #6c757d;
