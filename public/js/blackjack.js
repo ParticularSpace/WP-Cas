@@ -1,6 +1,3 @@
-
-
-
 let betAmount = 0;
 
 let dealerSum = 0;
@@ -26,9 +23,6 @@ const exit = document.getElementById("exit-game-id");
 
 
 
-// let lieDetector = true; // just a general variable set to true
-
-
 // gets only the number that's being displayed
 let balanceView = document.getElementById('balance'); //======= 
 let balanceText = balanceView.textContent;
@@ -38,31 +32,21 @@ let playerBalance;
 playerBalance = walletBalance; 
 // extra variable for holding temp player balalnce for bet buttons.
 let tempBalance;
-const audio1 = new Audio("../sounds/intro_game_music_1a.mp3");
-const sound1 = new Audio("../sounds/coin_select.wav");
-const sound2 = new Audio("../sounds/machine.wav");
-const sound3 = new Audio("../sounds/machine2.wav");
-const sound4 = new Audio("../sounds/loss.wav ");
-const sound5 = new Audio("../sounds/win.wav ");
-const sound6 = new Audio("../sounds/button2.wav");
+// const audio1 = new Audio("../sounds/intro_game_music_1a.mp3");
+// const sound1 = new Audio("../sounds/coin_select.wav");
+// const sound2 = new Audio("../sounds/machine.wav");
+// const sound3 = new Audio("../sounds/machine2.wav");
+// const sound4 = new Audio("../sounds/loss.wav ");
+// const sound5 = new Audio("../sounds/win.wav ");
+// const sound6 = new Audio("../sounds/button2.wav");
 
-// const chat_window = document.getElementById("lilHChat");
-// let isShowing = false;
-
-
-// window.onload = function() {
-//     $(".not-me-score-container").hide();
-//     $(".me-score-container").hide();
-//     $(".chat-window").hide();
-//     playSound(audio1);
-// }
 
 window.addEventListener('DOMContentLoaded', function() {
     
     $(".not-me-score-container").hide();
     $(".me-score-container").hide();
     $(".chat-window").hide();
-    playSound(audio1);
+    // playSound(audio1);
     $(".endGameResults").hide();
    
 });
@@ -71,18 +55,8 @@ $(".flip").click(function(){
     $(this).parents(".full-card").toggleClass("flipped");
 });
 
-// function correctSumDisplay() {
-//     if(yourAce == 1 && yourSum > 21){
-//         yourSum = changeAce(yourSum, yourAce);
-//         document.getElementById("yourScore").innerHTML = yourSum;
-//     }
-//     return;
-// }
 
-
-
-
-//========================================================================================================
+// function updateWalBal to update the user wallet database
 async function updateWalBal (input) {
     try {
         const response = await fetch('/api/profile/wallet/user_wallet/U_W_bal', {
@@ -99,9 +73,6 @@ async function updateWalBal (input) {
 
     
 }
-
-
-// ====================
 
 
 // function gameAnnounce to send the gameOutcome to chat route /api/chat/announce
@@ -136,10 +107,6 @@ async function gameAnnounce (userMessage, gameOutcome) {
 
 
 
-
-// ====================
- // ==========================================================================================================
-
 // make leave button route back to dashboard 
 $("#leave_game").click(function() {
     window.location.href = "../dashboard";
@@ -149,39 +116,23 @@ $("#leave_game").click(function() {
 $(".exit-game").click(function() {
     window.location.href = "../dashboard";
 })
-// ========== Apply chat partial =========
 
-// $("#applyChatPartial").click(function(event) {
-//     event.preventDefault();
 
-//     if(isShowing == false){
-//     $(".chat-window").show();
-//     isShowing = true;
-//     return;
+// function playSoundOnce(A) {
+//     A.play();
+// }
+
+// function playSound(Y) {
+//     Y.loop = true;
+//     Y.play();
+// }
+
+// function stopSound(X) {
+//     if (X) {
+//       X.pause();
+//       X.currentTime = 0;
 //     }
-//     else if(isShowing == true){
-//     $(".chat-window").hide();
-//     isShowing = false;
-//     return;
-//     }
-    
-// });
-
-function playSoundOnce(A) {
-    A.play();
-}
-
-function playSound(Y) {
-    Y.loop = true;
-    Y.play();
-}
-
-function stopSound(X) {
-    if (X) {
-      X.pause();
-      X.currentTime = 0;
-    }
-}
+// }
 
 
 $("#betBtn").click(function() {
@@ -189,9 +140,9 @@ $("#betBtn").click(function() {
 });
 
 $(".replay").click(function() {
-    // stopSound(audio2);
+
     
-    playSoundOnce(sound3);
+    // playSoundOnce(sound3);
     Body.classList.toggle('second-img');
 
     dealerSum = 0;
@@ -215,13 +166,41 @@ $(".replay").click(function() {
 });
 
 $("#hitBtn").click(function() {
-    playSoundOnce(sound6);
-    dbl.disabled = true;
-    document.getElementById("stayBtn").innerHTML = "Stay";
-    hitbtn();
-    // correctSumDisplay();
+// hit button
 
-});
+    if(!allowHit){
+        return;
+    }
+
+    let $newCard = $('<img />');
+    let card = deck.pop();
+    let url = "/../images/fullDeck/" + card +".png";
+    $newCard.attr('src', url);
+    yourSum += cardValue(card);
+    yourAce += checkForAce(card);
+    let $insertCard = $('#e');
+    $insertCard.append($newCard);
+
+    // Check if yourSum is greater than 21 and end game if it is
+    if(changeAce(yourSum, yourAce) > 21){
+        allowHit = false;
+        // Show the dealer's unflipped card
+        document.getElementById('faceDown').src = "/../images/fullDeck/" + unFlipped + ".png";
+        // Display Bust message
+        gameOutcome = 'BUST';
+        playerBalance = playerBalance - betAmount;
+        balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
+        updateWalBal(playerBalance);
+        gameAnnounce('blackjack ending', gameOutcome);
+        $(".replay").show();
+        $(".leave").show();
+        $(".endGameResults").show();
+    }
+    document.getElementById("yourScore").innerHTML = yourSum;
+}
+);
+
+
 
 $("#stayBtn").click(async function() {
 
@@ -231,8 +210,8 @@ $("#stayBtn").click(async function() {
     dbl.disabled = true;
     stay.disabled = true;
     HIT.disabled = true;
-    // let displayResult = document.querySelector(".endGameResults");
-    if(dealerSum < 17){
+    
+    if(dealerSum <= 17){
         dealerHand();
     }
 
@@ -246,14 +225,14 @@ $("#stayBtn").click(async function() {
     // displays who won ===========
     let gameOutcome;
     if(yourSum > 21){
-        playSoundOnce(sound4);
+        // playSoundOnce(sound4);
         gameOutcome = 'BUST';
         playerBalance = playerBalance - betAmount;
         balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
         updateWalBal(playerBalance);
      }
     else if(dealerSum > 21){
-        playSoundOnce(sound5);
+        // playSoundOnce(sound5);
         endMessage = 'YOU WIN ';
         playerBalance = playerBalance + betAmount;
         balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
@@ -262,12 +241,12 @@ $("#stayBtn").click(async function() {
     }
     else if(yourSum == dealerSum){
         endMessage = 'PUSH ';
-        //=====
+     
         balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
         gameOutcome = endMessage + "+0";
     }
     else if(yourSum > dealerSum){
-        playSoundOnce(sound5);
+        // playSoundOnce(sound5);
         endMessage = 'YOU WIN ';
         playerBalance = playerBalance + betAmount;
         balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
@@ -275,7 +254,7 @@ $("#stayBtn").click(async function() {
         gameOutcome = endMessage + "+" + betAmount;
     }
     else if(yourSum < dealerSum){
-        playSoundOnce(sound4);
+        // playSoundOnce(sound4);
         gameOutcome = 'BUST ';
         playerBalance = playerBalance - betAmount;
         balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
@@ -292,7 +271,7 @@ $("#stayBtn").click(async function() {
 
 // double bet amount
 $("#doubleBtn").click(function() {
-    playSoundOnce(sound6);
+    // playSoundOnce(sound6);
 
     betAmount += betAmount;
     dbl.disabled = true;
@@ -316,7 +295,7 @@ $("#doubleBtn").click(function() {
 
 // bet 1
 $("#b-1").click(function() {
-    playSoundOnce(sound1);
+    // playSoundOnce(sound1);
 
     balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
     
@@ -334,7 +313,7 @@ $("#b-1").click(function() {
 
 // bet 5
 $("#b-5").click(function() {
-    playSoundOnce(sound1);
+    // playSoundOnce(sound1);
 
     balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
 
@@ -352,7 +331,7 @@ $("#b-5").click(function() {
 
 // bet 10
 $("#b-10").click(function() {
-    playSoundOnce(sound1);
+    // playSoundOnce(sound1);
 
     balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
 
@@ -370,7 +349,7 @@ $("#b-10").click(function() {
 
 // bet 20
 $("#b-20").click(function() {
-    playSoundOnce(sound1);
+    // playSoundOnce(sound1);
 
     balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
 
@@ -385,7 +364,8 @@ $("#b-20").click(function() {
 
     bButton.disabled = false;
 });
-// =========================================================================
+
+// creaete deck
 function build() {
     let values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
     let type = ['club', 'diamond', 'heart', 'spade'];
@@ -398,7 +378,7 @@ function build() {
     }
 }
 
-// randomize the order
+// shuffle deck
 function shuffle() {
     for(let a = 0; a < deck.length; a++){
         let b = Math.floor(Math.random() * deck.length);
@@ -408,6 +388,7 @@ function shuffle() {
     }
 }
 
+// hit button
 function hitbtn(){
     if(!allowHit){
         return;
@@ -429,18 +410,17 @@ function hitbtn(){
 }
 
 
-
+// start game
 function gameStart() { 
-    // stopSound(audio1);
-    // playSound(audio2);
-    playSoundOnce(sound2);
+
+    // playSoundOnce(sound2);
     Body.classList.toggle("second-img");
     endGameRefresh();
     $(".replay").hide();
     $(".leave").hide();
     $("#doubleBtn").show();
     exit.disabled = true;
-    //=================================== fade these in...
+   
     $(".not-me-score-container").show();
     $(".me-score-container").show();
     build();
@@ -537,7 +517,5 @@ function dealerHand(){
 // LET THE GAMES BEGIN
 $(document).ready( function() {
     $(".make-bet").click(gameStart);
-
-    
 
 });

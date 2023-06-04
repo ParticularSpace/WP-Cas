@@ -1,525 +1,177 @@
-*,
-*::after,
-*::before{
-    box-sizing: border-box;
+body {
+    font-family: 'Courier New', Courier, monospace;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    background-image: url("/images/blackjack-classic-background.jpg"); /* replace with your background image */
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: #ffffff;
+    
+
 }
 
-:root {
-    --C-1: #FF00FF;
-    --C-2: #00FFFF;
-    --C-3: ;
-    --C-4: ;
-    --C-5: ;
-    --C-6: ;
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
 }
-body {
-    display:flex;
+
+body > .content-wrapper, .coin-wrapper {
+    flex: 1 0 auto;
+}
+
+footer {
+    flex-shrink: 0;
+}
+
+
+
+
+.container {
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    background:silver;
-    background-size: cover;
-    background-repeat: no-repeat; 
-    width: 100%;
-    height: 100vh;
-    position: relative;
-    transition: 0.3s ease-in-out;
-}
-body.second-img {
-    background-image: url("../images/game_play.gif");
-    transition: 0.3s ease-in-out;
 }
 
-
-body::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.7);
-}
-
-.capsule {
-    width: 100%;
-    margin: 100px auto;
+.dealerHand, .myHand {
     display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 80%;  /* reduce this number if you want the hands to be narrower */
+}
+
+.buttons {
+    width: 100%;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+.button {
+    margin: 0 10px;  /* add some horizontal margin to space out the buttons */
+}
+
+
+header {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px 0;
+    border-bottom: 3px solid #ffcd05;
+}
+
+header .container, footer .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-right: 20px;
+}
+
+nav ul li:last-child {
+    margin-right: 0;
+}
+
+.main-content {
+    margin-top: 20px;
+}
+
+.main-content h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.main-content p {
+    font-size: 1.2em;
+    line-height: 1.6;
+    color: #ffffff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+footer {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px 0;
+    border-top: 3px solid #ffcd05;
+}
+
+footer p {
+    margin: 0;
+}
+
+.card {
+    width: 200px;   /* Adjust this value to your preference */
+    height: 200px;  /* Adjust this value to your preference */
+    margin: 10px;
+    display: flex;
+    align-items: center;
     justify-content: center;
 }
 
-@media only screen and (max-width: 780px){
-    .capsule {
-        flex-direction: column;
-        align-items: center;
-    }
+
+.card img {
+    max-width: 100%;
+    max-height: 100%;
 }
 
-.replay {
-    width: 50px;
-}
-
-.content-info {
-    width: 560px;
-    height: 380px;
-    margin: 15px;
-    perspective: 1000px;
-    border-radius: 5%;
-}
-
-.full-card {
-    
-    width: 100%;
-    height: 100%;
-    transform-style: preserve-3d;
-    transition: all 500ms linear;
-    border-radius: 5%;
-    animation: fade-slideDown 1200ms;
-}
-
-.front {
-    
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    background: wheat;
-    border-radius: 5%;
-    padding: 2%;
-}
-
-.back {
-    
-    overflow: hidden;
-    z-index: -1;
-    display: grid;
-    transform: rotateY(180deg);
-    box-sizing: border-box;
-    border-radius: 5%;
-    padding: 2%;
-    box-shadow: 0 15px 10px black;
-    background: black;
-    
-}
-.back::before {
-    filter: blur(3.5rem);
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    box-sizing: 100% 100%;
-    background: linear-gradient(var(--C-1), var(--C-2));
-    animation: animate 4s linear infinite;
-    transform: rotateY(180deg);
-    
-}
-.front, .back {
-    transition: all 500ms linear;
-    
-}
-
-.front {
-    display: grid;
-    grid-template-rows: repeat(4, 1fr);
-    /* background:burlywood; */
-    background-image: url(../images/wood_back3.jpg);
-    background-size: 100% 50%;
-    z-index: 1;
-    box-shadow: 0 15px 10px black;
-    border-radius: 5%;
-    padding-bottom: 10%;
-    
-}
-.back::after {
-    z-index: -1;
-    content: "";
-    position: absolute; 
-    inset: 8px;
-    background: darkolivegreen;
-    border-radius: 5%;
-}
-
-.dealerHand {
-    
-    z-index: 7;
-    display: grid;
-    /* grid-template-columns: repeat(4, 1fr); */
-    grid-template-columns: repeat(1, 1fr);
-    gap: 2px;
-    /*border: 1px solid red;*/
-    padding: 2%;
-    margin: 2%;
-}
-.myHand {
-    
-    display: grid;
-    /* grid-template-columns: repeat(4, 1fr); */
-    grid-template-columns: repeat(1, 1fr);
-    gap: 1px;
-    /* border: 1px solid blue; */
-    padding: 2%;
-    margin: 2%;
-   
-}
-
-
-.button-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-
-}
-.button-container button {
-    border-radius: 25%;
-    padding: 2%;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    /* animation: fadeIn 1000ms; */
-}
-.chip-container {
-    display: grid;
-    gap: 4%;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-}
-.chip-container button {
-    justify-self: center;
-    border-radius: 50%;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-.make-bet {
-    position: absolute;
-    width: 75px;
-
-    left: 0;
-    right: 0;
-    bottom: 4%;
-
-    margin: 0 auto;
-    margin-top: 2%;
-    padding: 3%;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-weight: bold;
-    background:darkred;
-    color: white;
-    border-radius: 20%;
-    border-color: white;
-    /*box-shadow: 0 4px 4px black;*/
-}
-
-.make-bet:hover,
-.make-bet:active {
-    color: white;
-    background: crimson;
-}
-
-.balance-amount {
-    justify-self: center;
-    color:dimgray;
-    background: ghostwhite;
-    border-radius: 8%;
-    border: 4px solid silver;
-    padding: 4px 50px 2px 50px;
-}
-p {
-    color: ghostwhite;
-    justify-self: center;
-    font-weight:bolder;
-    font-style: oblique;
-    font-size: larger;
-    align-self: center;
-    font-family:monospace;
-
-}
-.flipped {
-    transform: rotateY(180deg)rotateX(-40deg);
-    
-}
-
-.flipped .front {
-    box-shadow: 0 0 0 #aaa;
-}
-
-.flipped .back {
-    box-shadow: 5px 5px 5px #aaa;
-}
-
-.replay {
-    
-    width: 75px;
-
-    left: 0;
-    right: 0;
-    bottom: 4%;
-
-    margin: 0 auto;
-    padding: 1% 2% 1% 2%;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-weight: bold;
-    background:goldenrod;
-    color: white;
-    border-radius: 20%;
-    border-color: white;
-}
-
-.replay:hover,
-.replay:active {
-    color: white;
-    background:yellow;
-}
-
-.leave {
-    
-    width: 80px;
-
-    left: 0;
-    right: 0;
-    bottom: 4%;
-
-    margin: 0 auto;
-    padding: 1% 2% 1% 2%;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-weight: bold;
-    background:goldenrod;
-    color: white;
-    border-radius: 20%;
-    border-color: white;
-}
-.dont-worry-about-what-this-is {
-    width: 80px;
-
-    left: 0;
-    right: 0;
-    bottom: 4%;
-
-    margin: 0 auto;
-    padding: 1% 2% 1% 2%;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-weight: bold;
-    background:darkolivegreen;
-    color: darkolivegreen;
-    border-radius: 20%;
-    border-style: none;
-}
-.final-buttons {
+.card-body {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: red;
+    width: 100%;
+    height: 100%;
+
 }
-.final-buttons button{
-    justify-content: space-between;
-    margin-top: 2%;
-    
-}
-/* .little-helper{
+
+
+.dealerHand, .myHand {
     display: flex;
-    position: relative;
-    
-}
-.little-helper img{
-    position: absolute;
-    right: 5px;
-    bottom: 0;
-    width: 95px;
-    max-width: 95px;
-    animation: fade-slideLeft 2000ms;
-} */
-
-.little-helper{
-    position: absolute;
-    z-index: 2;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
-.dealerHand div {
-    justify-self: center;
-    
-}
-.myHand div {
-    justify-self: center;
-   
+.betting, .buttons {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
 }
 
-.dealerHand img {
-    height: 75px;
-    width: 55px;
-    
-}
-.myHand img {
-    height: 75px;
-    width: 55px;
-   
+button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #ffcd05;
+    color: #000000;
+    cursor: pointer;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-
-
-.table img {
-    /* animation: fadeIn 1000ms; */
-    animation: fade-slideLeftandDown 1300ms;
-}
-.bet-1 {
-    width: 75px;
-    height: 75px;
-    /* background: white; */
-    background-image: url("../images/gre.png");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    color: white;
-    /* border-color: white; */
-    
-}
-.bet-5 {
-    width: 75px;
-    height: 75px;
-    /* background: white; */
-    background-image: url("../images/red.png");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    color: white;
-    /* border-color: white; */
-}
-.bet-10 {
-    width: 75px;
-    height: 75px;
-    /* background: white; */
-    background-image: url("../images/bla.png");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    color: white;
-    /* border-color: white; */
-}
-.bet-20 {
-    width: 75px;
-    height: 75px;
-    /* background: white; */
-    background-image: url("../images/blu.png");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    color: white;
-    /* border-color: white; */
+button:disabled {
+    background-color: #6c757d;
+    color: #ffffff;
 }
 
-.me-score-container {
-    padding: 1% 2% 1% 2%;
-    z-index: 2;
-    background: black;
-    color: green;
-    border: 2px solid green;
-    border-radius: 8%;
-    display: grid;
-    align-self: self-start;
-    animation: fade-slideDown 1000ms;
-}
-.not-me-score-container {
-    padding: 1% 2% 1% 2%;
-    z-index: 2;
-    background: black;
-    color: red;
-    border: 2px solid red;
-    border-radius: 8%;
-    display: grid;
-    align-self: self-start;
-    animation: fade-slideDown 1000ms;
+#e {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }
 
-/* .chat-window {
-    display: none;
-    position: absolute;
-    right: 150px;
-    bottom: 0;
-    width: 200px;
-    max-width: 100px;
-    color: white;
-    
-
-} */
-
-.exit-game {
-    position: absolute;
-    top:0;
-    left: 5px;
-    width: 55px;
-    height: 35px;
-    background: darkred;
-    color: white;
-    border: 2px solid white;
-    text-align: center;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    border-radius: 8%;
-}
- /* .endGameContainer {
-     text-align:left;
-}  */
- /* .endGameResults {
-    transition: 0.3 ease-in-out;
-    padding: 1% 3% 1% 3%;
-    z-index: 2;
-    background: black;
-    color: gold;
-    border: 2px solid gold;
-    border-radius: 8%;
-    position: absolute;
-    right: 45%;
-    bottom: 0;
-    width: 150px;
-    max-width: 150px;
-    animation: fade-slideUp 2000ms; */
-
-.double:hover {
-    background: lightgoldenrodyellow;
-}
-.hit:hover {
-    background: lightcoral;
-}
-.stay:hover {
-    background: lightskyblue;
+#b {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
 }
 
-
-
-
-
-#double {
-    box-shadow: 0 0 0 #aaa;
-}
-
-@keyframes fadeIn {
-    0% {opacity: 0;}
-    100% {opacity: 1;}
-}
-
-@keyframes animate {
-    0% { transform: rotate(0deg);}
-    100% { transform: rotate(360deg);}
-}
-
-@keyframes fade-slideDown {
-    0% {opacity: 0;
-        transform: translateY(-50px) scale(0.9);}
-    100% {opacity: 1;
-        transform: translateY(0px) scale(1);}
-
-}
-
-@keyframes fade-slideLeftandDown {
-    0% {opacity: 0;
-        transform: translateX(50px) translateY(-50px) scale(0.9);}
-    100% {opacity: 1;
-        transform: translateX(0px) translateY(0px) scale(1);}
-
-}
-@keyframes fade-slideLeft {
-    0% {opacity: 0;
-        transform: translateX(50px)  scale(0.9);}
-    100% {opacity: 1;
-        transform: translateX(0px)  scale(1);}
-
-}
-@keyframes fade-slideUp {
-    0% {opacity: 0;
-        transform: translatey(50px)  scale(0.9);}
-    100% {opacity: 1;
-        transform: translateX(0px)  scale(1);}
-
-}

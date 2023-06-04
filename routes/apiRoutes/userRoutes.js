@@ -82,7 +82,6 @@ router.post('/login', async (req, res) => {
 const welcomeMessage = await generateResponse(`My name is ${userData.username}`);
 
 
-
     req.session.user = {
       id: userData.id,
       username: userData.username,
