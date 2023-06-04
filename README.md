@@ -1,6 +1,10 @@
 # Four-leaf Casino 
 
   ![License](https://img.shields.io/badge/license-MIT-blue.svg)
+  
+  ## URL
+  
+https://warm-dawn-26665.herokuapp.com/login
 
   ## Description
 
@@ -34,7 +38,7 @@
 
  This project is licensed under the MIT license. To learn more please visit https://choosealicense.com/licenses/mit/
 
-  ## Cedits
+  ## Credits
 
   Sam Jones,
   Al,
