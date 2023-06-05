@@ -64,7 +64,6 @@ async function updateWalBal(input) {
 
 }
 
-
 // function gameAnnounce to send the gameOutcome to chat route /api/chat/announce
 async function gameAnnounce(userMessage, gameOutcome) {
     try {
@@ -162,8 +161,6 @@ $("#betBtn").click(function () {
     $("#notYourScore").text(dealerSum);
 });
 
-
-
 $("#hitBtn").click(function () {
     // hit button
 
@@ -179,14 +176,9 @@ $("#hitBtn").click(function () {
     yourAce += checkForAce(card);
     $('#e').append($newCard);
 
-    // //if your sum is greater than 21 and your ace is greater than 0, reduce your sum by 10
-    // if (yourSum > 21 && yourAce > 0) {
-    //     yourSum -= 10;
-    //     yourAce -= 1;
-    // }
+    console.log(yourSum, 'yourSum in hitBtn');
+    console.log(yourAce, 'yourAce in hitBtn');
 
-    console.log(yourSum, 'yourSum');
-    console.log(yourAce, 'yourAce');
     // Check if yourSum is greater than 21 and end game if it is
     if (changeAce(yourSum, yourAce) > 21) {
         allowHit = false;
@@ -194,11 +186,10 @@ $("#hitBtn").click(function () {
         $('#faceDown').attr('src', "/../images/fullDeck/" + unFlipped + ".png");
         // Display Bust message
         gameOutcome = 'BUST';
-        playerBalance -= betAmount;
+
         balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
         updateWalBal(playerBalance);
         gameAnnounce('blackjack ending', gameOutcome);
-        $(".replay, .leave, .endGameResults").show();
 
         // Reset the board after a brief delay to allow player to see the result
         setTimeout(resetBoard, 2000); // Delay of 2 seconds
@@ -273,7 +264,6 @@ function resetBoard() {
     $("#pile").empty();
 }
 
-
 function updateScores() {
     console.log(dealerSum, 'dealerSum in updateScores');
     console.log(yourSum, 'yourSum in updateScores');
@@ -337,9 +327,6 @@ function updateInterface(gameOutcome) {
     exit.disabled = false;
 }
 
-
-
-
 $("#stayBtn").click(async function () {
     $(".replay").show();
     $(".leave").show();
@@ -357,7 +344,6 @@ $("#stayBtn").click(async function () {
     const gameOutcome = calculateOutcome();
     updateInterface(gameOutcome);
 });
-
 
 // double bet amount NOT WORKED ON YET
 $("#doubleBtn").click(function () {
@@ -383,7 +369,6 @@ $("#doubleBtn").click(function () {
 
 
 });
-
 
 function updateBet(betIncrement) {
 
@@ -426,7 +411,6 @@ function moveChip(chipElement, destinationId) {
     chipClone.attr('data-value', chipElement.attr('data-value'));
 }
 
-// Add this outside your moveChip function
 $('#pile').click(function () {
     // find the last chip
     let lastChip = $(this).children().last();
@@ -444,7 +428,6 @@ $('#pile').click(function () {
         lastChip.remove();
     }
 });
-
 
 // Updating bet functions with animation
 $("#b-1").click(function () {
@@ -554,29 +537,32 @@ function gameStart() {
         $newCard.attr('src', url);
         console.log(card, 'card in gameStart');
         let cardVal = cardValue(card);
+        //check if card is an ace
+        //if card is an ace, add 1 to yourAce
+        yourAce += checkForAce(card);
+        //add card value to yourSum
         yourSum += cardVal;
-        if (cardVal == 11) {
-            yourAce += 1;
+    
+        // If the card is an ace and yourSum exceeds 21, treat the ace as 1 instead of 11
+        if (yourSum > 21 && yourAce > 0) {
+            yourSum -= 10;
+            yourAce -= 1;
         }
+    
         let $insertCard = $('#e');
         $insertCard.append($newCard);
     }
-  
-
+    
     console.log(yourSum, 'yourSum');
     $("#yourScore").text(yourSum);
 }
 
-
-
-
 function checkForAce(card) {
     if (card[0] == 'A') {
-        return 11;
+        return 1;
     }
     return 0;
 }
-
 
 function changeAce(a, b) {
     while (a > 21 && b > 0) {
@@ -622,7 +608,6 @@ function dealerHand() {
     return;
 }
 
-// LET THE GAMES BEGIN
 $(document).ready(function () {
     $(".make-bet").click(gameStart);
 
