@@ -1,7 +1,7 @@
 // Importing the required dependencies
 const router = require('express').Router(); 
 const sequelize = require('../../config/connection');
-const { User, Wallet } = require('../../models'); // models
+const { User, Wallet, BlackJack } = require('../../models'); // models
 const bcrypt = require('bcrypt');
 const CryptoJS = require('crypto-js');
 require('dotenv').config();
@@ -226,6 +226,31 @@ router.delete('/delete', withAuth, async (req, res) => {
     res.status(500).json({ error: 'An error occurred while deleting the user' }); // If an error occurs during the user deletion, respond with an error message
   }
 });
+
+// use a post route to create a new game of blackjack that records the outcomes of the game and all the needed info user_id, bet, result, amount_won_lost, time_played, remaining_deck
+
+// Create a new game of blackjack
+router.post('/blackjack', withAuth, async (req, res) => {
+  console.log('req.body:', req.body);
+  try {
+    const { bet_amount, gameOutcome, amount_won_lost } = req.body;
+    const gameData = await BlackJack.create({
+      bet_amount,
+      gameOutcome,
+      amount_won_lost,
+      user_id: req.session.user.id,
+    });
+
+    console.log('gameData:', gameData);
+    res.json(gameData);
+    
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Error creating game' });
+  }
+});
+
+
 
 
 

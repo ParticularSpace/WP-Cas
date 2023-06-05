@@ -18,7 +18,8 @@ h2 {
 .change-password,
 .update-username,
 .status-input,
-.delete-account {
+.delete-account,
+.game-history {
     display: flex;
     flex-direction: column;
     align-items: center;

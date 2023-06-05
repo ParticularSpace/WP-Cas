@@ -3,9 +3,9 @@
 const { Model, DataTypes } = require('sequelize') 
 const sequelize = require('../config/connection');
 
-class BlackjackGame extends Model {} // Defines the BlackjackGame model
+class BlackJack extends Model {} // Defines the BlackjackGame model
 
-BlackjackGame.init(
+BlackJack.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -20,11 +20,11 @@ BlackjackGame.init(
         key: 'id' 
       }
     },
-    bet: {
+    bet_amount: {
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
     },
-    result: {
+    gameOutcome: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -32,14 +32,9 @@ BlackjackGame.init(
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
     },
-    time_played: {
-      type: DataTypes.DATE,
-      allowNull: false,
-      defaultValue: DataTypes.NOW, // Sets the default value to the current date and time
-    },
     remaining_deck: {
       type: DataTypes.TEXT,
-      allowNull: false,
+      allowNull: true,
     },
   },
   {
@@ -51,4 +46,4 @@ BlackjackGame.init(
   }
 );
 
-module.exports = BlackjackGame; // Export the BlackjackGame model
+module.exports = BlackJack; // Export the BlackjackGame model

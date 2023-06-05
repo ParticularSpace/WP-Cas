@@ -1,5 +1,5 @@
 // declare global variables
-let betAmount = 0;
+let bet_amount = 0;
 let dealerSum = 0;
 let yourSum = 0;
 let dealerAce = 0;
@@ -60,9 +60,32 @@ async function updateWalBal(input) {
     } catch (error) {
         console.error('Error:', error);
     }
-
-
 }
+
+// Function to make a call to /blackjack that updates the blackjack table with the game outcome and all needed info is sent to the database including user_id, bet, result, amount_won_lost, time_played, remaining_deck
+
+async function updateBlackJackTable(bet_amount, gameOutcome, amount_won_lost) {
+    console.log('YOOOOOO LOOK WHAT HIT updateBlackJackTable');
+
+    console.log(bet_amount, 'bet_amount in updateBlackJackTable');
+    console.log(gameOutcome, 'gameOutcome in updateBlackJackTable');
+    console.log(amount_won_lost, 'amount_won_lost in updateBlackJackTable');
+
+    try {
+        const response = await fetch('/api/users/blackjack', {
+            method: 'POST',
+            body: JSON.stringify({ bet_amount, gameOutcome, amount_won_lost }),
+            headers: { 'Content-Type': 'application/json' }
+        });
+        if (!response.ok) {
+            throw new Error('Failed to update blackjack table');
+        }
+        console.log('updateBlackJackTable response:', response);
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
 
 // function gameAnnounce to send the gameOutcome to chat route /api/chat/announce
 async function gameAnnounce(userMessage, gameOutcome) {
@@ -154,7 +177,7 @@ $("#betBtn").click(function () {
     b10.hidden = true;
     b20.hidden = true;
 
-    console.log(betAmount, 'betAmount in betBtn');
+    console.log(bet_amount, 'bet_amount in betBtn');
     console.log(playerBalance, 'playerBalance in betBtn');
     // update the player's and dealer's scores
     $("#yourScore").text(yourSum);
@@ -186,9 +209,12 @@ $("#hitBtn").click(function () {
         $('#faceDown').attr('src', "/../images/fullDeck/" + unFlipped + ".png");
         // Display Bust message
         gameOutcome = 'BUST';
+        //set amount_won_lost to negative bet_amount
+        amount_won_lost = -bet_amount;
 
         balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
         updateWalBal(playerBalance);
+        updateBlackJackTable(bet_amount, gameOutcome, amount_won_lost)
         gameAnnounce('blackjack ending', gameOutcome);
 
         // Reset the board after a brief delay to allow player to see the result
@@ -213,7 +239,7 @@ function resetBoard() {
 
 
     // Reset the gameplay variables
-    betAmount = 0;
+    bet_amount = 0;
     dealerSum = 0;
     yourSum = 0;
     dealerAce = 0;
@@ -310,17 +336,23 @@ function updateInterface(gameOutcome) {
 
     // Update the player's balance
     if (gameOutcome === 'WIN') {
-        playerBalance += betAmount * 2;
+        playerBalance += bet_amount * 2;
         balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
+        amount_won_lost = bet_amount;
         updateWalBal(playerBalance);
+        updateBlackJackTable(bet_amount, gameOutcome, amount_won_lost);
     } else if (gameOutcome === 'PUSH') {
-        playerBalance += betAmount;
+        playerBalance += bet_amount;
         balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
+        amount_won_lost = 0;
         updateWalBal(playerBalance);
+        updateBlackJackTable(bet_amount, gameOutcome, amount_won_lost);
     } else if (gameOutcome === 'LOSE') {
-        // Do nothing
+        amount_won_lost = -bet_amount;
+        updateBlackJackTable(bet_amount, gameOutcome, amount_won_lost);
     } else if (gameOutcome === 'BUST') {
-        // Do nothing
+        amount_won_lost = -bet_amount;
+        updateBlackJackTable(bet_amount, gameOutcome, amount_won_lost);
     }
 
     // Enable the play again button
@@ -348,7 +380,7 @@ $("#stayBtn").click(async function () {
 // double bet amount NOT WORKED ON YET
 $("#doubleBtn").click(function () {
 
-    betAmount += betAmount;
+    bet_amount += bet_amount;
     dbl.disabled = true;
     HIT.disabled = true;
 
@@ -374,11 +406,11 @@ function updateBet(betIncrement) {
 
 
 
-    if (playerBalance < betIncrement || betAmount + betIncrement > 500) {
+    if (playerBalance < betIncrement || bet_amount + betIncrement > 500) {
         return;
     }
 
-    betAmount += betIncrement;
+    bet_amount += betIncrement;
 
     playerBalance -= betIncrement;
     balanceView.textContent = "Balance: " + playerBalance.toFixed(2);

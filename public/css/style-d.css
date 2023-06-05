@@ -275,3 +275,12 @@ button:disabled {
     animation-duration: 0.5s;  /* Adjust as needed */
     animation-fill-mode: forwards;
 }
+
+.balance {
+    color: #ffffff; /* Font color */
+    font-size: 24px; /* Font size */
+    text-align: center; /* Text alignment */
+    margin-bottom: 20px; /* Bottom margin */
+}
+
+

@@ -14,6 +14,7 @@
     min-width: 300px;
     text-align: center;
     margin-top: 100px;
+    filter: blur(5px); /* Apply the blur effect */
   }
   
   .wallet-wrapper h2 {
@@ -51,4 +52,3 @@
   button:hover {
     background-color: #29581d;
   }
-  

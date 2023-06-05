@@ -140,7 +140,25 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
     }
-    
+
+    // button to view the user's game history will make a call to /api/users/game-history first create a function then we attach event listener
+
+    async function getGameHistory() {
+        try {
+            const response = await fetch('/blackjack');
+            const data = await response.json();
+            console.log(data);
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+
+
+    document.querySelector('#game-history').addEventListener('click', (event) => {
+        event.preventDefault();
+        getGameHistory();
+    });
 
     // Attach event listeners
     document.querySelector('#update-picture').addEventListener('click', (event) => {

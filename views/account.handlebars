@@ -27,6 +27,21 @@
         <button id="update-picture">Update Picture</button>
     </div>
 
+<!-- Button to display game history -->
+<div class="game-history">
+    <h2>Game History</h2>
+    {{#each gameHistory}}
+    <div class="game">
+        <p>Game ID: {{this.id}}</p>
+        <p>Game Type: BlackJack</p>
+        <p>Game Result: {{this.gameOutcome}}</p>
+        <p>Wager: {{this.amount_won_lost}}</p>
+        <p>Timestamp: {{this.createdAt}}</p>
+    </div>
+    {{/each}}
+</div>
+
+
     <!-- Update Username -->
     <div class="update-username">
         <h2>Update Username</h2>

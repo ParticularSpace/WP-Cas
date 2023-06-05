@@ -1,6 +1,6 @@
 const User = require('./User'); 
 const Wallet = require('./Wallet'); 
-const BlackjackGame = require('./BlackJack'); 
+const BlackJack = require('./BlackJack'); 
 
 // Defines the associations between User and Wallet models
 User.hasOne(Wallet, {
@@ -13,16 +13,16 @@ Wallet.belongsTo(User, {
 });
 
 // Defines the associations between User and BlackjackGame models
-User.hasMany(BlackjackGame, {
+User.hasMany(BlackJack, {
   foreignKey: 'user_id', 
   onDelete: 'CASCADE', 
 });
 
 // for future development
-BlackjackGame.belongsTo(User, {
+BlackJack.belongsTo(User, {
   foreignKey: 'user_id', 
 });
 
 module.exports = {
-  User, Wallet 
+  User, Wallet, BlackJack
 };
