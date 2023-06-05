@@ -54,23 +54,28 @@
                     <button class="hit" id="hitBtn"> HIT </button>
                     <button class="stay" id="stayBtn"> STAND </button>
                     <button class="double" id="doubleBtn"> DOUBLE </button>
-                    <button class="exit-game" id="exit-game-id">Exit</button>
+                    <button class="play-again" id="play-again-id">Play Again</button>
+                    <button class="exit" id="exitBtn">Leave</button>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-12">
-            <div class="betting">
-                <button class="bet-1" id="b-1"> 1 </button>
-                <button class="bet-5" id="b-5"> 5 </button>
-                <button class="bet-10" id="b-10"> 10 </button>
-                <button class="bet-20" id="b-20"> 20 </button>
-                <button class="make-bet flip" id="betBtn"> BET </button>
+    <div class="col-12">
+        <div class="betting">
+            <div id="chips">
+                <button class="chip bet-1" id="b-1" data-value="1" > 1 </button>
+                <button class="chip bet-5" id="b-5" data-value="5" > 5 </button>
+                <button class="chip bet-10" id="b-10" data-value="10" > 10 </button>
+                <button class="chip bet-20" id="b-20" data-value="20" > 20 </button>
             </div>
+            <button class="make-bet" id="betBtn"> BET </button>
         </div>
+        <div id="pile"></div>
     </div>
+</div>
+
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="/js/blackjack.js"></script>

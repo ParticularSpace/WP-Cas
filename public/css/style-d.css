@@ -219,6 +219,30 @@ footer p {
     border-radius: 20px;
 } 
 
+.betting {
+    position: relative;
+}
+
+#chips {
+    display: flex;
+    justify-content: space-around;
+}
+
+.chip {
+    position: relative;
+    /* set size and other styles as needed */
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+}
+
+#pile {
+    position: relative;
+}
+
+
+  
+
 
 button:disabled {
     background-color: #6c757d;
@@ -237,3 +261,17 @@ button:disabled {
     justify-content: flex-start;
 }
 
+@keyframes slideIn {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.card {
+    animation-name: slideIn;
+    animation-duration: 0.5s;  /* Adjust as needed */
+    animation-fill-mode: forwards;
+}
