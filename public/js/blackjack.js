@@ -144,8 +144,7 @@ $(".play-again").click(function () {
     // reset the chips
     $("#pile").empty();
 
-    console.log(playerSum, 'playerSum in play-again');
-    console.log(dealerSum, 'dealerSum in play-again');
+    
     console.log("Game reset");
 })
 
@@ -180,11 +179,11 @@ $("#hitBtn").click(function () {
     yourAce += checkForAce(card);
     $('#e').append($newCard);
 
-    //if your sum is greater than 21 and your ace is greater than 0, reduce your sum by 10
-    if (yourSum > 21 && yourAce > 0) {
-        yourSum -= 10;
-        yourAce -= 1;
-    }
+    // //if your sum is greater than 21 and your ace is greater than 0, reduce your sum by 10
+    // if (yourSum > 21 && yourAce > 0) {
+    //     yourSum -= 10;
+    //     yourAce -= 1;
+    // }
 
     console.log(yourSum, 'yourSum');
     console.log(yourAce, 'yourAce');
@@ -264,8 +263,8 @@ function resetBoard() {
     $("#notYourScore").text(0);
 
     // Reset the player's balance
-    playerBalance = walletBalance;
-    balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
+    // playerBalance = walletBalance;
+    // balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
 
     // Reset the allowHit flag
     allowHit = true;
@@ -328,6 +327,10 @@ function updateInterface(gameOutcome) {
         playerBalance += betAmount;
         balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
         updateWalBal(playerBalance);
+    } else if (gameOutcome === 'LOSE') {
+        // Do nothing
+    } else if (gameOutcome === 'BUST') {
+        // Do nothing
     }
 
     // Enable the play again button
@@ -558,12 +561,7 @@ function gameStart() {
         let $insertCard = $('#e');
         $insertCard.append($newCard);
     }
-    // If the total sum is greater than 21 and there is an Ace in the hand, 
-    // reduce the sum by 10 (i.e., treat Ace as 1 instead of 11).
-    if (yourSum > 21 && yourAce > 0) {
-        yourSum -= 10;
-        yourAce -= 1;
-    }
+  
 
     console.log(yourSum, 'yourSum');
     $("#yourScore").text(yourSum);
