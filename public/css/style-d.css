@@ -149,6 +149,19 @@ footer p {
     margin: 20px 0;
 }
 
+#b-1,
+#b-5,
+#b-10,
+#b-20,
+#betBtn {
+    box-shadow: 
+        0 0 5px #00f, /* inner blue */
+        0 0 10px #00f, /* middle blue */
+        0 0 15px #00f, /* outer blue */
+        0 0 20px #00f; /* outermost blue */
+}
+
+
 #b-1 {
     padding: 10px 20px;
     border: none;
@@ -215,7 +228,6 @@ footer p {
     background-color: #ffcd05;
     color: #000000;
     cursor: pointer;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     border-radius: 20px;
 } 
 

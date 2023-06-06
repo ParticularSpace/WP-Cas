@@ -33,22 +33,12 @@ if(user.profile_picture) {
   user.profilePicture = 'images/fullDeck/2_heart.png';
 }
 
-       // get the game-history and pass it to the front-end
-       const gameHistory = await BlackJack.findAll({
-        where: {
-          user_id: req.session.user.id,
-        },
-      });
-
-      console.log('gameHistory:', gameHistory);
 
 
     // Pass serialized data and session flag into template
     res.render('account', {
       ...user,
-      walletBalance: wallet.balance,
       logged_in: req.session.logged_in,
-      gameHistory: gameHistory,
       showNav: true,
       showCoin: false,
     

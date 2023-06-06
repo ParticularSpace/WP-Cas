@@ -1,7 +1,4 @@
 .little-helper img {
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
     right: 0;
     bottom: 0;
     height: 95px;
@@ -10,7 +7,11 @@
     animation: walkOut 2s ease-out forwards;
 }
 
+
 .chat-window {
+    position: absolute;
+    left: 50px; 
+    bottom: 95px; /* adjust this value as needed */
     display: none;
     height: 200px;
     width: 255px;

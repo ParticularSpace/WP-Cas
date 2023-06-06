@@ -1,11 +1,12 @@
 const User = require('./User'); 
 const Wallet = require('./Wallet'); 
 const BlackJack = require('./BlackJack'); 
+const Friend = require('./Friend');  // Import the Friend model
 
 // Defines the associations between User and Wallet models
 User.hasOne(Wallet, {
-  foreignKey: 'user_id', // Specifies the foreign key in the Wallet model
-  onDelete: 'CASCADE', // Specifies the deletion behavior when a User is deleted
+  foreignKey: 'user_id', 
+  onDelete: 'CASCADE', 
 });
 
 Wallet.belongsTo(User, {
@@ -18,11 +19,31 @@ User.hasMany(BlackJack, {
   onDelete: 'CASCADE', 
 });
 
-// for future development
 BlackJack.belongsTo(User, {
   foreignKey: 'user_id', 
 });
 
+// Define associations between User and Friend models
+User.hasMany(Friend, {
+  foreignKey: 'user_id',
+  onDelete: 'CASCADE',
+});
+
+Friend.belongsTo(User, {
+  foreignKey: 'user_id',
+});
+
+User.hasMany(Friend, {
+  foreignKey: 'friend_id',
+  onDelete: 'CASCADE',
+});
+
+Friend.belongsTo(User, {
+  foreignKey: 'friend_id',
+});
+
 module.exports = {
-  User, Wallet, BlackJack
+  User, Wallet, BlackJack, Friend
 };
+
+

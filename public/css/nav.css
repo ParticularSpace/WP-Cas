@@ -9,7 +9,7 @@
 
 body {
   font-family: Arial, sans-serif;
-  background-image: url("/images/bArtwork.png");
+  /* background-image: url("/images/bArtwork.png"); */
   background-repeat: no-repeat;
   background-size: cover;
   display: flex;
@@ -19,7 +19,8 @@ body {
 
 
   .navbar {
-    background-color: #333;
+    background-color: #efcc6c;
+    
   }
   
   .navbar-container {
@@ -28,6 +29,7 @@ body {
     display: flex;
     justify-content: space-between;
   }
+
   
   .navbar-brand {
     display: inline-block;

@@ -1,0 +1,128 @@
+body {
+    background-image: url('/images/cityscape.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    
+    color: white;
+}
+
+
+/* Navbar styling */
+.navbar {
+    background-color: #222;
+}
+
+.navbar-brand,
+.navbar-nav .nav-link {
+    color: #0ff;
+    text-shadow: 
+        0 0 5px #0ff, 
+        0 0 10px #0ff,
+        0 0 20px rgb(247, 0, 255),
+        0 0 30px rgb(247, 0, 255),
+        0 0 40px rgb(247, 0, 255);
+}
+
+/* Hero section */
+.hero {
+    display: flex;
+    flex-direction: column;
+    height: 86vh;
+}
+
+.hero h1,
+.hero p {
+    text-shadow: 
+        0 0 5px #0ff, 
+        0 0 10px #0ff,
+        0 0 20px rgb(247, 0, 255),
+        0 0 30px rgb(247, 0, 255),
+        0 0 40px rgb(247, 0, 255);
+}
+
+/* Neon button */
+.btn-neon {
+    border: 2px solid rgb(247, 0, 255);
+    background: transparent;
+    color: #0ff;
+    text-shadow: 
+        0 0 5px #0ff, 
+        0 0 10px #0ff,
+        0 0 20px rgb(247, 0, 255),
+        0 0 30px rgb(247, 0, 255),
+        0 0 40px rgb(247, 0, 255);
+    transition: all 0.5s ease;
+}
+
+.btn-neon:hover {
+    background-color: #0ff;
+    color: #111;
+}
+
+/* Footer styling */
+
+.footer {
+    background-color: #222;
+    text-shadow: 
+    0 0 5px #0ff, 
+    0 0 10px #0ff,
+    0 0 20px rgb(247, 0, 255),
+    0 0 30px rgb(247, 0, 255),
+    0 0 40px rgb(247, 0, 255);
+    text-align: center;
+    padding: 20px;
+    margin-top: auto;
+}
+
+/* want to place little-helper in the bottom left */
+
+.little-helper {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100px;
+    height: 100px;
+    text-shadow: 
+    0 0 30px rgb(224, 81, 88),
+    0 0 60px rgb(255, 0, 34);
+    text-align: center;
+    margin-top: auto;
+}
+
+.welcome {
+    text-align: center;
+    font-size: 2.5em;
+    margin-top: 2em;
+    text-shadow: 
+        0 0 5px #0ff, 
+        0 0 10px #0ff,
+        0 0 20px rgb(247, 0, 255),
+        0 0 30px rgb(247, 0, 255),
+        0 0 40px rgb(247, 0, 255);
+}
+
+.welcome-wrapper {
+    text-align: center;
+    font-size: 1.2em;
+    margin-top: 5em;
+    text-shadow: 
+        0 0 5px rgb(230, 201, 114), 
+        0 0 10px rgb(230, 201, 114),
+        0 0 20px rgb(180, 71, 184),
+        0 0 30px rgb(180, 71, 184),
+        0 0 40px rgb(180, 71, 184);
+}
+
+.welcome-wrapper h2 {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.welcome-wrapper strong {
+    font-size: 1.5em;
+}
