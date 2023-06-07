@@ -7,7 +7,7 @@ let yourAce = 0;
 let unFlipped;
 let deck;
 let un;
-
+let playerHasBlackjack = false;
 // get the DOM elements
 const stay = document.getElementById("stayBtn");
 const dbl = document.getElementById("doubleBtn");
@@ -116,6 +116,38 @@ async function gameAnnounce(userMessage, gameOutcome) {
     }
 };
 
+function dealCardsAnimation() {
+    // Get the player's and dealer's hand elements
+    const playerHand = $('#e');
+    const dealerHand = $('#b');
+
+    // Get the deck element
+    const deck = $('#deck'); // Replace with the actual id of your deck element
+
+    // Deal a card to the player
+    let playerCard = deck.children().last();
+    playerCard.animate({
+        top: playerHand.offset().top,
+        left: playerHand.offset().left
+    }, 1000, function() {
+        // Animation complete
+        playerHand.append(playerCard);
+    });
+
+    // Wait for a bit before dealing the next card
+    setTimeout(function() {
+        // Deal a card to the dealer
+        let dealerCard = deck.children().last();
+        dealerCard.animate({
+            top: dealerHand.offset().top,
+            left: dealerHand.offset().left
+        }, 1000, function() {
+            // Animation complete
+            dealerHand.append(dealerCard);
+        });
+    }, 1500);
+}
+
 function dealCard(hand, card) {
     // Create new card DOM element
     var newCard = document.createElement("div");
@@ -182,6 +214,7 @@ $("#betBtn").click(function () {
     // update the player's and dealer's scores
     $("#yourScore").text(yourSum);
     $("#notYourScore").text(dealerSum);
+    dealCardsAnimation();
 });
 
 $("#hitBtn").click(function () {
@@ -339,9 +372,15 @@ function updateInterface(gameOutcome) {
 
     // Update the player's balance
     if (gameOutcome === 'WIN') {
-        playerBalance += bet_amount * 2;
+        if (playerHasBlackjack) {
+            // If the player has a blackjack, give them a 3:2 payout
+            playerBalance += bet_amount * 2.5;
+            amount_won_lost = bet_amount * 1.5;
+        } else {
+            playerBalance += bet_amount * 2;
+            amount_won_lost = bet_amount;
+        }
         balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
-        amount_won_lost = bet_amount;
         updateWalBal(playerBalance);
         updateBlackJackTable(bet_amount, gameOutcome, amount_won_lost);
     } else if (gameOutcome === 'PUSH') {
@@ -361,6 +400,7 @@ function updateInterface(gameOutcome) {
     // Enable the play again button
     exit.disabled = false;
 }
+
 
 $("#stayBtn").click(async function () {
     $(".replay").show();
@@ -587,10 +627,16 @@ function gameStart() {
         let $insertCard = $('#e');
         $insertCard.append($newCard);
     }
+
+    // Check if the player has a blackjack
+    if (yourSum === 21 && yourAce === 1) {
+        playerHasBlackjack = true;
+    }
     
     console.log(yourSum, 'yourSum');
     $("#yourScore").text(yourSum);
 }
+
 
 function checkForAce(card) {
     if (card[0] == 'A') {
