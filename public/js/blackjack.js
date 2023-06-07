@@ -197,13 +197,15 @@ $("#hitBtn").click(function () {
     $newCard.attr('src', url);
     yourSum += cardValue(card);
     yourAce += checkForAce(card);
+
+    // Call changeAce after the new card value is added to yourSum
+    yourSum = changeAce(yourSum, yourAce);
+
     $('#e').append($newCard);
 
-    console.log(yourSum, 'yourSum in hitBtn');
-    console.log(yourAce, 'yourAce in hitBtn');
 
     // Check if yourSum is greater than 21 and end game if it is
-    if (changeAce(yourSum, yourAce) > 21) {
+    if (yourSum > 21) {
         allowHit = false;
         // Show the dealer's unflipped card
         $('#faceDown').attr('src', "/../images/fullDeck/" + unFlipped + ".png");
@@ -221,9 +223,9 @@ $("#hitBtn").click(function () {
         setTimeout(resetBoard, 2000); // Delay of 2 seconds
     }
 
-    console.log(yourSum, 'yourSum in hitBtn')
     $("#yourScore").text(yourSum);
 });
+
 
 function resetBoard() {
     // Clear the player's and dealer's hands
@@ -303,12 +305,13 @@ function updateScores() {
 
 async function handleDealer() {
     console.log(dealerSum, 'dealerSum in handleDealer');
-    if (dealerSum <= 16) {
+    while (dealerSum <= 16) {
         dealerHand();
+        dealerSum = changeAce(dealerSum, dealerAce);
     }
-
     updateScores();
 }
+
 
 function calculateOutcome() {
 
