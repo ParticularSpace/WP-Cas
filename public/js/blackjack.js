@@ -8,6 +8,8 @@ let unFlipped;
 let deck;
 let un;
 let playerHasBlackjack = false;
+let canBet = true;
+
 // get the DOM elements
 const stay = document.getElementById("stayBtn");
 const dbl = document.getElementById("doubleBtn");
@@ -446,10 +448,8 @@ $("#doubleBtn").click(function () {
 });
 
 function updateBet(betIncrement) {
-
-
-
-    if (playerBalance < betIncrement || bet_amount + betIncrement > 500) {
+    if (playerBalance < betIncrement || bet_amount + betIncrement > 300) {
+        canBet = false;
         return;
     }
 
@@ -461,9 +461,48 @@ function updateBet(betIncrement) {
     bButton.disabled = false;
 }
 
+$(".chip").click(function () {
+    if (canBet) {
+        let betIncrement = parseInt($(this).attr('data-value'), 10);
+        updateBet(betIncrement);
+        moveChip($(this), 'pile');
+    }
+});
+
+$('#pile').click(function () {
+    // find the last chip
+    let lastChip = $(this).children().last();
+
+    // check if a chip exists
+    if (lastChip.length) {
+        // parse the chip value as a number and add it back to the player balance
+        let chipValue = parseInt(lastChip.attr('data-value'), 10);
+        playerBalance += chipValue;
+        bet_amount -= chipValue;
+
+        // update the balance view
+        balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
+
+        // remove the chip
+        lastChip.remove();
+
+        // Enable the chips if the total bet is less than 300
+        if (bet_amount < 300) {
+            canBet = true;
+        }
+    }
+});
+
+
+
+
 function moveChip(chipElement, destinationId) {
     let chipClone = chipElement.clone();
     let destination = $(`#${destinationId}`);
+
+    if(canBet === false) {
+        return;
+    }
 
     // append the clone to the pile right away, and position it absolutely relative to the pile
     chipClone.appendTo(destination);
@@ -485,24 +524,6 @@ function moveChip(chipElement, destinationId) {
     // Add the data-value attribute to the chip clone
     chipClone.attr('data-value', chipElement.attr('data-value'));
 }
-
-$('#pile').click(function () {
-    // find the last chip
-    let lastChip = $(this).children().last();
-
-    // check if a chip exists
-    if (lastChip.length) {
-        // parse the chip value as a number and add it back to the player balance
-        let chipValue = parseInt(lastChip.attr('data-value'), 10);
-        playerBalance += chipValue;
-
-        // update the balance view
-        balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
-
-        // remove the chip
-        lastChip.remove();
-    }
-});
 
 // Updating bet functions with animation
 $("#b-1").click(function () {
