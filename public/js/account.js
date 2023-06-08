@@ -155,10 +155,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-    document.querySelector('#game-history').addEventListener('click', (event) => {
-        event.preventDefault();
-        getGameHistory();
-    });
+    // document.querySelector('#game-history').addEventListener('click', (event) => {
+    //     event.preventDefault();
+    //     getGameHistory();
+    // });
 
     // Attach event listeners
     document.querySelector('#update-picture').addEventListener('click', (event) => {

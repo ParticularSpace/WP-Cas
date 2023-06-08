@@ -9,44 +9,47 @@
         integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/home.css">
     <link rel="stylesheet" href="/css/account.css">
-
 </head>
 
-<body>
+<body class="bg-light">
+    <div class="container py-5">
+        <h1 class="text-center mb-5">Account Settings</h1>
 
-    <h1>Account Settings</h1>
+        <!-- Profile Picture -->
+        <div class="card mb-4 p-4">
+            <div class="text-center">
+                <img id="profile-pic" src="{{profilePicture}}" alt="Profile Picture" class="rounded-circle mb-3" style="width: 100px; height: 100px; object-fit: cover;">
+            </div>
+            <div class="text-center">
+                <input type="file" id="upload-picture" accept="image/*" class="form-control mb-3">
+                <button id="update-picture" class="btn btn-primary">Update Picture</button>
+            </div>
+        </div>
 
-    <!-- Profile Picture -->
-    <div class="profile-picture">
-        <img id="profile-pic" src="{{profilePicture}}" alt="Profile Picture">
+        <!-- Update Username -->
+        <div class="card mb-4 p-4">
+            <h2 class="mb-3">Update Username</h2>
+            <h4 id="username">Currently {{username}}</h4>
+            <input type="username" id="new-username" placeholder="New username" class="form-control mb-3">
+            <input type="password" id="password" placeholder="Password" class="form-control mb-3">
+            <button id="update-username" class="btn btn-primary">Update Username</button>
+        </div>
 
-        <input type="file" id="upload-picture" accept="image/*">
-        <button id="update-picture">Update Picture</button>
-    </div>
+        <!-- Change Password -->
+        <div class="card mb-4 p-4">
+            <h2 class="mb-3">Change Password</h2>
+            <input type="password" id="current-password" placeholder="Current Password" class="form-control mb-3">
+            <input type="password" id="new-password" placeholder="New Password" class="form-control mb-3">
+            <input type="password" id="confirm-password" placeholder="Confirm New Password" class="form-control mb-3">
+            <button id="change-password" class="btn btn-primary">Change Password</button>
+        </div>
 
-    <!-- Update Username -->
-    <div class="update-username">
-        <h2>Update Username</h2>
-        <h4 id="username">Currently {{username}}</h4>
-        <input type="username" id="new-username" placeholder="New username">
-        <input type="password" id="password" placeholder="Password">
-        <button id="update-username">Update Username</button>
-    </div>
-
-    <!-- Change Password -->
-    <div class="change-password">
-        <h2>Change Password</h2>
-        <input type="password" id="current-password" placeholder="Current Password">
-        <input type="password" id="new-password" placeholder="New Password">
-        <input type="password" id="confirm-password" placeholder="Confirm New Password">
-        <button id="change-password">Change Password</button>
-    </div>
-
-    <!-- Delete Account -->
-    <div class="delete-account">
-        <h2>Delete Account</h2>
-        <p>Please note that this action cannot be undone.</p>
-        <button id="delete-account">Delete Account</button>
+        <!-- Delete Account -->
+        <div class="card mb-4 p-4">
+            <h2 class="mb-3 text-danger">Delete Account</h2>
+            <p>Please note that this action cannot be undone!</p>
+            <button id="delete-account" class="btn btn-danger">Delete Account</button>
+        </div>
     </div>
 
     <script src="/js/account.js"></script>
