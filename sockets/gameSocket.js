@@ -10,24 +10,29 @@ module.exports = function setupWebSocketServer(server) {
     console.log('New client connected');
 
     ws.on('message', (message) => {
-      const data = JSON.parse(message);
-      switch (data.type) {
-        case 'greeting':
-          console.log(data.content);  // Should log 'Hello Server!'
-          break;
-        case 'join':
-          // Handle a player joining the game
-          break;
-        case 'move':
-          // Handle a player making a move
-          break;
-        case 'leave':
-          // Handle a player leaving the game
-          break;
-        default:
-          console.error(`Received unknown message type: ${data.type}`);
-      }
-    });
+        const data = JSON.parse(message);
+        switch (data.type) {
+          case 'greeting':
+            console.log(data.content);  // Should log 'Hello Server!'
+            break;
+          case 'startGame':
+            // Handle starting the game
+            console.log('Game started');
+            break;
+          case 'stay':
+            // Handle the player staying
+            console.log('Player stays');
+            break;
+            case 'hit':
+            // Handle the player hitting
+            console.log('Player hits');
+            break;
+        
+          default:
+            console.error(`Received unknown message type: ${data.type}`);
+        }
+      });
+      
 
     // Handle when a client closes the connection
     ws.on('close', () => {
