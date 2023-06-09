@@ -54,7 +54,10 @@ router.get('/friends', withAuth, async (req, res) => {
           attributes: ['username'],
         },
       ],
+      order: [['createdAt', 'DESC']]
     });
+
+    console.log(blackjackData, 'blackjack data', 'THIS IS MY MEGA /FRIENDS ROUTE DATA');
 
     const recentGames = blackjackData.map((blackjack) =>
       blackjack.get({ plain: true })

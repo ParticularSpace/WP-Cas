@@ -41,16 +41,29 @@ body {
   color: #ffffff;
 }
 
-@media (max-width: 992px) {
-  .navbar {
-    padding: 10px;
-  }
 
-  .navbar-brand {
-    font-size: 20px;
-  }
 
-  .nav-link {
-    font-size: 18px;
-  }
+.custom-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between; /* Distribute space between items */
+  flex-wrap: nowrap; /* Prevent items from wrapping onto new lines */
+  padding-left: 0px; /* adjust this value as needed */
 }
+
+.navbar-collapse {
+  position: absolute;
+  top: 100%; /* position it right below the navbar */
+  width: 100%; /* make it span the full width of the navbar */
+  background-color: #333; /* background color of dropdown */
+}
+
+
+
+
+
+
+
+
+

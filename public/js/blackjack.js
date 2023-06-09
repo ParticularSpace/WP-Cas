@@ -1,3 +1,8 @@
+//set up websocket server
+let socket = new WebSocket('ws://localhost:3001');
+
+
+
 // declare global variables
 let bet_amount = 0;
 let dealerSum = 0;
@@ -420,6 +425,7 @@ $("#stayBtn").click(async function () {
     await handleDealer();
     const gameOutcome = calculateOutcome();
     updateInterface(gameOutcome);
+    socket.send(JSON.stringify({ type: 'stay' }));
 });
 
 // double bet amount NOT WORKED ON YET
@@ -546,6 +552,32 @@ $("#b-20").click(function () {
     moveChip($(this), 'pile');
 });
 
+socket.addEventListener('message', function(event) {
+    try {
+        let message = JSON.parse(event.data);
+        if (message.type === 'gameState') {
+            // Update game state based on the received game state
+            yourSum = message.yourSum;
+            dealerSum = message.dealerSum;
+            dealerAce = message.dealerAce;
+            yourAce = message.yourAce;
+            unFlipped = message.unFlipped;
+            deck = message.deck;
+            playerHasBlackjack = message.playerHasBlackjack;
+            canBet = message.canBet;
+
+            // Update UI elements
+            document.getElementById("yourScore").innerHTML = yourSum;
+            document.getElementById("notYourScore").innerHTML = dealerSum;
+            document.getElementById("balance").innerHTML = "Balance: " + message.balance;
+            // ... update other UI elements based on the game state ...
+        }
+    } catch (error) {
+        console.error('Received a message that is not valid JSON:', event.data);
+    }
+});
+
+
 // create deck
 function build() {
     let values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
@@ -586,6 +618,7 @@ function hitbtn() {
         allowHit = false;
     }
     $("#yourScore").text(yourSum);
+    socket.send(JSON.stringify({ type: 'hit' }));
 }
 
 function cardValue(card) {
@@ -656,7 +689,13 @@ function gameStart() {
     
     console.log(yourSum, 'yourSum');
     $("#yourScore").text(yourSum);
+
+    socket.send(JSON.stringify({ type: 'startGame', bet: bet_amount }));
 }
+
+
+
+
 
 
 function checkForAce(card) {
@@ -714,3 +753,6 @@ $(document).ready(function () {
     $(".make-bet").click(gameStart);
 
 });
+
+
+

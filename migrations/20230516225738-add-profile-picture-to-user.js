@@ -3,10 +3,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     // Add the 'profile_picture' column to the 'user' table
-    await queryInterface.addColumn('user', 'profile_picture', {
-      type: Sequelize.STRING,
-      allowNull: true,
-    });
+    await queryInterface.removeColumn('blackjack_game', 'time_played');
   },
 
   down: async (queryInterface, Sequelize) => {

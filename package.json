@@ -28,7 +28,8 @@
     "mysql2": "^3.2.4",
     "openai": "^3.2.1",
     "pg": "^8.11.0",
-    "sequelize": "^6.31.1"
+    "sequelize": "^6.31.1",
+    "ws": "^8.13.0"
   },
   "devDependencies": {
     "sequelize-cli": "^6.6.0"

@@ -86,7 +86,7 @@ const welcomeMessage = await generateResponse(`My name is ${userData.username}`)
       id: userData.id,
       username: userData.username,
       profilePicture: userData.profile_picture,
-      welcomeMessage: welcomeMessage,
+      // welcomeMessage: welcomeMessage,
     };
 
     req.session.logged_in = true; // Set the session as logged in
