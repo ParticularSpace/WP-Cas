@@ -55,17 +55,22 @@ module.exports = function setupWebSocketServer(server) {
           // Handle starting the game
           console.log('Game started');
           break;
-        case 'stay':
-          // Handle the player staying
-          console.log('Player stays');
-          break;
+          case 'stay':
+            // Handle the player staying
+            console.log('Player stays');
+            const gameState = data.gameState;
+            console.log(`Player Sum: ${gameState.playerSum}`);
+            console.log(`Dealer Sum: ${gameState.dealerSum}`);
+            console.log(`Game outcome: ${gameState.outcome}`);
+            break;
+          
         case 'hit':
           // Handle the player hitting
           console.log('Player hits');
           break;
         case 'gameUpdate':
           // Handle game updates
-          console.log(`Game state: ${JSON.stringify(data.gameState)}`);
+          console.log(`Game state: ${JSON.stringify(data)}`);
           break;
         case 'bet':
           // Handle the player betting

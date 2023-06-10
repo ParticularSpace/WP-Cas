@@ -55,7 +55,7 @@ router.post('/register', async (req, res) => {
 
 // Login route GOOD
 router.post('/login', async (req, res) => {
-  console.log('req.body:', req.body);
+  // console.log('req.body:', req.body);
   
   try {
     const { username, password } = req.body;
@@ -102,7 +102,7 @@ const welcomeMessage = await generateResponse(`My name is ${userData.username}`)
 
 // Logout route CHECK THIS
 router.post('/logout', (req, res) => {
-  console.log('req.session:', req.session);
+  // console.log('req.session:', req.session);
   if (req.session.logged_in) {
     req.session.destroy(() => {
       res.status(204).end(); // Destroy the session and respond with a 204 status code
@@ -231,7 +231,7 @@ router.delete('/delete', withAuth, async (req, res) => {
 
 // Create a new game of blackjack
 router.post('/blackjack', withAuth, async (req, res) => {
-  console.log('req.body:', req.body);
+  // console.log('req.body:', req.body);
   try {
     const { bet_amount, gameOutcome, amount_won_lost } = req.body;
     const gameData = await BlackJack.create({
@@ -241,7 +241,7 @@ router.post('/blackjack', withAuth, async (req, res) => {
       user_id: req.session.user.id,
     });
 
-    console.log('gameData:', gameData);
+    // console.log('gameData:', gameData);
     res.json(gameData);
     
   } catch (err) {

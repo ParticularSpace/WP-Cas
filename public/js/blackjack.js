@@ -1,5 +1,5 @@
 //set up websocket server
-let ws = new WebSocket('ws://localhost:3000');
+let ws = new WebSocket('ws://localhost:3001');
 
 ws.onerror = function(event) {
     console.error("ws error observed:", event);
@@ -430,23 +430,9 @@ ws.send(JSON.stringify({
   }));
   });
 
-  document.getElementById('leave-lobby-button').addEventListener('click', function() {
-    // Hide the lobby
-    document.getElementById('lobby').style.display = 'none';
-
-    // Show the join button
-    document.getElementById('join-lobby-button').style.display = 'block';
-
-    // Leaving a lobby
-ws.send(JSON.stringify({
-    type: 'leaveLobby',
-    lobby: 'main', 
-  }));
-    });
-
   
 
-$("#stayBtn").click(async function () {
+  $("#stayBtn").click(async function () {
     $(".replay").show();
     $(".leave").show();
     $(".endGameResults").show();
@@ -457,18 +443,24 @@ $("#stayBtn").click(async function () {
     allowHit = false;
     document.getElementById('faceDown').src = "/../images/fullDeck/" + unFlipped + ".png";
 
-    
-
     await handleDealer();
     const gameOutcome = calculateOutcome();
     updateInterface(gameOutcome);
 
     if (ws.readyState === WebSocket.OPEN) {
-        ws.send(JSON.stringify({ type: 'stay' }));
+        ws.send(JSON.stringify({
+            type: 'stay',
+            gameState: {
+                playerSum: yourSum,
+                dealerSum: dealerSum,
+                outcome: gameOutcome
+            }
+        }));
     } else {
         console.log('WebSocket connection is not open:', ws.readyState);
     }
 });
+
 
 // double bet amount NOT WORKED ON YET
 $("#doubleBtn").click(function () {

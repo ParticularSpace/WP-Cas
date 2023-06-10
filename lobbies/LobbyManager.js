@@ -1,22 +1,41 @@
 const Lobby = require('./Lobby');
 
 class LobbyManager {
-  constructor() {
-    this.lobbies = [];
-  }
+    constructor() {
+        this.lobbies = {};
+    }
 
-  createLobby() {
-    const id = this.lobbies.length + 1;  // Generate a unique id for the lobby
-    const lobby = new Lobby(id);
-    this.lobbies.push(lobby);
-    return lobby;
-  }
+    createLobby(lobbyId) {
+        const lobby = new Lobby(lobbyId);
+        this.lobbies[lobbyId] = lobby;
+        return lobby;
+    }
 
-  getLobby(id) {
-    return this.lobbies.find(lobby => lobby.id === id);
-  }
+    getLobby(lobbyId) {
+        return this.lobbies[lobbyId];
+    }
 
-  // Add more methods as needed
+    removeLobby(lobbyId) {
+        delete this.lobbies[lobbyId];
+    }
+
+    addPlayerToLobby(lobbyId, player) {
+        let lobby = this.getLobby(lobbyId);
+        if (!lobby) {
+            lobby = this.createLobby(lobbyId);
+        }
+        lobby.addPlayer(player);
+    }
+
+    removePlayerFromLobby(lobbyId, playerId) {
+        const lobby = this.getLobby(lobbyId);
+        if (lobby) {
+            lobby.removePlayer(playerId);
+            if (lobby.getPlayers().length === 0 && lobby.getSpectators().length === 0) {
+                this.removeLobby(lobbyId);
+            }
+        }
+    }
 }
 
-module.exports = new LobbyManager();
+module.exports = LobbyManager;
