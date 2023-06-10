@@ -7,8 +7,8 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    
     color: white;
+    
 }
 
 
@@ -47,6 +47,8 @@ body {
 
 /* Neon button */
 .btn-neon {
+    font-size: 24px; /* Increase the font size */
+    padding: 15px 30px; /* Add some padding */
     border: 2px solid rgb(247, 0, 255);
     background: transparent;
     color: #0ff;
@@ -60,9 +62,10 @@ body {
 }
 
 .btn-neon:hover {
-    background-color: #0ff;
-    color: #111;
+    background-color: rgba(0, 255, 255, 0.143);
+    color: #ffffff;
 }
+
 
 /* Footer styling */
 
