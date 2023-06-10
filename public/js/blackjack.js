@@ -1,7 +1,21 @@
 //set up websocket server
-let socket = new WebSocket('ws://localhost:3001');
+let ws = new WebSocket('ws://localhost:3000');
 
+ws.onerror = function(event) {
+    console.error("ws error observed:", event);
+    console.log(event.type);  // Logs the type of the event
+    console.log(event.message);  // Logs the message of the event, if any
+  };
+  
 
+// ws.onopen = () => {
+//     console.log('WebSocket Client Connected');
+//   };
+  
+// ws.onmessage = (message) => {
+//     const data = JSON.parse(message.data);
+//     console.log('Received: ', data);
+//   };
 
 // declare global variables
 let bet_amount = 0;
@@ -72,11 +86,8 @@ async function updateWalBal(input) {
 // Function to make a call to /blackjack that updates the blackjack table with the game outcome and all needed info is sent to the database including user_id, bet, result, amount_won_lost, time_played, remaining_deck
 
 async function updateBlackJackTable(bet_amount, gameOutcome, amount_won_lost) {
-    console.log('YOOOOOO LOOK WHAT HIT updateBlackJackTable');
+    
 
-    console.log(bet_amount, 'bet_amount in updateBlackJackTable');
-    console.log(gameOutcome, 'gameOutcome in updateBlackJackTable');
-    console.log(amount_won_lost, 'amount_won_lost in updateBlackJackTable');
 
     try {
         const response = await fetch('/api/users/blackjack', {
@@ -87,7 +98,7 @@ async function updateBlackJackTable(bet_amount, gameOutcome, amount_won_lost) {
         if (!response.ok) {
             throw new Error('Failed to update blackjack table');
         }
-        console.log('updateBlackJackTable response:', response);
+        
     } catch (error) {
         console.error('Error:', error);
     }
@@ -188,7 +199,7 @@ function dealCard(hand, card) {
         document.getElementById("notYourScore").innerHTML = dealerSum;
     }
 
-    console.log(dealerSum, 'dealerSum in dealCard');
+    
 }
 
 // make leave button route back to dashboard 
@@ -216,8 +227,7 @@ $("#betBtn").click(function () {
     b10.hidden = true;
     b20.hidden = true;
 
-    console.log(bet_amount, 'bet_amount in betBtn');
-    console.log(playerBalance, 'playerBalance in betBtn');
+    
     // update the player's and dealer's scores
     $("#yourScore").text(yourSum);
     $("#notYourScore").text(dealerSum);
@@ -240,6 +250,13 @@ $("#hitBtn").click(function () {
 
     // Call changeAce after the new card value is added to yourSum
     yourSum = changeAce(yourSum, yourAce);
+
+     // Send game update to server
+     ws.send(JSON.stringify({
+        type: 'gameUpdate',
+        newCard: card,
+        yourSum: yourSum
+      }));
 
     $('#e').append($newCard);
 
@@ -288,8 +305,7 @@ function resetBoard() {
     yourAce = 0;
     unFlipped = undefined;
 
-    console.log(dealerSum, 'dealerSum in resetBoard');
-    console.log(yourSum, 'yourSum in resetBoard');
+    
 
     // Hide game elements
     $(".not-me-score-container").hide();
@@ -314,16 +330,9 @@ function resetBoard() {
     // Reset the dealer's unflipped card
     $('#faceDown').attr('src', "/../images/fullDeck/back.png");
 
-    // 
-
-
     // Reset the player's and dealer's scores
     $("#yourScore").text(0);
     $("#notYourScore").text(0);
-
-    // Reset the player's balance
-    // playerBalance = walletBalance;
-    // balanceView.textContent = "Balance: " + playerBalance.toFixed(2);
 
     // Reset the allowHit flag
     allowHit = true;
@@ -333,8 +342,7 @@ function resetBoard() {
 }
 
 function updateScores() {
-    console.log(dealerSum, 'dealerSum in updateScores');
-    console.log(yourSum, 'yourSum in updateScores');
+    
 
     dealerSum = changeAce(dealerSum, dealerAce);
     yourSum = changeAce(yourSum, yourAce);
@@ -344,7 +352,7 @@ function updateScores() {
 }
 
 async function handleDealer() {
-    console.log(dealerSum, 'dealerSum in handleDealer');
+    
     while (dealerSum <= 16) {
         dealerHand();
         dealerSum = changeAce(dealerSum, dealerAce);
@@ -355,7 +363,7 @@ async function handleDealer() {
 
 function calculateOutcome() {
 
-    console.log(yourSum, 'yourSum in calculateOutcome');
+    
 
     if (yourSum > 21) {
         return 'BUST';
@@ -408,6 +416,35 @@ function updateInterface(gameOutcome) {
     exit.disabled = false;
 }
 
+document.getElementById('join-lobby-button').addEventListener('click', function() {
+    // Hide the join button
+    this.style.display = 'none';
+  
+    // Show the leave button
+    document.getElementById('leave-lobby-button').style.display = 'block';
+  
+    // Joining a lobby
+ws.send(JSON.stringify({
+    type: 'joinLobby',
+    lobby: 'lobbyName', // Replace with the actual lobby name
+  }));
+  });
+
+  document.getElementById('leave-lobby-button').addEventListener('click', function() {
+    // Hide the lobby
+    document.getElementById('lobby').style.display = 'none';
+
+    // Show the join button
+    document.getElementById('join-lobby-button').style.display = 'block';
+
+    // Leaving a lobby
+ws.send(JSON.stringify({
+    type: 'leaveLobby',
+    lobby: 'main', 
+  }));
+    });
+
+  
 
 $("#stayBtn").click(async function () {
     $(".replay").show();
@@ -420,12 +457,17 @@ $("#stayBtn").click(async function () {
     allowHit = false;
     document.getElementById('faceDown').src = "/../images/fullDeck/" + unFlipped + ".png";
 
-    console.log(yourSum, 'yourSum');
+    
 
     await handleDealer();
     const gameOutcome = calculateOutcome();
     updateInterface(gameOutcome);
-    socket.send(JSON.stringify({ type: 'stay' }));
+
+    if (ws.readyState === WebSocket.OPEN) {
+        ws.send(JSON.stringify({ type: 'stay' }));
+    } else {
+        console.log('WebSocket connection is not open:', ws.readyState);
+    }
 });
 
 // double bet amount NOT WORKED ON YET
@@ -445,7 +487,7 @@ $("#doubleBtn").click(function () {
     let $insertCard = $('#e');
     $insertCard.append($newCard);
 
-    console.log(yourSum, 'yourSum');
+    
 
     document.getElementById("yourScore").innerHTML = yourSum;
 
@@ -552,7 +594,7 @@ $("#b-20").click(function () {
     moveChip($(this), 'pile');
 });
 
-socket.addEventListener('message', function(event) {
+ws.addEventListener('message', function(event) {
     try {
         let message = JSON.parse(event.data);
         if (message.type === 'gameState') {
@@ -618,7 +660,7 @@ function hitbtn() {
         allowHit = false;
     }
     $("#yourScore").text(yourSum);
-    socket.send(JSON.stringify({ type: 'hit' }));
+    ws.send(JSON.stringify({ type: 'hit' }));
 }
 
 function cardValue(card) {
@@ -653,7 +695,7 @@ function gameStart() {
     unFlipped = deck.pop();
     dealerSum += cardValue(unFlipped);
     dealerAce += checkForAce(unFlipped);
-    console.log(unFlipped, 'unflipped');
+    
     un = dealerSum;
     dealerHand();
 
@@ -664,7 +706,7 @@ function gameStart() {
         let card = deck.pop();
         let url = "/../images/fullDeck/" + card + ".png";
         $newCard.attr('src', url);
-        console.log(card, 'card in gameStart');
+        
         let cardVal = cardValue(card);
         //check if card is an ace
         //if card is an ace, add 1 to yourAce
@@ -690,7 +732,7 @@ function gameStart() {
     console.log(yourSum, 'yourSum');
     $("#yourScore").text(yourSum);
 
-    socket.send(JSON.stringify({ type: 'startGame', bet: bet_amount }));
+    ws.send(JSON.stringify({ type: 'startGame', bet: bet_amount }));
 }
 
 
@@ -753,6 +795,3 @@ $(document).ready(function () {
     $(".make-bet").click(gameStart);
 
 });
-
-
-

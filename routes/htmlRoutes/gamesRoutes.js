@@ -43,7 +43,7 @@ router.get('/game-history', withAuth, async (req, res) => {
 
     const gameHistory = gameData.map((game) => game.get({ plain: true })); // Serialize the game data
 
-    console.log('SUCESS in /game-history games:', gameHistory);
+    // console.log('SUCESS in /game-history games:', gameHistory);
 
     res.render('account', {
       logged_in: req.session.logged_in,
